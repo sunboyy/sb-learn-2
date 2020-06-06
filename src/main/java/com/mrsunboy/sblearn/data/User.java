@@ -12,6 +12,8 @@ public class User {
     private Integer id;
     private String username;
     private String password;
+    private String role = "user";
+    private short enabled = 1;
 
     public void setUsername(String username) {
         this.username = username;
@@ -27,6 +29,14 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public short getEnabled() {
+        return enabled;
     }
 
     public boolean comparePassword(String password) {

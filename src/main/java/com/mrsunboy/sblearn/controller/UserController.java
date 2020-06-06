@@ -1,13 +1,12 @@
 package com.mrsunboy.sblearn.controller;
 
 import com.mrsunboy.sblearn.data.Result;
+import com.mrsunboy.sblearn.data.SuccessResult;
 import com.mrsunboy.sblearn.data.User;
 import com.mrsunboy.sblearn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -18,5 +17,11 @@ public class UserController {
     @PostMapping("/register")
     public Result<User> registerNewUser(@RequestParam String username, @RequestParam String password) {
         return userService.registerNewUser(username, password);
+    }
+
+    @GetMapping("/profile")
+    public Result<User> getProfile() {
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userService.getProfile(username);
     }
 }
