@@ -30,6 +30,8 @@ public class UserService {
     public Result<User> registerNewUser(String username, String password) {
         if (userRepository.findByUsername(username) != null) {
             return new FailureResult<>("Username already exists");
+        } else if (password.length() < 6) {
+            return new FailureResult<>("Password must have at least 6 characters");
         }
         User user = new User();
         user.setUsername(username);
