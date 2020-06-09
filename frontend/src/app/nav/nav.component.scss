@@ -1,0 +1,46 @@
+@import '../../styles/variables';
+
+nav {
+  position: fixed;
+  width: 100vw;
+  height: 60px;
+  top: 0;
+  left: 0;
+  background-color: $dark-gray;
+  color: $blue-green;
+  padding: 0 20px 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 6;
+
+  .nav-side {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    padding: 0 8px 0 0;
+    img {
+      width: 48px;
+    }
+  }
+
+  .nav-item, .menu {
+    margin: 0 8px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition-duration: 0.2s;
+
+    &:hover {
+      background-color: $blue-green;
+      color: #fff;
+    }
+  }
+
+  .menu {
+    font-size: 24px;
+    padding: 2px 12px;
+  }
+}

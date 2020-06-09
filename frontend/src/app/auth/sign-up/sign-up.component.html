@@ -1,0 +1,10 @@
+<div class="sign-up">
+  <app-striped-header>Create a new account</app-striped-header>
+  <form>
+    <input app-rounded-text-field type="text" placeholder="username">
+    <input app-rounded-text-field type="password" placeholder="password">
+    <input app-rounded-text-field type="password" placeholder="confirm password">
+    <button app-rounded-button [dark]="true">sign up <i class="fas fa-user-plus"></i></button>
+  </form>
+  <div class="auth-switch">Already a member? <a routerLink="/auth/sign-in">Sign in</a></div>
+</div>

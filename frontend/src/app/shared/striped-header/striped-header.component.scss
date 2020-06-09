@@ -1,0 +1,18 @@
+.striped-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  font-size: 14px;
+
+  &::before, &::after {
+    content: '';
+    border-bottom: 1px solid;
+    margin: 0 8px 0 0;
+    flex: 1 0 8px;
+  }
+
+  &::after {
+    margin: 0 0 0 8px;
+  }
+}

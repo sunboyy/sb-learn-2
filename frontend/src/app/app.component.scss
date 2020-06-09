@@ -1,0 +1,29 @@
+@import '../styles/variables';
+
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.route-content {
+  padding-top: 60px;
+  padding-bottom: 36px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  @media screen and (min-width: $width-pc) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+footer {
+  height: 36px;
+  padding: 4px 20px;
+  color: rgba($color: #fff, $alpha: 0.2);
+  background-color: $dark-gray;
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

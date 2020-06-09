@@ -1,0 +1,7 @@
+@mixin shadow-4 {
+  box-shadow: 0 4px 4px rgba($color: #000, $alpha: 0.15);
+}
+
+@mixin shadow-in-out-4 {
+  box-shadow: 0 4px 4px rgba($color: #000, $alpha: 0.2), 0 3px 4px rgba($color: #000, $alpha: 0.15) inset;
+}

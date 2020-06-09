@@ -1,0 +1,15 @@
+@import '../../../styles/variables';
+
+.sign-up {
+  color: #fff;
+  background-color: $blue;
+  padding: 20px 24px;
+
+  @media screen and (min-width: $width-pc) {
+    padding: 20px 48px;
+  }
+
+  .auth-switch {
+    margin: 8px 0 0 0;
+  }
+}
