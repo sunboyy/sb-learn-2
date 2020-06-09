@@ -12,7 +12,7 @@ public class User {
     private Integer id;
     private String username;
     private String password;
-    private String role = "user";
+    private String authority;
     private short enabled = 1;
 
     public void setUsername(String username) {
@@ -23,6 +23,10 @@ public class User {
         this.password = password;
     }
 
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -31,8 +35,8 @@ public class User {
         return username;
     }
 
-    public String getRole() {
-        return role;
+    public String getAuthority() {
+        return authority;
     }
 
     public short getEnabled() {

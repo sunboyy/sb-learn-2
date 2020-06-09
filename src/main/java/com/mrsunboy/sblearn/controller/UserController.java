@@ -1,7 +1,6 @@
 package com.mrsunboy.sblearn.controller;
 
 import com.mrsunboy.sblearn.data.Result;
-import com.mrsunboy.sblearn.data.SuccessResult;
 import com.mrsunboy.sblearn.data.User;
 import com.mrsunboy.sblearn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +12,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
-
-    @PostMapping("/register")
-    public Result<User> registerNewUser(@RequestParam String username, @RequestParam String password) {
-        return userService.registerNewUser(username, password);
-    }
 
     @GetMapping("/profile")
     public Result<User> getProfile() {

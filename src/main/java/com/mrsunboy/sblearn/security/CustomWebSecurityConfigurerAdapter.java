@@ -18,12 +18,15 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private JwtGenericFilterBean jwtGenericFilterBean;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().passwordEncoder(passwordEncoder())
                 .dataSource(dataSource)
                 .usersByUsernameQuery("SELECT username, password, enabled FROM user WHERE username = ?")
-                .authoritiesByUsernameQuery("SELECT username, role FROM user WHERE username = ?");
+                .authoritiesByUsernameQuery("SELECT username, authority FROM user WHERE username = ?");
     }
 
     @Override
@@ -32,12 +35,13 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(
                         new JwtAuthenticationProcessingFilter("/login", authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JwtGenericFilterBean(),
+                .addFilterBefore(jwtGenericFilterBean,
                         UsernamePasswordAuthenticationFilter.class);
     }
 

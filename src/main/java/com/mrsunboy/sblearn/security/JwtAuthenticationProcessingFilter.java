@@ -30,6 +30,7 @@ public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationPro
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
-        TokenAuthenticationService.addAuthentication(response, authResult.getName());
+        JwtUtil jwtUtil = new JwtUtil();
+        response.addHeader("Authorization", "Bearer " + jwtUtil.sign(authResult.getName()));
     }
 }

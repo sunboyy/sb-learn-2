@@ -6,7 +6,6 @@ import com.mrsunboy.sblearn.data.SuccessResult;
 import com.mrsunboy.sblearn.data.User;
 import com.mrsunboy.sblearn.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,12 @@ public class UserService {
         }
     }
 
-    public Result<User> registerNewUser(String username, String password) {
+    public Result<Iterable<User>> listUsers() {
+        Iterable<User> users = userRepository.findAll();
+        return new SuccessResult<>(users);
+    }
+
+    public Result<User> createUser(String username, String password, String role) {
         if (userRepository.findByUsername(username) != null) {
             return new FailureResult<>("Username already exists");
         } else if (password.length() < 6) {
@@ -36,6 +40,7 @@ public class UserService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
+        user.setAuthority(role);
         userRepository.save(user);
         return new SuccessResult<>(user);
     }
