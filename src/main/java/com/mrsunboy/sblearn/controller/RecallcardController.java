@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
@@ -24,9 +27,9 @@ public class RecallcardController {
     }
 
     @PostMapping("/course/new")
-    public Result<Course> createNewCourse(@RequestParam String name) {
+    public Result<Course> createNewCourse(@Valid @RequestBody CreateCourseDto createCourseDto) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.createCourse(name, username);
+        return recallcardService.createCourse(createCourseDto.getName(), username);
     }
 
     @GetMapping("/course/get")
@@ -42,14 +45,62 @@ public class RecallcardController {
     }
 
     @PostMapping("/lesson/new")
-    public Result<Lesson> createNewLesson(@RequestParam int courseId, @RequestParam String name) {
+    public Result<Lesson> createNewLesson(@Valid @RequestBody CreateLessonDto createLessonDto) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.createLesson(courseId, name, username);
+        return recallcardService.createLesson(createLessonDto.getCourseId(), createLessonDto.getName(), username);
     }
 
     @PostMapping("/card/new")
-    public Result<Card> createNewCard(@RequestParam int lessonId, @RequestParam String word, @RequestParam String meaning) {
+    public Result<Card> createNewCard(@Valid @RequestBody CreateCardDto createCardDto) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.createCard(lessonId, word, meaning, username);
+        return recallcardService.createCard(createCardDto.getLessonId(), createCardDto.getWord(), createCardDto.getMeaning(), username);
+    }
+
+    private static class CreateCourseDto {
+        @NotBlank
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    private static class CreateLessonDto {
+        @Min(value = 1)
+        private int courseId;
+
+        @NotBlank
+        private String name;
+
+        public int getCourseId() {
+            return courseId;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    private static class CreateCardDto {
+        @Min(value = 1)
+        private int lessonId;
+
+        @NotBlank
+        private String word;
+
+        @NotBlank
+        private String meaning;
+
+        public int getLessonId() {
+            return lessonId;
+        }
+
+        public String getWord() {
+            return word;
+        }
+
+        public String getMeaning() {
+            return meaning;
+        }
     }
 }
