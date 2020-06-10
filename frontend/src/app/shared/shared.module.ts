@@ -5,6 +5,7 @@ import { ApiService } from './api.service';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { RoundedButtonComponent } from './rounded-button/rounded-button.component';
 import { RoundedTextFieldComponent } from './rounded-text-field/rounded-text-field.component';
+import { SessionService } from './session.service';
 import { StripedHeaderComponent } from './striped-header/striped-header.component';
 
 @NgModule({
@@ -14,7 +15,7 @@ import { StripedHeaderComponent } from './striped-header/striped-header.componen
     StripedHeaderComponent,
     ErrorMessageComponent
   ],
-  providers: [ApiService],
+  providers: [SessionService, ApiService],
   imports: [CommonModule, HttpClientModule],
   exports: [
     RoundedButtonComponent,
