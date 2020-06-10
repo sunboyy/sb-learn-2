@@ -4,6 +4,7 @@ import { AuthComponent } from './auth/auth.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
+import { RecallcardLearnComponent } from './recallcard/recallcard-learn/recallcard-learn.component';
 import { RecallcardComponent } from './recallcard/recallcard.component';
 
 const routes: Routes = [
@@ -19,7 +20,11 @@ const routes: Routes = [
   },
   {
     path: 'recallcard',
-    component: RecallcardComponent
+    component: RecallcardComponent,
+    children: [
+      { path: '', redirectTo: 'learn', pathMatch: 'full' },
+      { path: 'learn', component: RecallcardLearnComponent }
+    ]
   }
 ];
 

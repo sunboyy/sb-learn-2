@@ -1,18 +1,1 @@
-<app-error-message [message]="message"></app-error-message>
-<div class="recallcard">
-  <div class="grid-column">
-    <div class="title">Courses</div>
-    <div class="item" [class.selected]="selectedCourse && selectedCourse.id === course.id" *ngFor="let course of courses" (click)="onClickCourse(course)">{{course.name}}</div>
-  </div>
-  <div class="grid-column">
-    <div class="lessons"*ngIf="selectedCourse">
-      <div class="title">Lessons</div>
-      <div class="item" [class.selected]="selectedLesson && selectedLesson.id === lesson.id" *ngFor="let lesson of selectedCourse.lessons" (click)="onClickLesson(lesson)">{{lesson.name}}</div>
-    </div>
-  </div>
-  <div class="grid-column">
-    <div class="lesson-info" *ngIf="selectedLesson">
-      {{selectedLesson.name}}
-    </div>
-  </div>
-</div>
+<router-outlet></router-outlet>

@@ -1,6 +1,6 @@
-@import '../../styles/variables';
+@import '../../../styles/variables';
 
-.recallcard {
+.recallcard-learn {
   display: grid;
   gap: 24px;
   grid-template-areas:
@@ -32,33 +32,6 @@
 
 .grid-area-cards {
   grid-area: cards;
-}
-
-.title {
-  color: #fff;
-  font-size: 28px;
-  border-bottom: 1px solid #fff;
-  text-transform: uppercase;
-}
-
-.item {
-  margin: 4px 0;
-  padding: 4px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  transition-duration: 0.2s;
-  color: #fff;
-
-  &:hover {
-    background-color: rgba($color: #fff, $alpha: 0.15);
-  }
-
-  &.selected {
-    background-color: #fff;
-    color: $gray;
-  }
 }
 
 .cards {

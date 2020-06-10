@@ -1,0 +1,21 @@
+@import '../../../styles/variables';
+
+.item {
+  margin: 4px 0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition-duration: 0.2s;
+  color: #fff;
+
+  &:hover {
+    background-color: rgba($color: #fff, $alpha: 0.15);
+  }
+
+  &.selected {
+    background-color: #fff;
+    color: $gray;
+  }
+}

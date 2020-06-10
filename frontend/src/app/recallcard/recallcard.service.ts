@@ -20,6 +20,13 @@ export interface Lesson {
   id: number;
   name: string;
   course?: Course;
+  cards?: Card[];
+}
+
+export interface Card {
+  id: number;
+  word: string;
+  meaning: string;
 }
 
 @Injectable({
@@ -29,10 +36,10 @@ export class RecallcardService {
   constructor(private api: ApiService) {}
 
   getAllCourses(): Observable<Result<Course[]>> {
-    return this.api.get<Result<Course[]>>(
-      'recallcard/course/all',
-      undefined,
-      true
-    );
+    return this.api.get<Result<Course[]>>('recallcard/course/all', undefined, true);
+  }
+
+  getLesson(lessonId: number): Observable<Result<Lesson>> {
+    return this.api.get<Result<Lesson>>('recallcard/lesson/get', { lessonId }, true);
   }
 }
