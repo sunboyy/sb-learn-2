@@ -38,6 +38,12 @@ public class RecallcardController {
         return recallcardService.getCourse(courseId, username);
     }
 
+    @PostMapping("/course/edit")
+    public Result<Course> editCourse(@Valid @RequestBody EditCourseDto editCourseDto) {
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return recallcardService.renameCourse(editCourseDto.getCourseId(), editCourseDto.getName(), username);
+    }
+
     @GetMapping("/lesson/get")
     public Result<Lesson> getLessons(@RequestParam int lessonId) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -50,6 +56,12 @@ public class RecallcardController {
         return recallcardService.createLesson(createLessonDto.getCourseId(), createLessonDto.getName(), username);
     }
 
+    @PostMapping("/lesson/edit")
+    public Result<Lesson> editLesson(@Valid @RequestBody EditLessonDto editLessonDto) {
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return recallcardService.renameLesson(editLessonDto.getLessonId(), editLessonDto.getName(), username);
+    }
+
     @PostMapping("/card/new")
     public Result<Card> createNewCard(@Valid @RequestBody CreateCardDto createCardDto) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -59,6 +71,22 @@ public class RecallcardController {
     private static class CreateCourseDto {
         @NotBlank
         private String name;
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    private static class EditCourseDto {
+        @Min(value = 1)
+        private int courseId;
+
+        @NotBlank
+        private String name;
+
+        public int getCourseId() {
+            return courseId;
+        }
 
         public String getName() {
             return name;
@@ -101,6 +129,22 @@ public class RecallcardController {
 
         public String getMeaning() {
             return meaning;
+        }
+    }
+
+    private static class EditLessonDto {
+        @Min(value = 1)
+        private int lessonId;
+
+        @NotBlank
+        private String name;
+
+        public int getLessonId() {
+            return lessonId;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }
