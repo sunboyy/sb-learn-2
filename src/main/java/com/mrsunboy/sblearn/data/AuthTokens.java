@@ -1,7 +1,7 @@
 package com.mrsunboy.sblearn.data;
 
 public class AuthTokens {
-    private String accessToken;
+    private final String accessToken;
 
     public AuthTokens(String accessToken) {
         this.accessToken = accessToken;

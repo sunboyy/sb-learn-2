@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class JwtUtil {
+public class JwtService {
     private static final long EXPIRATION_TIME = 1000 * 60 * 60;
     private final Algorithm algorithm = Algorithm.HMAC256("secret");
 

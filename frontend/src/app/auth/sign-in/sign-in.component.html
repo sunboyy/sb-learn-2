@@ -1,7 +1,8 @@
 <div class="sign-in">
+  <app-error-message [message]="message"></app-error-message>
   <app-striped-header>Sign in</app-striped-header>
   <form>
-    <input app-rounded-text-field type="text" placeholder="username" [(ngModel)]="username" [ngModelOptions]="{standalone: true}">
+    <input app-rounded-text-field type="text" placeholder="username" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" autofocus>
     <input app-rounded-text-field type="password" placeholder="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
     <button app-rounded-button (click)="onSignIn()">sign in <i class="fas fa-user-lock"></i></button>
   </form>

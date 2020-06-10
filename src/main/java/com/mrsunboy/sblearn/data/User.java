@@ -1,5 +1,7 @@
 package com.mrsunboy.sblearn.data;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,8 +45,8 @@ public class User {
         return enabled;
     }
 
-    public boolean comparePassword(String password) {
-        return password.equals(this.password);
+    public boolean comparePassword(String password, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(password, this.password);
     }
 
     @Override

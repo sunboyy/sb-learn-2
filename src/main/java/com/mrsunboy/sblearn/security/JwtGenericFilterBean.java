@@ -1,6 +1,5 @@
 package com.mrsunboy.sblearn.security;
 
-import com.mrsunboy.sblearn.data.Result;
 import com.mrsunboy.sblearn.data.User;
 import com.mrsunboy.sblearn.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -27,14 +25,14 @@ public class JwtGenericFilterBean extends OncePerRequestFilter {
     private UserRepository userRepository;
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private JwtService jwtService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String requestTokenHeader = request.getHeader("Authorization");
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             String jwtToken = requestTokenHeader.substring(7);
-            String username = jwtUtil.getUsername(jwtToken);
+            String username = jwtService.getUsername(jwtToken);
             if (username != null) {
                 User user = userRepository.findByUsername(username);
                 if (user != null) {

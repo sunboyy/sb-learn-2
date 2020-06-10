@@ -11,10 +11,19 @@ export class SignInComponent {
   username = '';
   password = '';
 
+  message = '';
+
   constructor(private authService: AuthService, private router: Router) {}
 
   onSignIn() {
-    this.authService.signIn(this.username, this.password);
-    this.router.navigate(['']);
+    this.authService
+      .signIn(this.username, this.password)
+      .subscribe((message) => {
+        if (message) {
+          this.message = message;
+        } else {
+          this.router.navigate(['']);
+        }
+      });
   }
 }
