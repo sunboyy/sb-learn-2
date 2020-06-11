@@ -39,7 +39,15 @@ export class RecallcardService {
     return this.api.get<Result<Course[]>>('recallcard/course/all', undefined, true);
   }
 
+  editCourse(courseId: number, name: string): Observable<Result<Course>> {
+    return this.api.post<Result<Course>>('recallcard/course/edit', { courseId, name }, true);
+  }
+
   getLesson(lessonId: number): Observable<Result<Lesson>> {
     return this.api.get<Result<Lesson>>('recallcard/lesson/get', { lessonId }, true);
+  }
+
+  editLesson(lessonId: number, name: string): Observable<Result<Lesson>> {
+    return this.api.post<Result<Lesson>>('recallcard/lesson/edit', { lessonId, name }, true);
   }
 }

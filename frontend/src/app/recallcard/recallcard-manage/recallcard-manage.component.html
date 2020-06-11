@@ -1,0 +1,28 @@
+<app-error-message [message]="message"></app-error-message>
+<div class="recallcard-learn">
+  <div class="grid-area-courses">
+    <app-header-text>Courses</app-header-text>
+    <app-list-editable-button-item
+      *ngFor="let course of courses"
+      [text]="course.name"
+      [selected]="selectedCourse && selectedCourse.id === course.id"
+      (click)="onClickCourse(course)"
+      (edit)="onRenameCourse(course, $event)"
+    ></app-list-editable-button-item>
+  </div>
+  <div class="grid-area-lessons">
+    <div class="lessons" *ngIf="selectedCourse">
+      <app-header-text>Lessons</app-header-text>
+      <app-list-editable-button-item
+        *ngFor="let lesson of selectedCourse.lessons"
+        [text]="lesson.name"
+        [selected]="selectedLesson && selectedLesson.id === lesson.id"
+        (click)="onClickLesson(lesson)"
+        (edit)="onRenameLesson(lesson, $event)"
+      ></app-list-editable-button-item>
+    </div>
+  </div>
+  <div class="grid-area-cards">
+    yay
+  </div>
+</div>

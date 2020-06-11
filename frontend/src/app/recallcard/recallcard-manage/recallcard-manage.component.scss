@@ -1,0 +1,35 @@
+@import '../../../styles/variables';
+
+.recallcard-learn {
+  display: grid;
+  gap: 24px;
+  grid-template-areas:
+    'courses'
+    'lessons'
+    'cards';
+
+  @media screen and (min-width: 640px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'courses lessons'
+      'cards cards';
+  }
+
+  @media screen and (min-width: 960px) {
+    grid-template-columns: 240px 240px auto;
+    grid-template-areas:
+      'courses lessons cards';
+  }
+}
+
+.grid-area-courses {
+  grid-area: courses;
+}
+
+.grid-area-lessons {
+  grid-area: lessons;
+}
+
+.grid-area-cards {
+  grid-area: cards;
+}
