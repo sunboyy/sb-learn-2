@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css?family=Mitr&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Krub&family=Mitr&display=swap');
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 @import './variables';
 
@@ -25,4 +25,8 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
 }

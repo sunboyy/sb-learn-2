@@ -8,14 +8,14 @@
     'lessons'
     'cards';
 
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: $width-pc) {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       'courses lessons'
       'cards cards';
   }
 
-  @media screen and (min-width: 960px) {
+  @media screen and (min-width: $width-large) {
     grid-template-columns: 240px 240px auto;
     grid-template-areas:
       'courses lessons cards';

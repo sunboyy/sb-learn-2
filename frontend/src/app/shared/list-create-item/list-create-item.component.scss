@@ -1,0 +1,16 @@
+.item {
+  display: grid;
+  grid-template-columns: 20px auto;
+  gap: 8px;
+  align-items: center;
+  padding: 4px;
+}
+
+.create-field {
+  border: 0;
+  color: #fff;
+  background-color: rgba($color: #fff, $alpha: 0.2);
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 2px 8px;
+}

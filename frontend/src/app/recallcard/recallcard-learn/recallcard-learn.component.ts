@@ -35,14 +35,16 @@ export class RecallcardLearnComponent implements OnInit {
   }
 
   onClickLesson(lesson: Lesson) {
-    this.selectedLesson = lesson;
-    this.recallcardService.getLesson(lesson.id).subscribe((res) => {
-      if (res.success) {
-        this.selectedLesson = res.data;
-      } else {
-        this.message = res.cause;
-      }
-    });
+    if (!this.selectedLesson || this.selectedLesson.id !== lesson.id) {
+      this.selectedLesson = lesson;
+      this.recallcardService.getLesson(lesson.id).subscribe((res) => {
+        if (res.success) {
+          this.selectedLesson = res.data;
+        } else {
+          this.message = res.cause;
+        }
+      });
+    }
   }
 
   onToggleVisiblity() {

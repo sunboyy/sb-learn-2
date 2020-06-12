@@ -1,0 +1,4 @@
+<div class="item">
+  <app-create-button (click)="onCreate()"></app-create-button>
+  <input type="text" class="create-field" [(ngModel)]="value" (keyup.enter)="onCreate()">
+</div>

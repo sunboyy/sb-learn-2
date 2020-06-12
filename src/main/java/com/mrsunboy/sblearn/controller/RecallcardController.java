@@ -68,6 +68,12 @@ public class RecallcardController {
         return recallcardService.createCard(createCardDto.getLessonId(), createCardDto.getWord(), createCardDto.getMeaning(), username);
     }
 
+    @DeleteMapping("/card/delete")
+    public Result<Object> deleteCard(@RequestParam int cardId) {
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return recallcardService.deleteCard(cardId, username);
+    }
+
     private static class CreateCourseDto {
         @NotBlank
         private String name;

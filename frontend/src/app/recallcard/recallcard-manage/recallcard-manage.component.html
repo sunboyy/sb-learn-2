@@ -9,6 +9,7 @@
       (click)="onClickCourse(course)"
       (edit)="onRenameCourse(course, $event)"
     ></app-list-editable-button-item>
+    <app-list-create-item (create)="onCreateCourse($event)"></app-list-create-item>
   </div>
   <div class="grid-area-lessons">
     <div class="lessons" *ngIf="selectedCourse">
@@ -20,9 +21,49 @@
         (click)="onClickLesson(lesson)"
         (edit)="onRenameLesson(lesson, $event)"
       ></app-list-editable-button-item>
+      <app-list-create-item (create)="onCreateLesson(selectedCourse, $event)"></app-list-create-item>
     </div>
   </div>
   <div class="grid-area-cards">
-    yay
+    <div class="cards" *ngIf="selectedLesson && selectedLesson.cards">
+      <div class="header">{{ selectedLesson.name }}</div>
+      <div class="content">
+        <div class="wordlist-row header">
+          <div></div>
+          <span>Word</span>
+          <div>
+            Meaning
+            <i class="fas btn-visibility"></i>
+            <span class="float-right">/{{ selectedLesson.cards.length }}</span>
+          </div>
+        </div>
+        <div class="wordlist-row" *ngFor="let card of selectedLesson.cards">
+          <app-delete-button (click)="onDeleteCard(card)"></app-delete-button>
+          <div>{{ card.word }}</div>
+          <div>{{ card.meaning }}</div>
+        </div>
+        <div class="wordlist-row">
+          <app-create-button (click)="onCreateCard()"></app-create-button>
+          <input
+            app-curved-text-field
+            type="text"
+            placeholder="word"
+            [(ngModel)]="createCard.word"
+            (keyup)="onTypeCreateCard()"
+            (keyup.enter)="onCreateCard()"
+            [class.textfield-error]="createCard.wordError"
+          />
+          <input
+            app-curved-text-field
+            type="text"
+            placeholder="meaning"
+            [(ngModel)]="createCard.meaning"
+            (keyup)="onTypeCreateCard()"
+            (keyup.enter)="onCreateCard()"
+            [class.textfield-error]="createCard.meaningError"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </div>

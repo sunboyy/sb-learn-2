@@ -39,6 +39,10 @@ export class RecallcardService {
     return this.api.get<Result<Course[]>>('recallcard/course/all', undefined, true);
   }
 
+  createCourse(name: string): Observable<Result<Course>> {
+    return this.api.post<Result<Course>>('recallcard/course/new', { name }, true);
+  }
+
   editCourse(courseId: number, name: string): Observable<Result<Course>> {
     return this.api.post<Result<Course>>('recallcard/course/edit', { courseId, name }, true);
   }
@@ -47,7 +51,19 @@ export class RecallcardService {
     return this.api.get<Result<Lesson>>('recallcard/lesson/get', { lessonId }, true);
   }
 
+  createLesson(courseId: number, name: string): Observable<Result<Lesson>> {
+    return this.api.post<Result<Lesson>>('recallcard/lesson/new', { courseId, name }, true);
+  }
+
   editLesson(lessonId: number, name: string): Observable<Result<Lesson>> {
     return this.api.post<Result<Lesson>>('recallcard/lesson/edit', { lessonId, name }, true);
+  }
+
+  createCard(lessonId: number, word: string, meaning: string): Observable<Result<Card>> {
+    return this.api.post<Result<Card>>('recallcard/card/new', { lessonId, word, meaning }, true);
+  }
+
+  deleteCard(cardId: number): Observable<Result<null>> {
+    return this.api.delete<Result<null>>('recallcard/card/delete', { cardId }, true);
   }
 }

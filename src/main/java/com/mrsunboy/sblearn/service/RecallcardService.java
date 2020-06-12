@@ -138,4 +138,17 @@ public class RecallcardService {
         cardRepository.save(card);
         return new SuccessResult<>(card);
     }
+
+    public Result<Object> deleteCard(int cardId, String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return new FailureResult<>("User not found");
+        }
+        Optional<Card> card = cardRepository.findById(cardId);
+        if (card.isEmpty() || !card.get().getLesson().getCourse().getOwner().equals(user)) {
+            return new FailureResult<>("Card not found");
+        }
+        cardRepository.delete(card.get());
+        return new SuccessResult<>(null);
+    }
 }

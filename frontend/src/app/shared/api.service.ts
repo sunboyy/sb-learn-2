@@ -58,4 +58,17 @@ export class ApiService {
       return this.http.post<T>(resolve(environment.backendUrl, path), data);
     }
   }
+
+  delete<T>(path: string, params?: any, useAuth = false): Observable<T> {
+    const options: HttpOptions = {};
+    if (useAuth) {
+      options.headers = {
+        Authorization: 'Bearer ' + this.session.getAccessToken()
+      };
+    }
+    if (params) {
+      options.params = params;
+    }
+    return this.http.delete<T>(resolve(environment.backendUrl, path), options);
+  }
 }

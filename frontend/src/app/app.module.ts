@@ -10,14 +10,7 @@ import { RecallcardModule } from './recallcard/recallcard.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    NavModule,
-    AuthModule,
-    HomeModule,
-    RecallcardModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, NavModule, AuthModule, HomeModule, RecallcardModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })

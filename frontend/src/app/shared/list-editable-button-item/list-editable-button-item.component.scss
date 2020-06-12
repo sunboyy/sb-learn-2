@@ -20,7 +20,12 @@
   }
 
   .edit-field {
-    width: 100%;
+    border: 0;
+    background-color: $gray;
+    color: #fff;
+    font-family: Krub, sans-serif;
+    font-size: 14px;
+    padding: 4px 8px;
   }
 }
 
