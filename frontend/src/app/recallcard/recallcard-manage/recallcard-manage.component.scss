@@ -61,8 +61,29 @@
       &.header {
         text-transform: uppercase;
         border-bottom: 1px solid $magenta-dark;
+        margin-bottom: 4px;
       }
     }
+  }
+}
+
+.create-card-field {
+  display: block;
+  height: 32px;
+  border-radius: 4px;
+  border: 3px solid rgba($color: $magenta-dark, $alpha: 0.2);
+  padding: 0 8px;
+  opacity: 0.85;
+  transition-duration: 0.2s;
+  outline: 0;
+  font-size: 14px;
+
+  &:focus {
+    opacity: 1;
+  }
+
+  &::placeholder {
+    color: #c5c5c5;
   }
 }
 

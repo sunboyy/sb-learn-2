@@ -37,16 +37,17 @@
             <span class="float-right">/{{ selectedLesson.cards.length }}</span>
           </div>
         </div>
-        <div class="wordlist-row" *ngFor="let card of selectedLesson.cards">
+        <div class="wordlist-row" @cards *ngFor="let card of selectedLesson.cards">
           <app-delete-button (click)="onDeleteCard(card)"></app-delete-button>
           <div>{{ card.word }}</div>
           <div>{{ card.meaning }}</div>
         </div>
-        <div class="wordlist-row">
+        <div class="wordlist-row" @cards>
           <app-create-button (click)="onCreateCard()"></app-create-button>
           <input
-            app-curved-text-field
+            #wordInput
             type="text"
+            class="create-card-field"
             placeholder="word"
             [(ngModel)]="createCard.word"
             (keyup)="onTypeCreateCard()"
@@ -54,8 +55,8 @@
             [class.textfield-error]="createCard.wordError"
           />
           <input
-            app-curved-text-field
             type="text"
+            class="create-card-field"
             placeholder="meaning"
             [(ngModel)]="createCard.meaning"
             (keyup)="onTypeCreateCard()"

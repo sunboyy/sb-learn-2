@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from './api.service';
 import { CreateButtonComponent } from './create-button/create-button.component';
-import { CurvedTextFieldComponent } from './curved-text-field/curved-text-field.component';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { HeaderTextComponent } from './header-text/header-text.component';
@@ -27,7 +26,6 @@ import { StripedHeaderComponent } from './striped-header/striped-header.componen
     HeaderTextComponent,
     DeleteButtonComponent,
     CreateButtonComponent,
-    CurvedTextFieldComponent,
     ListCreateItemComponent
   ],
   providers: [SessionService, ApiService],
@@ -42,7 +40,6 @@ import { StripedHeaderComponent } from './striped-header/striped-header.componen
     HeaderTextComponent,
     DeleteButtonComponent,
     CreateButtonComponent,
-    CurvedTextFieldComponent,
     ListCreateItemComponent
   ]
 })

@@ -1,12 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Card, Course, Lesson, RecallcardService } from '../recallcard.service';
 
 @Component({
   selector: 'app-recallcard-manage',
   templateUrl: './recallcard-manage.component.html',
-  styleUrls: ['./recallcard-manage.component.scss']
+  styleUrls: ['./recallcard-manage.component.scss'],
+  animations: [
+    trigger('cardsParent', [transition(':enter', [])]),
+    trigger('cards', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('0.2s ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        style({ opacity: 1, transform: 'translateX(0)' }),
+        animate('0.2s ease-in', style({ opacity: 0, transform: 'translateX(300px)', height: 0 }))
+      ])
+    ])
+  ]
 })
 export class RecallcardManageComponent implements OnInit {
+  @ViewChild('wordInput')
+  wordInput: ElementRef;
+
   courses: Course[] = [];
   message = '';
 
@@ -122,6 +139,7 @@ export class RecallcardManageComponent implements OnInit {
           this.selectedLesson.cards.push(res.data);
           this.createCard.word = '';
           this.createCard.meaning = '';
+          this.wordInput.nativeElement.focus();
         } else {
           this.message = res.cause;
         }
@@ -129,13 +147,14 @@ export class RecallcardManageComponent implements OnInit {
   }
 
   onDeleteCard(card: Card) {
-    this.recallcardService.deleteCard(card.id).subscribe((res) => {
-      if (res.success) {
-        this.selectedLesson.cards = this.selectedLesson.cards.filter((c) => c !== card);
-      } else {
-        this.message = res.cause;
-      }
-      console.log(res);
-    });
+    if (confirm('Are you sure you want to delete card ' + card.word + '/' + card.meaning + '?')) {
+      this.recallcardService.deleteCard(card.id).subscribe((res) => {
+        if (res.success) {
+          this.selectedLesson.cards = this.selectedLesson.cards.filter((c) => c !== card);
+        } else {
+          this.message = res.cause;
+        }
+      });
+    }
   }
 }
