@@ -63,6 +63,10 @@ export class RecallcardService {
     return this.api.post<Result<Card>>('recallcard/card/new', { lessonId, word, meaning }, true);
   }
 
+  editCard(cardId: number, word: string, meaning: string): Observable<Result<Card>> {
+    return this.api.post<Result<Card>>('recallcard/card/edit', { cardId, word, meaning }, true);
+  }
+
   deleteCard(cardId: number): Observable<Result<null>> {
     return this.api.delete<Result<null>>('recallcard/card/delete', { cardId }, true);
   }

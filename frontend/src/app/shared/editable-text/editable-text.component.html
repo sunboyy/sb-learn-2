@@ -1,0 +1,11 @@
+<div class="editable-text">
+  <div class="view-container" *ngIf="!isEditing">
+    <ng-content></ng-content>
+    <i class="fas fa-edit button edit-button" (click)="onStartEdit()"></i>
+  </div>
+  <div class="edit-container" *ngIf="isEditing">
+    <input type="text" class="edit-field" *ngIf="isEditing" [(ngModel)]="editValue" (keyup.enter)="onFinishEdit()" />
+    <i class="fas fa-check button edit-button" (click)="onFinishEdit()"></i>
+    <i class="fas fa-times button edit-button" (click)="onCancelEdit()"></i>
+  </div>
+</div>

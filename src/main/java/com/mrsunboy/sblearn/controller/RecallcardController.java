@@ -68,6 +68,12 @@ public class RecallcardController {
         return recallcardService.createCard(createCardDto.getLessonId(), createCardDto.getWord(), createCardDto.getMeaning(), username);
     }
 
+    @PostMapping("/card/edit")
+    public Result<Card> editCard(@Valid @RequestBody EditCardDto editCardDto) {
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return recallcardService.editCard(editCardDto.getCardId(), editCardDto.getWord(), editCardDto.getMeaning(), username);
+    }
+
     @DeleteMapping("/card/delete")
     public Result<Object> deleteCard(@RequestParam int cardId) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -151,6 +157,27 @@ public class RecallcardController {
 
         public String getName() {
             return name;
+        }
+    }
+
+    public static class EditCardDto {
+        @Min(value = 1)
+        private int cardId;
+
+        private String word;
+
+        private String meaning;
+
+        public int getCardId() {
+            return cardId;
+        }
+
+        public String getWord() {
+            return word;
+        }
+
+        public String getMeaning() {
+            return meaning;
         }
     }
 }

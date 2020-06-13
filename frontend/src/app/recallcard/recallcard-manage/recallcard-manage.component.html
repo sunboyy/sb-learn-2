@@ -21,7 +21,9 @@
         (click)="onClickLesson(lesson)"
         (edit)="onRenameLesson(lesson, $event)"
       ></app-list-editable-button-item>
-      <app-list-create-item (create)="onCreateLesson(selectedCourse, $event)"></app-list-create-item>
+      <app-list-create-item
+        (create)="onCreateLesson(selectedCourse, $event)"
+      ></app-list-create-item>
     </div>
   </div>
   <div class="grid-area-cards">
@@ -34,13 +36,16 @@
           <div>
             Meaning
             <i class="fas btn-visibility"></i>
-            <span class="float-right">/{{ selectedLesson.cards.length }}</span>
           </div>
         </div>
         <div class="wordlist-row" @cards *ngFor="let card of selectedLesson.cards">
           <app-delete-button (click)="onDeleteCard(card)"></app-delete-button>
-          <div>{{ card.word }}</div>
-          <div>{{ card.meaning }}</div>
+          <app-editable-text [text]="card.word" (edit)="onEditCardWord(card, $event)">{{
+            card.word
+          }}</app-editable-text>
+          <app-editable-text [text]="card.meaning" (edit)="onEditCardMeaning(card, $event)">{{
+            card.meaning
+          }}</app-editable-text>
         </div>
         <div class="wordlist-row" @cards>
           <app-create-button (click)="onCreateCard()"></app-create-button>

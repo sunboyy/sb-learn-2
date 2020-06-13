@@ -29,6 +29,15 @@
   }
 }
 
+.edit-button {
+  opacity: 0.4;
+  transition-duration: 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .view-container {
   display: grid;
   grid-template-columns: auto 16px;

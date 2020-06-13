@@ -114,19 +114,19 @@ export class RecallcardManageComponent implements OnInit {
   }
 
   onTypeCreateCard() {
-    if (this.createCard.word) {
+    if (this.createCard.word.trim()) {
       this.createCard.wordError = false;
     }
-    if (this.createCard.meaning) {
+    if (this.createCard.meaning.trim()) {
       this.createCard.meaningError = false;
     }
   }
 
   onCreateCard() {
-    if (!this.createCard.word) {
+    if (!this.createCard.word.trim()) {
       this.createCard.wordError = true;
     }
-    if (!this.createCard.meaning) {
+    if (!this.createCard.meaning.trim()) {
       this.createCard.meaningError = true;
     }
     if (this.createCard.wordError || this.createCard.meaningError) {
@@ -156,5 +156,25 @@ export class RecallcardManageComponent implements OnInit {
         }
       });
     }
+  }
+
+  onEditCardWord(card: Card, word: string) {
+    this.recallcardService.editCard(card.id, word, '').subscribe((res) => {
+      if (res.success) {
+        card.word = res.data.word;
+      } else {
+        this.message = res.cause;
+      }
+    });
+  }
+
+  onEditCardMeaning(card: Card, meaning: string) {
+    this.recallcardService.editCard(card.id, '', meaning).subscribe((res) => {
+      if (res.success) {
+        card.meaning = res.data.meaning;
+      } else {
+        this.message = res.cause;
+      }
+    });
   }
 }

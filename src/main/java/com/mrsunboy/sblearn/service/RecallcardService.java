@@ -114,7 +114,7 @@ public class RecallcardService {
         }
         Optional<Lesson> optionalLesson = lessonRepository.findById(lessonId);
         if (optionalLesson.isEmpty() || !optionalLesson.get().getCourse().getOwner().equals(user)) {
-            return new FailureResult<>("Course not found");
+            return new FailureResult<>("Lesson not found");
         }
         Lesson lesson = optionalLesson.get();
         lesson.setName(name);
@@ -135,6 +135,26 @@ public class RecallcardService {
         card.setWord(word);
         card.setMeaning(meaning);
         card.setLesson(lesson.get());
+        cardRepository.save(card);
+        return new SuccessResult<>(card);
+    }
+
+    public Result<Card> editCard(int cardId, String word, String meaning, String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return new FailureResult<>("User not found");
+        }
+        Optional<Card> optionalCard = cardRepository.findById(cardId);
+        if (optionalCard.isEmpty() || !optionalCard.get().getLesson().getCourse().getOwner().equals(user)) {
+            return new FailureResult<>("Card not found");
+        }
+        Card card = optionalCard.get();
+        if (word != null && !word.trim().equals("")) {
+            card.setWord(word);
+        }
+        if (meaning != null && !meaning.trim().equals("")) {
+            card.setMeaning(meaning);
+        }
         cardRepository.save(card);
         return new SuccessResult<>(card);
     }

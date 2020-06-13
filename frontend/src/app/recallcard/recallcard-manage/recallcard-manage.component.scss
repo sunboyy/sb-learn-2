@@ -16,7 +16,7 @@
   }
 
   @media screen and (min-width: $width-large) {
-    grid-template-columns: 240px 240px auto;
+    grid-template-columns: 1fr 1fr 2fr;
     grid-template-areas:
       'courses lessons cards';
   }
@@ -73,13 +73,12 @@
   border-radius: 4px;
   border: 3px solid rgba($color: $magenta-dark, $alpha: 0.2);
   padding: 0 8px;
-  opacity: 0.85;
   transition-duration: 0.2s;
   outline: 0;
   font-size: 14px;
 
   &:focus {
-    opacity: 1;
+    border-color: $magenta-dark;
   }
 
   &::placeholder {

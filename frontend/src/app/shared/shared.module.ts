@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from './api.service';
 import { CreateButtonComponent } from './create-button/create-button.component';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
+import { EditableTextComponent } from './editable-text/editable-text.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { HeaderTextComponent } from './header-text/header-text.component';
 import { ListButtonItemComponent } from './list-button-item/list-button-item.component';
@@ -26,7 +27,8 @@ import { StripedHeaderComponent } from './striped-header/striped-header.componen
     HeaderTextComponent,
     DeleteButtonComponent,
     CreateButtonComponent,
-    ListCreateItemComponent
+    ListCreateItemComponent,
+    EditableTextComponent
   ],
   providers: [SessionService, ApiService],
   imports: [CommonModule, HttpClientModule, FormsModule],
@@ -40,7 +42,8 @@ import { StripedHeaderComponent } from './striped-header/striped-header.componen
     HeaderTextComponent,
     DeleteButtonComponent,
     CreateButtonComponent,
-    ListCreateItemComponent
+    ListCreateItemComponent,
+    EditableTextComponent
   ]
 })
 export class SharedModule {}
