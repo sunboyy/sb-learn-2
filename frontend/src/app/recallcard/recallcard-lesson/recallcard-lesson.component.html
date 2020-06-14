@@ -1,0 +1,26 @@
+<app-error-message [message]="message"></app-error-message>
+<div class="recallcard-lesson">
+  <div class="grid-area-info">
+    <div class="lesson" *ngIf="lesson">
+      <app-header-text>Lesson</app-header-text>
+    </div>
+  </div>
+  <div class="grid-area-content"></div>
+  <div class="grid-area-control">
+    <div class="right" *ngIf="lesson">
+      <img src="/assets/img/lessons.png" class="lessons-img" />
+      <div class="control">
+        <app-header-text>Play mode</app-header-text>
+        <label class="play-option" [class.selected]="playMode == 'multicards'">
+          <input type="radio" value="multicards" [(ngModel)]="playMode" />
+          Multi-Cards
+        </label>
+        <label class="play-option" [class.selected]="playMode == 'random'">
+          <input type="radio" value="random" [(ngModel)]="playMode" />
+          Random
+        </label>
+      </div>
+      <button app-rounded-button [disabled]="!playMode">Change</button>
+    </div>
+  </div>
+</div>

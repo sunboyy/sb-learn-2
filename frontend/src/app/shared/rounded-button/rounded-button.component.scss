@@ -8,6 +8,11 @@
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
+
+  &:disabled {
+    cursor: initial;
+    opacity: 0.3;
+  }
 }
 
 .sbl-rounded-button {

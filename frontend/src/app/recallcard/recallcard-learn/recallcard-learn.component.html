@@ -44,4 +44,21 @@
       </div>
     </div>
   </div>
+  <div class="grid-area-play">
+    <div class="right" *ngIf="selectedLesson && selectedLesson.cards">
+      <img src="/assets/img/lessons.png" class="lessons-img" />
+      <div class="play">
+        <app-header-text>Play mode</app-header-text>
+        <label class="play-option" [class.selected]="playMode == 'multicards'">
+          <input type="radio" value="multicards" [(ngModel)]="playMode" />
+          Multi-Cards
+        </label>
+        <label class="play-option" [class.selected]="playMode == 'random'">
+          <input type="radio" value="random" [(ngModel)]="playMode" />
+          Random
+        </label>
+      </div>
+      <button app-rounded-button [disabled]="!playMode" (click)="onClickPlay()">Play</button>
+    </div>
+  </div>
 </div>

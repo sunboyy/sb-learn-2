@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Course, Lesson, RecallcardService } from '../recallcard.service';
 
 @Component({
@@ -15,7 +16,9 @@ export class RecallcardLearnComponent implements OnInit {
 
   isMeaningVisible = true;
 
-  constructor(private recallcardService: RecallcardService) {}
+  playMode = '';
+
+  constructor(private recallcardService: RecallcardService, private router: Router) {}
 
   ngOnInit() {
     this.recallcardService.getAllCourses().subscribe((res) => {
@@ -49,5 +52,9 @@ export class RecallcardLearnComponent implements OnInit {
 
   onToggleVisiblity() {
     this.isMeaningVisible = !this.isMeaningVisible;
+  }
+
+  onClickPlay() {
+    this.router.navigate(['recallcard', 'lesson', this.selectedLesson.id, this.playMode]);
   }
 }
