@@ -14,6 +14,7 @@
         <div class="info">Opening {{numOpenedCards}}/{{cards.length}} cards</div>
         <button app-rounded-button (click)="onOpenAll()" [disabled]="!numClosedCards">Open all</button>
         <button app-rounded-button (click)="onCloseAll()" [disabled]="!numOpenedCards">Close all</button>
+        <button app-rounded-button (click)="shuffleCards()">Shuffle</button>
       </div>
       <div class="cards">
         <div class="card" *ngFor="let card of cards" (click)="onToggleOpenCard(card)">

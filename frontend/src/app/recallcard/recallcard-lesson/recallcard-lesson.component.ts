@@ -30,10 +30,10 @@ export class RecallcardLessonComponent implements OnInit {
       if (res.success) {
         this.lesson = res.data;
         this.cards = this.lesson.cards.map((card) => ({ ...card, open: false }));
+        this.shuffleCards();
       } else {
         this.message = res.cause;
       }
-      console.log(res);
     });
   }
 
@@ -55,5 +55,14 @@ export class RecallcardLessonComponent implements OnInit {
 
   onCloseAll() {
     this.cards.forEach((card) => (card.open = false));
+  }
+
+  shuffleCards() {
+    for (let i = this.cards.length; i > 0; i--) {
+      const randomIndex = Math.floor(Math.random() * i);
+      const temp = this.cards[i - 1];
+      this.cards[i - 1] = this.cards[randomIndex];
+      this.cards[randomIndex] = temp;
+    }
   }
 }
