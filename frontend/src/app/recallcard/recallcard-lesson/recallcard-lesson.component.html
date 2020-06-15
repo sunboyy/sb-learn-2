@@ -3,9 +3,29 @@
   <div class="grid-area-info">
     <div class="lesson" *ngIf="lesson">
       <app-header-text>Lesson</app-header-text>
+      <div class="info">Course: {{ lesson.course.name }}</div>
+      <div class="info">Lesson: {{ lesson.name }}</div>
+      <div class="info">{{ lesson.cards.length }} cards</div>
     </div>
   </div>
-  <div class="grid-area-content"></div>
+  <div class="grid-area-content">
+    <div class="multicards" *ngIf="currentPlayMode == 'multicards' && cards">
+      <div class="multicards-control">
+        <div class="info">Opening {{numOpenedCards}}/{{cards.length}} cards</div>
+        <button app-rounded-button (click)="onOpenAll()" [disabled]="!numClosedCards">Open all</button>
+        <button app-rounded-button (click)="onCloseAll()" [disabled]="!numOpenedCards">Close all</button>
+      </div>
+      <div class="cards">
+        <div class="card" *ngFor="let card of cards" (click)="onToggleOpenCard(card)">
+          <div class="word">{{ card.word }}</div>
+          <div class="meaning" [class.closed]="!card.open">
+            <span *ngIf="card.open">{{ card.meaning }}</span>
+            <span *ngIf="!card.open">&nbsp;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="grid-area-control">
     <div class="right" *ngIf="lesson">
       <img src="/assets/img/lessons.png" class="lessons-img" />

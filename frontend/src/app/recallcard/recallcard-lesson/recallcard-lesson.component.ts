@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Lesson, RecallcardService } from '../recallcard.service';
+import { Card, Lesson, RecallcardService } from '../recallcard.service';
+
+interface CardWithOpen extends Card {
+  open: boolean;
+}
 
 @Component({
   selector: 'app-recallcard-lesson',
@@ -12,6 +16,7 @@ export class RecallcardLessonComponent implements OnInit {
   currentPlayMode: string;
 
   lesson: Lesson;
+  cards: CardWithOpen[];
   message = '';
   playMode: string;
 
@@ -24,10 +29,31 @@ export class RecallcardLessonComponent implements OnInit {
     this.recallcardService.getLesson(this.lessonId).subscribe((res) => {
       if (res.success) {
         this.lesson = res.data;
+        this.cards = this.lesson.cards.map((card) => ({ ...card, open: false }));
       } else {
         this.message = res.cause;
       }
       console.log(res);
     });
+  }
+
+  get numOpenedCards(): number {
+    return this.cards.filter((card) => card.open).length;
+  }
+
+  get numClosedCards(): number {
+    return this.cards.length - this.numOpenedCards;
+  }
+
+  onToggleOpenCard(card: CardWithOpen) {
+    card.open = !card.open;
+  }
+
+  onOpenAll() {
+    this.cards.forEach((card) => (card.open = true));
+  }
+
+  onCloseAll() {
+    this.cards.forEach((card) => (card.open = false));
   }
 }
