@@ -9,23 +9,8 @@
     </div>
   </div>
   <div class="grid-area-content">
-    <div class="multicards" *ngIf="currentPlayMode == 'multicards' && cards">
-      <div class="multicards-control">
-        <div class="info">Opening {{numOpenedCards}}/{{cards.length}} cards</div>
-        <button app-rounded-button (click)="onOpenAll()" [disabled]="!numClosedCards">Open all</button>
-        <button app-rounded-button (click)="onCloseAll()" [disabled]="!numOpenedCards">Close all</button>
-        <button app-rounded-button (click)="shuffleCards()">Shuffle</button>
-      </div>
-      <div class="cards">
-        <div class="card" *ngFor="let card of cards" (click)="onToggleOpenCard(card)">
-          <div class="word">{{ card.word }}</div>
-          <div class="meaning" [class.closed]="!card.open">
-            <span *ngIf="card.open">{{ card.meaning }}</span>
-            <span *ngIf="!card.open">&nbsp;</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-multicards *ngIf="currentPlayMode == 'multicards'" [cards]="multicardCards"></app-multicards>
+    <app-randomcards *ngIf="currentPlayMode == 'random'"></app-randomcards>
   </div>
   <div class="grid-area-control">
     <div class="right" *ngIf="lesson">
@@ -41,7 +26,7 @@
           Random
         </label>
       </div>
-      <button app-rounded-button [disabled]="!playMode">Change</button>
+      <button app-rounded-button [disabled]="!playMode" (click)="onChangePlayMode()">Change</button>
     </div>
   </div>
 </div>
