@@ -1,1 +1,32 @@
-<p>randomcards works!</p>
+<button app-rounded-button [dark]="isSwapped" (click)="onToggleSwap()">Swap</button>
+<button app-rounded-button [dark]="countScore" (click)="onToggleCountScore()">Count Score</button>
+<div class="info" *ngIf="countScore">Score: {{ numCorrect }}/{{ numTotal }}</div>
+<div class="card-container">
+  <div class="card" *ngIf="currentCard">
+    <div class="word">
+      <ng-container *ngIf="!isSwapped">{{ currentCard.word }}</ng-container>
+      <ng-container *ngIf="isSwapped">{{ currentCard.meaning }}</ng-container>
+      <div class="shuffle-button" (click)="randomCard()">
+        <i class="fas fa-random"></i>
+      </div>
+    </div>
+    <div class="meaning" (click)="onShowMeaning()">
+      <ng-container *ngIf="!countScore">
+        <span *ngIf="showMeaning">
+          <ng-container *ngIf="!isSwapped">{{ currentCard.meaning }}</ng-container>
+          <ng-container *ngIf="isSwapped">{{ currentCard.word }}</ng-container>
+        </span>
+        <span class="hidden" *ngIf="!showMeaning">Click to show answer</span>
+      </ng-container>
+      <ng-container *ngIf="countScore">
+        <input
+          type="text"
+          class="meaning-field"
+          placeholder="Click to type"
+          [(ngModel)]="answer"
+          (keyup.enter)="onSubmitAnswer()"
+        />
+      </ng-container>
+    </div>
+  </div>
+</div>

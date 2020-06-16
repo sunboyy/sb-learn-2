@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Card } from '../../recallcard.service';
 
 interface CardWithOpen extends Card {
@@ -10,9 +10,14 @@ interface CardWithOpen extends Card {
   templateUrl: './multicards.component.html',
   styleUrls: ['./multicards.component.scss']
 })
-export class MulticardsComponent {
+export class MulticardsComponent implements OnInit {
   @Input()
   cards: CardWithOpen[];
+
+  ngOnInit() {
+    this.cards.forEach((card) => (card.open = false));
+    this.shuffleCards();
+  }
 
   get numOpenedCards(): number {
     return this.cards.filter((card) => card.open).length;

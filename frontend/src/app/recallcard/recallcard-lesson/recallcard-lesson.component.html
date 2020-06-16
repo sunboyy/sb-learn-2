@@ -9,8 +9,8 @@
     </div>
   </div>
   <div class="grid-area-content">
-    <app-multicards *ngIf="currentPlayMode == 'multicards'" [cards]="multicardCards"></app-multicards>
-    <app-randomcards *ngIf="currentPlayMode == 'random'"></app-randomcards>
+    <app-multicards *ngIf="currentPlayMode == 'multicards' && lesson" [cards]="lesson.cards"></app-multicards>
+    <app-randomcards *ngIf="currentPlayMode == 'random' && lesson" [cards]="lesson.cards"></app-randomcards>
   </div>
   <div class="grid-area-control">
     <div class="right" *ngIf="lesson">
