@@ -1,9 +1,23 @@
 <div *ngIf="cards">
+  <div class="multicards-info">
+    <div class="info">
+      <span class="label">Opening :</span>
+      {{numOpenedCards}}/{{cards.length}}
+    </div>
+  </div>
   <div class="multicards-control">
-    <div class="info">Opening {{numOpenedCards}}/{{cards.length}} cards</div>
-    <button app-rounded-button (click)="onOpenAll()" [disabled]="!numClosedCards">Open all</button>
-    <button app-rounded-button (click)="onCloseAll()" [disabled]="!numOpenedCards">Close all</button>
-    <button app-rounded-button (click)="shuffleCards()">Shuffle</button>
+    <button app-transparent-button (click)="onOpenAll()" [disabled]="!numClosedCards">
+      <i class="fas fa-eye"></i>
+      Open all
+    </button>
+    <button app-transparent-button (click)="onCloseAll()" [disabled]="!numOpenedCards">
+      <i class="fas fa-eye-slash"></i>
+      Close all
+    </button>
+    <button app-transparent-button (click)="shuffleCards()">
+      <i class="fas fa-random"></i>
+      Shuffle
+    </button>
   </div>
   <div class="cards">
     <div class="card" *ngFor="let card of cards" (click)="onToggleOpenCard(card)">

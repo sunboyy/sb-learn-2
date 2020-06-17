@@ -42,5 +42,44 @@ nav {
   .menu {
     font-size: 24px;
     padding: 2px 12px;
+    position: relative;
+
+    &:hover {
+      .menu-dropdown {
+        display: block;
+      }
+    }
+
+    .menu-dropdown {
+      font-size: initial;
+      position: absolute;
+      top: 40px;
+      right: 0;
+      cursor: initial;
+      color: #fff;
+      display: none;
+
+      &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 12px;
+        top: 0;
+        left: 0;
+        z-index: 20;
+      }
+
+      .menu-dropdown-item {
+        width: 132px;
+        padding: 4px 16px;
+        background-color: $light-gray;
+        cursor: pointer;
+        border-bottom: 1px solid rgba($color: #fff, $alpha: 0.2);
+
+        &:hover {
+          background-color: $blue-green;
+        }
+      }
+    }
   }
 }

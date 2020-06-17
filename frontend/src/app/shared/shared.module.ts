@@ -15,6 +15,7 @@ import { RoundedButtonComponent } from './rounded-button/rounded-button.componen
 import { RoundedTextFieldComponent } from './rounded-text-field/rounded-text-field.component';
 import { SessionService } from './session.service';
 import { StripedHeaderComponent } from './striped-header/striped-header.component';
+import { TransparentButtonComponent } from './transparent-button/transparent-button.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { StripedHeaderComponent } from './striped-header/striped-header.componen
     DeleteButtonComponent,
     CreateButtonComponent,
     ListCreateItemComponent,
-    EditableTextComponent
+    EditableTextComponent,
+    TransparentButtonComponent
   ],
   providers: [SessionService, ApiService],
   imports: [CommonModule, HttpClientModule, FormsModule],
@@ -43,7 +45,8 @@ import { StripedHeaderComponent } from './striped-header/striped-header.componen
     DeleteButtonComponent,
     CreateButtonComponent,
     ListCreateItemComponent,
-    EditableTextComponent
+    EditableTextComponent,
+    TransparentButtonComponent
   ]
 })
 export class SharedModule {}

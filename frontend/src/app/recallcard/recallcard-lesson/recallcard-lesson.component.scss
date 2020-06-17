@@ -38,6 +38,11 @@
   padding: 4px 0;
 }
 
+.label {
+  color: $orange;
+  text-transform: uppercase;
+}
+
 .right {
   display: flex;
   flex-direction: column;

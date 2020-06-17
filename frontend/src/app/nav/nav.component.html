@@ -8,9 +8,17 @@
     </div>
   </div>
   <div class="nav-side">
-    <div *ngIf="isSignedIn" class="nav-item" (click)="onSignOut()">
-      Sign out
-      <i class="fas fa-sign-out-alt"></i>
+    <div *ngIf="isSignedIn" class="nav-item" (click)="onClickRecallcardLearn()">Learn</div>
+    <div *ngIf="isSignedIn" class="nav-item" (click)="onClickRecallcardManage()">Manage</div>
+    <div *ngIf="isSignedIn" class="menu">
+      <i class="fas fa-user"></i>
+      <div class="menu-dropdown">
+        <div class="menu-dropdown-item" (click)="onSettings()">Settings</div>
+        <div class="menu-dropdown-item" (click)="onSignOut()">
+          Sign out
+          <i class="fas fa-sign-out-alt"></i>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

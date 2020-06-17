@@ -5,6 +5,20 @@
   padding: 4px 0;
 }
 
+.label {
+  color: $orange;
+  text-transform: uppercase;
+}
+
+
+.randomcards-control {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
 .card-container {
   display: flex;
   justify-content: center;
@@ -64,8 +78,8 @@
       height: 160px;
 
       &::placeholder {
-        color: $brown-light;
-        opacity: 1;
+        color: $brown;
+        opacity: 0.2;
       }
     }
   }

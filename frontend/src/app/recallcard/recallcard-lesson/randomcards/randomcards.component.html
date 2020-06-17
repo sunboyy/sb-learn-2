@@ -1,6 +1,14 @@
-<button app-rounded-button [dark]="isSwapped" (click)="onToggleSwap()">Swap</button>
-<button app-rounded-button [dark]="countScore" (click)="onToggleCountScore()">Count Score</button>
-<div class="info" *ngIf="countScore">Score: {{ numCorrect }}/{{ numTotal }}</div>
+<div class="randomcards-control">
+  <button app-transparent-button (click)="onToggleSwap()">
+    <i class="fas fa-retweet"></i>
+    Swap
+  </button>
+  <button app-transparent-button (click)="onToggleCountScore()">Count Score</button>
+</div>
+<div class="info" *ngIf="countScore">
+  <span class="label">Score :</span>
+  {{ numCorrect }}/{{ numTotal }}
+</div>
 <div class="card-container">
   <div class="card" *ngIf="currentCard">
     <div class="word">

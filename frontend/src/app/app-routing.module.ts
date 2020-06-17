@@ -8,6 +8,7 @@ import { RecallcardLearnComponent } from './recallcard/recallcard-learn/recallca
 import { RecallcardLessonComponent } from './recallcard/recallcard-lesson/recallcard-lesson.component';
 import { RecallcardManageComponent } from './recallcard/recallcard-manage/recallcard-manage.component';
 import { RecallcardComponent } from './recallcard/recallcard.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,6 +30,10 @@ const routes: Routes = [
       { path: 'manage', component: RecallcardManageComponent },
       { path: 'lesson/:lessonId/:playMode', component: RecallcardLessonComponent }
     ]
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
   }
 ];
 

@@ -14,6 +14,18 @@ export class NavComponent {
     return this.authService.isSignedIn;
   }
 
+  onClickRecallcardLearn() {
+    this.router.navigate(['recallcard', 'learn']);
+  }
+
+  onClickRecallcardManage() {
+    this.router.navigate(['recallcard', 'manage']);
+  }
+
+  onSettings() {
+    this.router.navigate(['settings']);
+  }
+
   onSignOut() {
     this.authService.signOut();
     this.router.navigate(['auth', 'sign-in']);

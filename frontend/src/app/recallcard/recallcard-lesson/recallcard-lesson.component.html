@@ -3,14 +3,26 @@
   <div class="grid-area-info">
     <div class="lesson" *ngIf="lesson">
       <app-header-text>Lesson</app-header-text>
-      <div class="info">Course: {{ lesson.course.name }}</div>
-      <div class="info">Lesson: {{ lesson.name }}</div>
+      <div class="info">
+        <span class="label">Course:</span>
+        {{ lesson.course.name }}
+      </div>
+      <div class="info">
+        <span class="label">Lesson:</span>
+        {{ lesson.name }}
+      </div>
       <div class="info">{{ lesson.cards.length }} cards</div>
     </div>
   </div>
   <div class="grid-area-content">
-    <app-multicards *ngIf="currentPlayMode == 'multicards' && lesson" [cards]="lesson.cards"></app-multicards>
-    <app-randomcards *ngIf="currentPlayMode == 'random' && lesson" [cards]="lesson.cards"></app-randomcards>
+    <app-multicards
+      *ngIf="currentPlayMode == 'multicards' && lesson"
+      [cards]="lesson.cards"
+    ></app-multicards>
+    <app-randomcards
+      *ngIf="currentPlayMode == 'random' && lesson"
+      [cards]="lesson.cards"
+    ></app-randomcards>
   </div>
   <div class="grid-area-control">
     <div class="right" *ngIf="lesson">

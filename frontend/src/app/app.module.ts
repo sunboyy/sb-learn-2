@@ -7,10 +7,19 @@ import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { NavModule } from './nav/nav.module';
 import { RecallcardModule } from './recallcard/recallcard.module';
+import { SettingsModule } from './settings/settings.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, NavModule, AuthModule, HomeModule, RecallcardModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    NavModule,
+    AuthModule,
+    HomeModule,
+    RecallcardModule,
+    SettingsModule,
+    AppRoutingModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

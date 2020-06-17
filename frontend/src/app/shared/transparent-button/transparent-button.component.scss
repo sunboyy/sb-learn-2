@@ -1,0 +1,26 @@
+@import '../../../styles/variables';
+
+.sbl-transparent-button-wrapper {
+  margin: 4px 0;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid $yellow-brown;
+
+  &:disabled {
+    cursor: initial;
+    opacity: 0.4;
+  }
+}
+
+.sbl-transparent-button {
+  height: 32px;
+  padding: 4px 12px;
+  transition-duration: 0.25s;
+  color: $yellow-brown;
+  display: inline-block;
+  font-size: 14px;
+}
