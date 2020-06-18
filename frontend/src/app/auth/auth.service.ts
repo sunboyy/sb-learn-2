@@ -30,6 +30,6 @@ export class AuthService {
   }
 
   get isSignedIn() {
-    return this.session.isSignedIn;
+    return this.session.isSignedIn.getValue();
   }
 }

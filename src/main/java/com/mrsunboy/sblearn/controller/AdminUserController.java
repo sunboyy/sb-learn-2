@@ -8,9 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @RestController
 @RequestMapping("/admin")
@@ -29,10 +27,16 @@ public class AdminUserController {
         return userService.createUser(createUserDto.getUsername(), createUserDto.getPassword(), createUserDto.getAuthority());
     }
 
+    @PostMapping("/user/edit")
+    public Result<User> editUser(@Valid @RequestBody EditUserDto editUserDto) {
+        return userService.editUser(editUserDto.getUsername(), editUserDto.getPassword(), editUserDto.getAuthority(), editUserDto.getEnabled());
+    }
+
     private static class CreateUserDto {
         @NotBlank
         private String username;
 
+        @NotBlank
         @Size(min = 6)
         private String password;
 
@@ -49,6 +53,37 @@ public class AdminUserController {
 
         public String getAuthority() {
             return authority;
+        }
+    }
+
+    private static class EditUserDto {
+        @NotBlank
+        private String username;
+
+        @Size(min = 6)
+        private String password;
+
+        @Pattern(regexp = "ROLE_(USER|ADMIN)")
+        private String authority;
+
+        @Min(value = 0)
+        @Max(value = 1)
+        private short enabled;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public String getAuthority() {
+            return authority;
+        }
+
+        public short getEnabled() {
+            return enabled;
         }
     }
 }

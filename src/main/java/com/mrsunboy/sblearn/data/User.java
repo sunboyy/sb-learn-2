@@ -29,6 +29,10 @@ public class User {
         this.authority = authority;
     }
 
+    public void setEnabled(short enabled) {
+        this.enabled = enabled;
+    }
+
     public Integer getId() {
         return id;
     }

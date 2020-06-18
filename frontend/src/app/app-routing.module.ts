@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminComponent } from './admin/admin.component';
+import { AdminGuard } from './admin/admin.guard';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { AuthComponent } from './auth/auth.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
@@ -36,6 +39,12 @@ const routes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     children: [{ path: 'change-password', component: ChangePasswordComponent }]
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AdminGuard],
+    children: [{ path: 'user', component: UserManagementComponent }]
   }
 ];
 

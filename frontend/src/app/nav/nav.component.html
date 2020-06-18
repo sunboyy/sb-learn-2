@@ -14,6 +14,7 @@
       <i class="fas fa-user"></i>
       <div class="menu-dropdown">
         <div class="menu-dropdown-item" (click)="onSettings()">Settings</div>
+        <div class="menu-dropdown-item" *ngIf="userAuthority == 'ROLE_ADMIN'" (click)="onAdmin()">Administration</div>
         <div class="menu-dropdown-item" (click)="onSignOut()">
           Sign out
           <i class="fas fa-sign-out-alt"></i>

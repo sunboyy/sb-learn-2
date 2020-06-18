@@ -57,4 +57,20 @@ public class UserService {
         userRepository.save(user);
         return new SuccessResult<>(null);
     }
+
+    public Result<User> editUser(String username, String password, String authority, short enabled) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return new FailureResult<>("User not found");
+        }
+        if (password != null) {
+            user.setPassword(passwordEncoder.encode(password));
+        }
+        if (authority != null) {
+            user.setAuthority(authority);
+        }
+        user.setEnabled(enabled);
+        userRepository.save(user);
+        return new SuccessResult<>(user);
+    }
 }

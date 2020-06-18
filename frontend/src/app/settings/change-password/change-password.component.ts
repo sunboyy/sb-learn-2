@@ -26,7 +26,6 @@ export class ChangePasswordComponent {
     }
     this.message = '';
     this.settingsService.changePassword(this.currentPassword, this.newPassword).subscribe((res) => {
-      console.log(res);
       if (res.success) {
         this.currentPassword = '';
         this.newPassword = '';
