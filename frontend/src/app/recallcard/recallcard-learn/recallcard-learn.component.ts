@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  VerticalListComponent,
+  VerticalListHandler
+} from 'src/app/shared/vertical-list/vertical-list.component';
 import { Course, Lesson, RecallcardService } from '../recallcard.service';
 
 @Component({
@@ -7,7 +11,7 @@ import { Course, Lesson, RecallcardService } from '../recallcard.service';
   templateUrl: './recallcard-learn.component.html',
   styleUrls: ['./recallcard-learn.component.scss']
 })
-export class RecallcardLearnComponent implements OnInit {
+export class RecallcardLearnComponent implements OnInit, VerticalListHandler {
   courses: Course[] = [];
   message = '';
 
@@ -56,5 +60,48 @@ export class RecallcardLearnComponent implements OnInit {
 
   onClickPlay() {
     this.router.navigate(['recallcard', 'lesson', this.selectedLesson.id, this.playMode]);
+  }
+
+  /**
+   * VerticalListHandler implementation
+   */
+  verticalListGetItems(verticalList: VerticalListComponent): any[] {
+    switch (verticalList.name) {
+      case 'courses':
+        return this.courses;
+      case 'lessons':
+        return this.selectedCourse.lessons;
+    }
+  }
+
+  verticalListGetLabelAtIndex(verticalList: VerticalListComponent, index: number): string {
+    switch (verticalList.name) {
+      case 'courses':
+        return this.courses[index].name;
+      case 'lessons':
+        return this.selectedCourse.lessons[index].name;
+    }
+  }
+
+  verticalListOnClickItemAtIndex(verticalList: VerticalListComponent, index: number): void {
+    switch (verticalList.name) {
+      case 'courses':
+        this.onClickCourse(this.courses[index]);
+        break;
+      case 'lessons':
+        this.onClickLesson(this.selectedCourse.lessons[index]);
+        break;
+    }
+  }
+
+  verticalListIsItemSelectedAtIndex(verticalList: VerticalListComponent, index: number): boolean {
+    switch (verticalList.name) {
+      case 'courses':
+        return this.courses[index] === this.selectedCourse;
+      case 'lessons':
+        return (
+          this.selectedLesson && this.selectedCourse.lessons[index].id === this.selectedLesson.id
+        );
+    }
   }
 }

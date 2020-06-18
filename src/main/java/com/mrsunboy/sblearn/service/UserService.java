@@ -44,4 +44,17 @@ public class UserService {
         userRepository.save(user);
         return new SuccessResult<>(user);
     }
+
+    public Result<Object> changePassword(String currentPassword, String newPassword, String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return new FailureResult<>("User not found");
+        }
+        if (!user.comparePassword(currentPassword, passwordEncoder)) {
+            return new FailureResult<>("Current password is incorrect");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        return new SuccessResult<>(null);
+    }
 }

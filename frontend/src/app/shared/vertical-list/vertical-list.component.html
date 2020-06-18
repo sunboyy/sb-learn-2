@@ -1,0 +1,9 @@
+<div class="vertical-list">
+  <app-header-text>{{ title }}</app-header-text>
+  <app-list-button-item
+    *ngFor="let item of handler.verticalListGetItems(this); let i = index"
+    [selected]="handler.verticalListIsItemSelectedAtIndex(this, i)"
+    (click)="handler.verticalListOnClickItemAtIndex(this, i)"
+    >{{ handler.verticalListGetLabelAtIndex(this, i) }}</app-list-button-item
+  >
+</div>

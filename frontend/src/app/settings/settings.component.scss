@@ -1,0 +1,18 @@
+@import '../../styles/variables';
+
+.settings {
+  display: grid;
+  gap: 24px;
+
+  @media screen and (min-width: $width-pc) {
+    grid-template-columns: 240px auto;
+  }
+}
+
+// .settings-menu {
+//   grid-area: menu;
+// }
+
+// .settings-content {
+//   grid-area: content;
+// }

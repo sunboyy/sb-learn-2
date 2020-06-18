@@ -1,23 +1,11 @@
 <app-error-message [message]="message"></app-error-message>
 <div class="recallcard-learn">
   <div class="grid-area-courses">
-    <app-header-text>Courses</app-header-text>
-    <app-list-button-item
-      *ngFor="let course of courses"
-      [text]="course.name"
-      [selected]="selectedCourse && selectedCourse.id === course.id"
-      (click)="onClickCourse(course)"
-    ></app-list-button-item>
+    <app-vertical-list title="Courses" name="courses" [handler]="this"></app-vertical-list>
   </div>
   <div class="grid-area-lessons">
     <div class="lessons" *ngIf="selectedCourse">
-      <app-header-text>Lessons</app-header-text>
-      <app-list-button-item
-        *ngFor="let lesson of selectedCourse.lessons"
-        [text]="lesson.name"
-        [selected]="selectedLesson && selectedLesson.id === lesson.id"
-        (click)="onClickLesson(lesson)"
-      ></app-list-button-item>
+      <app-vertical-list title="Lessons" name="lessons" [handler]="this"></app-vertical-list>
     </div>
   </div>
   <div class="grid-area-cards">
