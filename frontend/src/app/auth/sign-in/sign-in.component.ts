@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { StatusService } from '../../shared/status.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -7,23 +8,33 @@ import { AuthService } from '../auth.service';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   username = '';
   password = '';
 
   message = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  allowRegistration = false;
+
+  constructor(
+    private authService: AuthService,
+    private statusService: StatusService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.statusService.getStatus().subscribe((status) => {
+      this.allowRegistration = status.allowSelfRegistration;
+    });
+  }
 
   onSignIn() {
-    this.authService
-      .signIn(this.username, this.password)
-      .subscribe((message) => {
-        if (message) {
-          this.message = message;
-        } else {
-          this.router.navigate(['']);
-        }
-      });
+    this.authService.signIn(this.username, this.password).subscribe((message) => {
+      if (message) {
+        this.message = message;
+      } else {
+        this.router.navigate(['']);
+      }
+    });
   }
 }

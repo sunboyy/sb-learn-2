@@ -15,6 +15,7 @@ import { RegularTextFieldComponent } from './regular-text-field/regular-text-fie
 import { RoundedButtonComponent } from './rounded-button/rounded-button.component';
 import { RoundedTextFieldComponent } from './rounded-text-field/rounded-text-field.component';
 import { SessionService } from './session.service';
+import { StatusService } from './status.service';
 import { StripedHeaderComponent } from './striped-header/striped-header.component';
 import { TransparentButtonComponent } from './transparent-button/transparent-button.component';
 import { VerticalListComponent } from './vertical-list/vertical-list.component';
@@ -36,7 +37,7 @@ import { VerticalListComponent } from './vertical-list/vertical-list.component';
     VerticalListComponent,
     RegularTextFieldComponent
   ],
-  providers: [SessionService, ApiService],
+  providers: [SessionService, ApiService, StatusService],
   imports: [CommonModule, HttpClientModule, FormsModule],
   exports: [
     RoundedButtonComponent,

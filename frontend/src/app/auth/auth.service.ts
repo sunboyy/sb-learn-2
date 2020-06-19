@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService, Result } from '../shared/api.service';
 import { SessionService } from '../shared/session.service';
+import { User } from '../user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class AuthService {
           }
         })
       );
+  }
+
+  register(username: string, password: string): Observable<Result<User>> {
+    return this.api.post<Result<User>>('user/register', { username, password });
   }
 
   signOut() {

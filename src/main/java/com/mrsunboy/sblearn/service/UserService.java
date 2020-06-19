@@ -1,9 +1,6 @@
 package com.mrsunboy.sblearn.service;
 
-import com.mrsunboy.sblearn.data.FailureResult;
-import com.mrsunboy.sblearn.data.Result;
-import com.mrsunboy.sblearn.data.SuccessResult;
-import com.mrsunboy.sblearn.data.User;
+import com.mrsunboy.sblearn.data.*;
 import com.mrsunboy.sblearn.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +13,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ConfigService configService;
 
     public Result<User> getProfile(String username) {
         User user = userRepository.findByUsername(username);
@@ -72,5 +72,18 @@ public class UserService {
         user.setEnabled(enabled);
         userRepository.save(user);
         return new SuccessResult<>(user);
+    }
+
+    public Result<User> selfRegister(String username, String password) {
+        if (!isAllowSelfRegistration()) {
+            return new FailureResult<>("Self-registration is not allowed");
+        }
+        String authority = userRepository.count() == 0 ? "ROLE_ADMIN" : "ROLE_USER";
+        return createUser(username, password, authority);
+    }
+
+    public boolean isAllowSelfRegistration() {
+        Config config = configService.getConfig(Config.ALLOW_SELF_REGISTRATION);
+        return config.getValue() > 0 || userRepository.count() == 0;
     }
 }

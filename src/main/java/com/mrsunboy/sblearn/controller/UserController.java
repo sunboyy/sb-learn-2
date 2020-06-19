@@ -17,6 +17,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("/register")
+    public Result<User> register(@Valid @RequestBody RegisterDto registerDto) {
+        return userService.selfRegister(registerDto.getUsername(), registerDto.getPassword());
+    }
+
     @GetMapping("/profile")
     public Result<User> getProfile() {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -27,6 +32,23 @@ public class UserController {
     public Result<Object> changePassword(@Valid @RequestBody ChangePasswordDto changePasswordDto) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userService.changePassword(changePasswordDto.currentPassword, changePasswordDto.newPassword, username);
+    }
+
+    private static class RegisterDto {
+        @NotBlank
+        private String username;
+
+        @NotBlank
+        @Size(min = 6)
+        private String password;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
     }
 
     private static class ChangePasswordDto {

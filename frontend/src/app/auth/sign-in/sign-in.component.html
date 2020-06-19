@@ -6,5 +6,5 @@
     <input app-rounded-text-field type="password" placeholder="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
     <button app-rounded-button (click)="onSignIn()">sign in <i class="fas fa-user-lock"></i></button>
   </form>
-  <div class="auth-switch">Don't have an account? <a routerLink="/auth/sign-up">Sign up</a></div>
+  <div class="auth-switch" *ngIf="allowRegistration">Don't have an account? <a routerLink="/auth/sign-up">Sign up</a></div>
 </div>
