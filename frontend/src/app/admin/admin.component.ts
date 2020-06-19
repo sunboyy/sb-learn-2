@@ -11,7 +11,7 @@ import {
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements VerticalListHandler {
-  menus = [{ label: 'User Accounts', path: 'user' }];
+  menus = [{ label: 'User Accounts', icon: 'users', path: 'user' }];
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
@@ -24,6 +24,10 @@ export class AdminComponent implements VerticalListHandler {
 
   verticalListGetLabelAtIndex(verticalList: VerticalListComponent, index: number): string {
     return this.menus[index].label;
+  }
+
+  verticalListGetIconAtIndex?(verticalList: VerticalListComponent, index: number): string {
+    return this.menus[index].icon;
   }
 
   verticalListOnClickItemAtIndex(verticalList: VerticalListComponent, index: number): void {

@@ -1,3 +1,4 @@
 <div class="item" [class.selected]="selected">
+  <i *ngIf="icon" class="icon fas fa-{{icon}}"></i>
   <ng-content></ng-content>
 </div>

@@ -10,7 +10,10 @@
   </div>
   <div class="grid-area-cards">
     <div class="cards" *ngIf="selectedLesson && selectedLesson.cards">
-      <div class="header">{{ selectedLesson.name }}</div>
+      <div class="header">
+        <span class="header-title">{{ selectedLesson.name }}</span>
+        ({{ selectedLesson.cards.length }} card{{selectedLesson.cards.length > 1 ? 's':''}})
+      </div>
       <div class="content">
         <div class="wordlist-row header">
           <span>Word</span>
@@ -22,7 +25,6 @@
               [class.fa-eye-slash]="!isMeaningVisible"
               (click)="onToggleVisiblity()"
             ></i>
-            <span class="float-right">/{{ selectedLesson.cards.length }}</span>
           </div>
         </div>
         <div class="wordlist-row" *ngFor="let card of selectedLesson.cards">

@@ -5,4 +5,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './header-text.component.html',
   styleUrls: ['./header-text.component.scss']
 })
-export class HeaderTextComponent {}
+export class HeaderTextComponent {
+  @Input()
+  icon: string;
+}

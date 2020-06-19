@@ -11,6 +11,7 @@ import { HeaderTextComponent } from './header-text/header-text.component';
 import { ListButtonItemComponent } from './list-button-item/list-button-item.component';
 import { ListCreateItemComponent } from './list-create-item/list-create-item.component';
 import { ListEditableButtonItemComponent } from './list-editable-button-item/list-editable-button-item.component';
+import { RegularTextFieldComponent } from './regular-text-field/regular-text-field.component';
 import { RoundedButtonComponent } from './rounded-button/rounded-button.component';
 import { RoundedTextFieldComponent } from './rounded-text-field/rounded-text-field.component';
 import { SessionService } from './session.service';
@@ -32,7 +33,8 @@ import { VerticalListComponent } from './vertical-list/vertical-list.component';
     ListCreateItemComponent,
     EditableTextComponent,
     TransparentButtonComponent,
-    VerticalListComponent
+    VerticalListComponent,
+    RegularTextFieldComponent
   ],
   providers: [SessionService, ApiService],
   imports: [CommonModule, HttpClientModule, FormsModule],
@@ -49,7 +51,8 @@ import { VerticalListComponent } from './vertical-list/vertical-list.component';
     ListCreateItemComponent,
     EditableTextComponent,
     TransparentButtonComponent,
-    VerticalListComponent
+    VerticalListComponent,
+    RegularTextFieldComponent
   ]
 })
 export class SharedModule {}

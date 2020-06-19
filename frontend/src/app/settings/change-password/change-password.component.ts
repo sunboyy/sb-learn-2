@@ -16,12 +16,12 @@ export class ChangePasswordComponent {
   constructor(private settingsService: SettingsService) {}
 
   onUpdatePassword() {
-    if (this.newPassword !== this.confirmPassword) {
-      this.message = 'Confirm password does not match';
-      return;
-    }
     if (this.newPassword.length < 6) {
       this.message = 'The new password must be at least 6 characters long';
+      return;
+    }
+    if (this.newPassword !== this.confirmPassword) {
+      this.message = 'Confirm password does not match';
       return;
     }
     this.message = '';

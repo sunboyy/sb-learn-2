@@ -1,8 +1,10 @@
+@import '../../../styles/variables';
+
 .box {
-    background-color: #c00;
+    background-color: $red;
     color: white;
     margin: 4px 0;
-    padding: 4px;
+    padding: 4px 8px;
     border-radius: 4px;
     font-size: 14px;
 }

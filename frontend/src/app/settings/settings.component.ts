@@ -11,7 +11,7 @@ import {
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements VerticalListHandler {
-  menus = [{ label: 'Change Password', path: 'change-password' }];
+  menus = [{ label: 'Change Password', icon: 'lock', path: 'change-password' }];
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
@@ -24,6 +24,10 @@ export class SettingsComponent implements VerticalListHandler {
 
   verticalListGetLabelAtIndex(verticalList: VerticalListComponent, index: number): string {
     return this.menus[index].label;
+  }
+
+  verticalListGetIconAtIndex?(verticalList: VerticalListComponent, index: number): string {
+    return this.menus[index].icon;
   }
 
   verticalListOnClickItemAtIndex(verticalList: VerticalListComponent, index: number): void {
