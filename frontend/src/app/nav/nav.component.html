@@ -3,13 +3,10 @@
     <div class="logo">
       <img src="/assets/img/logo.png" alt="SB Learn Logo" />
     </div>
-    <div class="menu" *ngIf="isSignedIn">
-      <i class="fas fa-bars"></i>
-    </div>
-  </div>
-  <div class="nav-side">
     <div *ngIf="isSignedIn" class="nav-item" (click)="onClickRecallcardLearn()">Learn</div>
     <div *ngIf="isSignedIn" class="nav-item" (click)="onClickRecallcardManage()">Manage</div>
+  </div>
+  <div class="nav-side">
     <div *ngIf="isSignedIn" class="menu">
       <i class="fas fa-user"></i>
       <div class="menu-dropdown">
