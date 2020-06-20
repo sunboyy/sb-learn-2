@@ -31,22 +31,6 @@ export class NavComponent implements OnInit {
     return this.authService.isSignedIn;
   }
 
-  onClickRecallcardLearn() {
-    this.router.navigate(['recallcard', 'learn']);
-  }
-
-  onClickRecallcardManage() {
-    this.router.navigate(['recallcard', 'manage']);
-  }
-
-  onSettings() {
-    this.router.navigate(['settings']);
-  }
-
-  onAdmin() {
-    this.router.navigate(['admin']);
-  }
-
   onSignOut() {
     this.authService.signOut();
     this.router.navigate(['auth', 'sign-in']);

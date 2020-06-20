@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Krub&family=Mitr&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Krub&family=Mitr&family=M+PLUS+Rounded+1c&display=swap');
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 @import './variables';
 
 body {
   background-color: $gray;
-  font-family: Mitr, sans-serif;
+  font-family: Mitr, 'M PLUS Rounded 1c', sans-serif;
   margin: 0;
   color: #fff;
 }
@@ -26,6 +26,10 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+a:active, a:focus {
+  outline: 0;
 }
 
 input[type=text], input[type=password] {

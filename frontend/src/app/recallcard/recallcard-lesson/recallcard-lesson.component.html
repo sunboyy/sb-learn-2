@@ -23,6 +23,7 @@
       *ngIf="currentPlayMode == 'random' && lesson"
       [cards]="lesson.cards"
     ></app-randomcards>
+    <app-quiz *ngIf="currentPlayMode == 'quiz' && lesson" [cards]="lesson.cards"></app-quiz>
   </div>
   <div class="grid-area-control">
     <div class="right" *ngIf="lesson">
@@ -36,6 +37,10 @@
         <label class="play-option" [class.selected]="playMode == 'random'">
           <input type="radio" value="random" [(ngModel)]="playMode" />
           Random
+        </label>
+        <label class="play-option" [class.selected]="playMode == 'quiz'">
+          <input type="radio" value="quiz" [(ngModel)]="playMode" />
+          Quiz
         </label>
       </div>
       <button app-rounded-button [disabled]="!playMode" (click)="onChangePlayMode()">Change</button>

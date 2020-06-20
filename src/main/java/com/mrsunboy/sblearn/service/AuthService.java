@@ -23,6 +23,9 @@ public class AuthService {
         if (user == null || !user.comparePassword(password, passwordEncoder)) {
             return new FailureResult<>("Incorrect username or password");
         }
+        if (user.getEnabled() <= 0) {
+            return new FailureResult<>("This user has been disabled.");
+        }
         return new SuccessResult<>(new AuthTokens(jwtService.sign(username)));
     }
 }

@@ -16,7 +16,7 @@
   }
 
   @media screen and (min-width: $width-large) {
-    grid-template-columns: 220px auto 200px;
+    grid-template-columns: 240px auto 200px;
     grid-template-areas: 'info content control';
   }
 }

@@ -13,10 +13,6 @@ export class RandomcardsComponent implements OnInit {
   currentCard: Card;
   showMeaning = false;
   isSwapped = false;
-  countScore = false;
-  numCorrect = 0;
-  numTotal = 0;
-  answer = '';
 
   ngOnInit(): void {
     this.randomCard();
@@ -34,31 +30,6 @@ export class RandomcardsComponent implements OnInit {
 
   onToggleSwap() {
     this.isSwapped = !this.isSwapped;
-    this.randomCard();
-  }
-
-  onToggleCountScore() {
-    this.countScore = !this.countScore;
-    if (this.countScore) {
-      this.randomCard();
-    }
-  }
-
-  onSubmitAnswer() {
-    if (!this.answer) {
-      return;
-    }
-    if (!this.isSwapped) {
-      if (this.answer === this.currentCard.meaning) {
-        this.numCorrect++;
-      }
-    } else {
-      if (this.answer === this.currentCard.word) {
-        this.numCorrect++;
-      }
-    }
-    this.numTotal++;
-    this.answer = '';
     this.randomCard();
   }
 }

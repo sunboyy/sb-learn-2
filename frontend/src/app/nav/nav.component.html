@@ -3,15 +3,15 @@
     <div class="logo">
       <img src="/assets/img/logo.png" alt="SB Learn Logo" />
     </div>
-    <div *ngIf="isSignedIn" class="nav-item" (click)="onClickRecallcardLearn()">Learn</div>
-    <div *ngIf="isSignedIn" class="nav-item" (click)="onClickRecallcardManage()">Manage</div>
+    <a *ngIf="isSignedIn" class="nav-item" routerLink="/recallcard/learn">Learn</a>
+    <a *ngIf="isSignedIn" class="nav-item" routerLink="/recallcard/manage">Manage</a>
   </div>
   <div class="nav-side">
     <div *ngIf="isSignedIn" class="menu">
       <i class="fas fa-user"></i>
       <div class="menu-dropdown">
-        <div class="menu-dropdown-item" (click)="onSettings()">Settings</div>
-        <div class="menu-dropdown-item" *ngIf="userAuthority == 'ROLE_ADMIN'" (click)="onAdmin()">Administration</div>
+        <a class="menu-dropdown-item" routerLink="/settings">Settings</a>
+        <a class="menu-dropdown-item" *ngIf="userAuthority == 'ROLE_ADMIN'" routerLink="/admin">Administration</a>
         <div class="menu-dropdown-item" (click)="onSignOut()">
           Sign out
           <i class="fas fa-sign-out-alt"></i>

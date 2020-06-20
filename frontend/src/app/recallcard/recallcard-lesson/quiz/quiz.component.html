@@ -1,0 +1,37 @@
+<div class="info">
+  <span class="label">Score :</span>
+  {{ numCorrect }}/{{ currentIndex }}
+</div>
+<div class="quiz" *ngIf="currentIndex < cardsWithAnswer.length">
+  <div class="quiz-control">
+    <button app-transparent-button *ngIf="currentIndex == 0" (click)="onToggleSwap()">
+      <i class="fas fa-retweet"></i>
+      Swap
+    </button>
+  </div>
+  <div class="card-container">
+    <div class="card">
+      <div class="word">
+        <ng-container *ngIf="!isSwapped">{{ currentCard.word }}</ng-container>
+        <ng-container *ngIf="isSwapped">{{ currentCard.meaning }}</ng-container>
+      </div>
+      <div class="meaning">
+        <input
+          type="text"
+          class="meaning-field"
+          placeholder="Click to type"
+          [(ngModel)]="currentCard.answer"
+          (keyup.enter)="onSubmitAnswer()"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="quiz-result" *ngIf="currentIndex >= cardsWithAnswer.length">
+  <div class="quiz-control">
+    <button app-transparent-button (click)="onRestart()">
+      <i class="fas fa-redo-alt"></i>
+      Restart
+    </button>
+  </div>
+</div>

@@ -6,10 +6,11 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { RecallcardLearnComponent } from './recallcard-learn/recallcard-learn.component';
 import { MulticardsComponent } from './recallcard-lesson/multicards/multicards.component';
+import { QuizComponent } from './recallcard-lesson/quiz/quiz.component';
+import { RandomcardsComponent } from './recallcard-lesson/randomcards/randomcards.component';
 import { RecallcardLessonComponent } from './recallcard-lesson/recallcard-lesson.component';
 import { RecallcardManageComponent } from './recallcard-manage/recallcard-manage.component';
 import { RecallcardComponent } from './recallcard.component';
-import { RandomcardsComponent } from './recallcard-lesson/randomcards/randomcards.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RandomcardsComponent } from './recallcard-lesson/randomcards/randomcard
     RecallcardManageComponent,
     RecallcardLessonComponent,
     MulticardsComponent,
-    RandomcardsComponent
+    RandomcardsComponent,
+    QuizComponent
   ],
   imports: [CommonModule, SharedModule, RouterModule, FormsModule, BrowserAnimationsModule]
 })
