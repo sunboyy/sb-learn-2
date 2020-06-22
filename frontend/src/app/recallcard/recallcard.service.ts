@@ -40,11 +40,15 @@ export class RecallcardService {
   }
 
   createCourse(name: string): Observable<Result<Course>> {
-    return this.api.post<Result<Course>>('recallcard/course/new', { name }, true);
+    return this.api.post<Result<Course>>('recallcard/course/new', { name: name.trim() }, true);
   }
 
   editCourse(courseId: number, name: string): Observable<Result<Course>> {
-    return this.api.post<Result<Course>>('recallcard/course/edit', { courseId, name }, true);
+    return this.api.post<Result<Course>>(
+      'recallcard/course/edit',
+      { courseId, name: name.trim() },
+      true
+    );
   }
 
   getLesson(lessonId: number): Observable<Result<Lesson>> {
@@ -52,19 +56,35 @@ export class RecallcardService {
   }
 
   createLesson(courseId: number, name: string): Observable<Result<Lesson>> {
-    return this.api.post<Result<Lesson>>('recallcard/lesson/new', { courseId, name }, true);
+    return this.api.post<Result<Lesson>>(
+      'recallcard/lesson/new',
+      { courseId, name: name.trim() },
+      true
+    );
   }
 
   editLesson(lessonId: number, name: string): Observable<Result<Lesson>> {
-    return this.api.post<Result<Lesson>>('recallcard/lesson/edit', { lessonId, name }, true);
+    return this.api.post<Result<Lesson>>(
+      'recallcard/lesson/edit',
+      { lessonId, name: name.trim() },
+      true
+    );
   }
 
   createCard(lessonId: number, word: string, meaning: string): Observable<Result<Card>> {
-    return this.api.post<Result<Card>>('recallcard/card/new', { lessonId, word, meaning }, true);
+    return this.api.post<Result<Card>>(
+      'recallcard/card/new',
+      { lessonId, word: word.trim(), meaning: meaning.trim() },
+      true
+    );
   }
 
   editCard(cardId: number, word: string, meaning: string): Observable<Result<Card>> {
-    return this.api.post<Result<Card>>('recallcard/card/edit', { cardId, word, meaning }, true);
+    return this.api.post<Result<Card>>(
+      'recallcard/card/edit',
+      { cardId, word: word.trim(), meaning: meaning.trim() },
+      true
+    );
   }
 
   deleteCard(cardId: number): Observable<Result<null>> {

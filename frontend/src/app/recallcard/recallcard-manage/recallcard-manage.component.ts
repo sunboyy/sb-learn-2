@@ -133,7 +133,11 @@ export class RecallcardManageComponent implements OnInit {
       return;
     }
     this.recallcardService
-      .createCard(this.selectedLesson.id, this.createCard.word, this.createCard.meaning)
+      .createCard(
+        this.selectedLesson.id,
+        this.createCard.word.trim(),
+        this.createCard.meaning.trim()
+      )
       .subscribe((res) => {
         if (res.success) {
           this.selectedLesson.cards.push(res.data);

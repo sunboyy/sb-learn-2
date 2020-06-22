@@ -48,8 +48,8 @@ export class QuizComponent implements OnInit {
     for (let i = 0; i < this.currentIndex; i++) {
       const card = this.cardsWithAnswer[i];
       if (
-        (!this.isSwapped && card.answer === card.meaning) ||
-        (this.isSwapped && card.answer === card.word)
+        (!this.isSwapped && card.answer.trim() === card.meaning.trim()) ||
+        (this.isSwapped && card.answer.trim() === card.word.trim())
       ) {
         sum++;
       }
