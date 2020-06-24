@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 public class User {
@@ -16,6 +17,7 @@ public class User {
     private String password;
     private String authority;
     private short enabled = 1;
+    private Date lastLoggedIn;
 
     public void setUsername(String username) {
         this.username = username;
@@ -31,6 +33,10 @@ public class User {
 
     public void setEnabled(short enabled) {
         this.enabled = enabled;
+    }
+
+    public void setLastLoggedIn(Date lastLoggedIn) {
+        this.lastLoggedIn = lastLoggedIn;
     }
 
     public Integer getId() {
@@ -49,6 +55,10 @@ public class User {
         return enabled;
     }
 
+    public Date getLastLoggedIn() {
+        return lastLoggedIn;
+    }
+
     public boolean comparePassword(String password, PasswordEncoder passwordEncoder) {
         return passwordEncoder.matches(password, this.password);
     }
@@ -58,6 +68,8 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", authority='" + authority + '\'' +
+                ", enabled=" + enabled +
                 '}';
     }
 }
