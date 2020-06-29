@@ -4,6 +4,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminGuard } from './admin/admin.guard';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { AuthComponent } from './auth/auth.component';
+import { AuthGuard } from './auth/auth.guard';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
   {
     path: 'recallcard',
     component: RecallcardComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'learn', pathMatch: 'full' },
       { path: 'learn', component: RecallcardLearnComponent },
@@ -38,6 +40,7 @@ const routes: Routes = [
   {
     path: 'settings',
     component: SettingsComponent,
+    canActivate: [AuthGuard],
     children: [{ path: 'change-password', component: ChangePasswordComponent }]
   },
   {

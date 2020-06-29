@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { ApiService } from './api.service';
 import { CreateButtonComponent } from './create-button/create-button.component';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
@@ -38,7 +39,7 @@ import { VerticalListComponent } from './vertical-list/vertical-list.component';
     RegularTextFieldComponent
   ],
   providers: [SessionService, ApiService, StatusService],
-  imports: [CommonModule, HttpClientModule, FormsModule],
+  imports: [CommonModule, HttpClientModule, FormsModule, RouterModule],
   exports: [
     RoundedButtonComponent,
     RoundedTextFieldComponent,
