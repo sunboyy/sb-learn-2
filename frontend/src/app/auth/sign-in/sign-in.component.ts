@@ -11,6 +11,7 @@ import { AuthService } from '../auth.service';
 export class SignInComponent implements OnInit {
   username = '';
   password = '';
+  isLoading = false;
 
   message = '';
 
@@ -29,7 +30,9 @@ export class SignInComponent implements OnInit {
   }
 
   onSignIn() {
+    this.isLoading = true;
     this.authService.signIn(this.username, this.password).subscribe((message) => {
+      this.isLoading = false;
       if (message) {
         this.message = message;
       } else {

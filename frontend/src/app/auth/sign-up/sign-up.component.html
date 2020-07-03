@@ -2,10 +2,30 @@
   <app-error-message [message]="message"></app-error-message>
   <app-striped-header>Create a new account</app-striped-header>
   <form>
-    <input app-rounded-text-field type="text" placeholder="username" [(ngModel)]="username" [ngModelOptions]="{standalone: true}">
-    <input app-rounded-text-field type="password" placeholder="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
-    <input app-rounded-text-field type="password" placeholder="confirm password" [(ngModel)]="confirmPassword" [ngModelOptions]="{standalone: true}">
-    <button app-rounded-button [dark]="true" (click)="onSignUp()">sign up <i class="fas fa-user-plus"></i></button>
+    <input
+      app-rounded-text-field
+      type="text"
+      placeholder="username"
+      [(ngModel)]="username"
+      [ngModelOptions]="{ standalone: true }"
+    />
+    <input
+      app-rounded-text-field
+      type="password"
+      placeholder="password"
+      [(ngModel)]="password"
+      [ngModelOptions]="{ standalone: true }"
+    />
+    <input
+      app-rounded-text-field
+      type="password"
+      placeholder="confirm password"
+      [(ngModel)]="confirmPassword"
+      [ngModelOptions]="{ standalone: true }"
+    />
+    <button app-rounded-button [dark]="true" (click)="onSignUp()" [disabled]="isLoading">
+      sign up <i class="fas fa-user-plus"></i>
+    </button>
   </form>
   <div class="auth-switch">Already a member? <a routerLink="/auth/sign-in">Sign in</a></div>
 </div>

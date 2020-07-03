@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StatusService } from 'src/app/shared/status.service';
 import { User } from '../../user/user';
 import { AdminService } from '../admin.service';
 
@@ -10,11 +11,27 @@ import { AdminService } from '../admin.service';
 export class UserManagementComponent implements OnInit {
   users: User[];
 
-  constructor(private adminService: AdminService) {}
+  isLoadingSelfRegistration = false;
+  allowSelfRegistration: boolean;
+
+  constructor(private adminService: AdminService, private statusService: StatusService) {}
 
   ngOnInit(): void {
+    this.statusService.getStatus().subscribe((status) => {
+      this.allowSelfRegistration = status.allowSelfRegistration;
+    });
     this.adminService.getAllUsers().subscribe((res) => {
       this.users = res.data;
     });
+  }
+
+  onSaveSelfRegistration() {
+    this.isLoadingSelfRegistration = true;
+    this.adminService
+      .setAllowSelfRegistration(this.allowSelfRegistration ? 1 : 0)
+      .subscribe((result) => {
+        this.isLoadingSelfRegistration = false;
+        this.allowSelfRegistration = Boolean(result.data.value);
+      });
   }
 }

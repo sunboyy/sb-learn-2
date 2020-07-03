@@ -13,6 +13,7 @@ export class SignUpComponent implements OnInit {
   password = '';
   confirmPassword = '';
 
+  isLoading = false;
   message = '';
 
   constructor(
@@ -42,7 +43,9 @@ export class SignUpComponent implements OnInit {
       this.message = 'Confirm password does not match.';
       return;
     }
+    this.isLoading = true;
     this.authService.register(this.username, this.password).subscribe((res) => {
+      this.isLoading = false;
       if (res.success) {
         this.statusService.updateStatus();
         this.router.navigate(['auth', 'sign-in']);
