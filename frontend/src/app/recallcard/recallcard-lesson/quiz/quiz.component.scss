@@ -47,6 +47,7 @@
 
   .meaning {
     color: $brown;
+    position: relative;
 
     .hidden {
       color: $brown-light;
@@ -63,6 +64,35 @@
       &::placeholder {
         color: $brown;
         opacity: 0.2;
+      }
+    }
+
+    .card-result {
+      position: absolute;
+      z-index: 1;
+      bottom: 16px;
+      right: 16px;
+      border-radius: 8px;
+      padding: 4px 12px;
+      text-align: left;
+      transition-duration: 0.2s;
+      color: #fff;
+
+      &.correct {
+        background-color: $jade;
+      }
+
+      &.wrong {
+        background-color: $magenta;
+      }
+
+      &.hidden {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+
+      .correct-answer {
+        font-size: 14px;
       }
     }
   }

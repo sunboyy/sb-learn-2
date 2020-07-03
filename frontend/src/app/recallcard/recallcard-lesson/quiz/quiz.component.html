@@ -1,6 +1,6 @@
 <div class="info">
   <span class="label">Score :</span>
-  {{ numCorrect }}/{{ currentIndex }}
+  {{ numCorrect }}/{{ totalAnswered }}
 </div>
 <div class="quiz" *ngIf="currentIndex < cardsWithAnswer.length">
   <div class="quiz-control">
@@ -20,9 +20,21 @@
           type="text"
           class="meaning-field"
           placeholder="Click to type"
-          [(ngModel)]="currentCard.answer"
-          (keyup.enter)="onSubmitAnswer()"
+          [readOnly]="isShowingResult"
+          [(ngModel)]="answer"
+          (keyup.enter)="onEnter()"
         />
+        <div class="card-result correct" [class.hidden]="!isShowingResult || !isCurrentCardCorrect">
+          <i class="fas fa-check"></i>
+          Correct
+        </div>
+        <div class="card-result wrong" [class.hidden]="!isShowingResult || isCurrentCardCorrect">
+          <i class="fas fa-times"></i>
+          Incorrect
+          <div class="correct-answer">
+            Correct answer: {{getCorrectAnswer(currentCard)}}
+          </div>
+        </div>
       </div>
     </div>
   </div>

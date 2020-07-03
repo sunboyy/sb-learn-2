@@ -17,6 +17,8 @@ export class QuizComponent implements OnInit {
   isSwapped = false;
   cardsWithAnswer: CardWithAnswer[] = [];
   currentIndex: number;
+  isShowingResult = false;
+  answer = '';
 
   ngOnInit(): void {
     for (const card of this.cards) {
@@ -25,12 +27,20 @@ export class QuizComponent implements OnInit {
     this.onRestart();
   }
 
-  onSubmitAnswer() {
-    this.currentIndex++;
+  onEnter() {
+    if (!this.isShowingResult && this.answer) {
+      this.isShowingResult = true;
+      this.currentCard.answer = this.answer;
+    } else if (this.isShowingResult) {
+      this.isShowingResult = false;
+      this.currentIndex++;
+      this.answer = '';
+    }
   }
 
   onToggleSwap() {
     this.isSwapped = !this.isSwapped;
+    this.shuffleCards();
   }
 
   onRestart() {
@@ -39,22 +49,25 @@ export class QuizComponent implements OnInit {
     this.currentIndex = 0;
   }
 
+  getCorrectAnswer(card: CardWithAnswer): string {
+    return this.isSwapped ? card.word : card.meaning;
+  }
+
+  get isCurrentCardCorrect(): boolean {
+    return this.getCorrectAnswer(this.currentCard) === this.currentCard.answer.trim();
+  }
+
   get currentCard(): CardWithAnswer {
     return this.cardsWithAnswer[this.currentIndex];
   }
 
   get numCorrect(): number {
-    let sum = 0;
-    for (let i = 0; i < this.currentIndex; i++) {
-      const card = this.cardsWithAnswer[i];
-      if (
-        (!this.isSwapped && card.answer.trim() === card.meaning.trim()) ||
-        (this.isSwapped && card.answer.trim() === card.word.trim())
-      ) {
-        sum++;
-      }
-    }
-    return sum;
+    return this.cardsWithAnswer.filter((card) => this.getCorrectAnswer(card) === card.answer.trim())
+      .length;
+  }
+
+  get totalAnswered(): number {
+    return this.cardsWithAnswer.filter((card) => card.answer).length;
   }
 
   private shuffleCards() {

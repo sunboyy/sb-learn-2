@@ -36,7 +36,6 @@ public class JwtService {
     }
 
     private Algorithm getAlgorithm() {
-        System.out.println(jwtSecret);
         return Algorithm.HMAC256(jwtSecret);
     }
 }
