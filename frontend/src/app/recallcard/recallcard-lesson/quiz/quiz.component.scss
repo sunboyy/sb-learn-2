@@ -34,7 +34,7 @@
 
   .word, .meaning {
     padding: 16px;
-    height: 160px;
+    height: 144px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,7 +58,7 @@
       font-size: 28px;
       border: 0;
       color: $brown;
-      height: 160px;
+      height: 144px;
       outline: none;
 
       &::placeholder {

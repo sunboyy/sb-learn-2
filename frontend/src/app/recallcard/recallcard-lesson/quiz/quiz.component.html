@@ -4,9 +4,13 @@
 </div>
 <div class="quiz" *ngIf="currentIndex < cardsWithAnswer.length">
   <div class="quiz-control">
-    <button app-transparent-button *ngIf="currentIndex == 0" (click)="onToggleSwap()">
+    <button app-transparent-button *ngIf="currentIndex == 0 && !isShowingResult" (click)="onToggleSwap()">
       <i class="fas fa-retweet"></i>
       Swap
+    </button>
+    <button app-transparent-button [disabled]="!isShowingResult" (click)="onEnter()">
+      Next
+      <i class="fas fa-arrow-right"></i>
     </button>
   </div>
   <div class="card-container">

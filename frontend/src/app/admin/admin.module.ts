@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { UserModule } from '../user/user.module';
+import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { AdminService } from './admin.service';
 import { UserManagementComponent } from './user-management/user-management.component';
@@ -11,6 +12,6 @@ import { UserManagementComponent } from './user-management/user-management.compo
 @NgModule({
   declarations: [AdminComponent, UserManagementComponent],
   providers: [AdminService],
-  imports: [CommonModule, SharedModule, UserModule, RouterModule, FormsModule]
+  imports: [CommonModule, SharedModule, UserModule, RouterModule, FormsModule, AdminRoutingModule]
 })
 export class AdminModule {}
