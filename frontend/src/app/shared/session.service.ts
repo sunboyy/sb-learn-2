@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../user/user';
+import { BehaviorSubject } from 'rxjs';
+
+export enum StorageLocation {
+  Session,
+  Local
+}
 
 @Injectable({
   providedIn: 'root'
@@ -8,19 +12,40 @@ import { User } from '../user/user';
 export class SessionService {
   private readonly ACCESS_TOKEN_KEY = 'accessToken';
 
-  isSignedIn = new BehaviorSubject<boolean>(!!sessionStorage.getItem(this.ACCESS_TOKEN_KEY));
+  isSignedIn = new BehaviorSubject<boolean>(this.getStorageLocation() !== undefined);
 
-  getAccessToken(): string {
-    return sessionStorage.getItem(this.ACCESS_TOKEN_KEY);
+  private getStorageLocation(): StorageLocation {
+    if (sessionStorage.getItem(this.ACCESS_TOKEN_KEY)) {
+      return StorageLocation.Session;
+    } else if (localStorage.getItem(this.ACCESS_TOKEN_KEY)) {
+      return StorageLocation.Local;
+    }
   }
 
-  setAccessToken(accessToken: string) {
-    sessionStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);
+  getAccessToken(): string {
+    switch (this.getStorageLocation()) {
+      case StorageLocation.Session:
+        return sessionStorage.getItem(this.ACCESS_TOKEN_KEY);
+      case StorageLocation.Local:
+        return localStorage.getItem(this.ACCESS_TOKEN_KEY);
+    }
+  }
+
+  setAccessToken(accessToken: string, storageLocation: StorageLocation) {
+    switch (storageLocation) {
+      case StorageLocation.Session:
+        sessionStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);
+        break;
+      case StorageLocation.Local:
+        localStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);
+        break;
+    }
     this.isSignedIn.next(true);
   }
 
   destroy() {
     sessionStorage.removeItem(this.ACCESS_TOKEN_KEY);
+    localStorage.removeItem(this.ACCESS_TOKEN_KEY);
     this.isSignedIn.next(false);
   }
 }

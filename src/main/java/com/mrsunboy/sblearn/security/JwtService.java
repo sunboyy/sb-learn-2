@@ -15,7 +15,7 @@ public class JwtService {
     @Value("${auth.jwtSecret}")
     private String jwtSecret;
 
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24;
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 7;
 
     public String sign(String username) {
         String token = JWT.create()
