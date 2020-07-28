@@ -1,31 +1,35 @@
 <div class="sign-up">
   <app-error-message [message]="message"></app-error-message>
-  <app-striped-header>Create a new account</app-striped-header>
+  <app-striped-header>{{ 'auth.sign-up.title' | translate }}</app-striped-header>
   <form>
     <input
       app-rounded-text-field
       type="text"
-      placeholder="username"
+      [placeholder]="'auth.common.username' | translate"
       [(ngModel)]="username"
       [ngModelOptions]="{ standalone: true }"
     />
     <input
       app-rounded-text-field
       type="password"
-      placeholder="password"
+      [placeholder]="'auth.common.password' | translate"
       [(ngModel)]="password"
       [ngModelOptions]="{ standalone: true }"
     />
     <input
       app-rounded-text-field
       type="password"
-      placeholder="confirm password"
+      [placeholder]="'auth.common.confirm-password' | translate"
       [(ngModel)]="confirmPassword"
       [ngModelOptions]="{ standalone: true }"
     />
     <button app-rounded-button [dark]="true" (click)="onSignUp()" [disabled]="isLoading">
-      sign up <i class="fas fa-user-plus"></i>
+      {{ 'auth.sign-up.title' | translate }}
+      <i class="fas fa-user-plus"></i>
     </button>
   </form>
-  <div class="auth-switch">Already a member? <a routerLink="/auth/sign-in">Sign in</a></div>
+  <div class="auth-switch">
+    {{ 'auth.sign-up.alreadymember' | translate }}
+    <a routerLink="/auth/sign-in">{{ 'auth.sign-in.title' | translate }}</a>
+  </div>
 </div>

@@ -3,6 +3,7 @@ package com.mrsunboy.sblearn.controller;
 import com.mrsunboy.sblearn.data.Result;
 import com.mrsunboy.sblearn.data.User;
 import com.mrsunboy.sblearn.service.UserService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ public class AdminUserController {
         return userService.editUser(editUserDto.getUsername(), editUserDto.getPassword(), editUserDto.getAuthority(), editUserDto.getEnabled());
     }
 
+    @Getter
     private static class CreateUserDto {
         @NotBlank
         private String username;
@@ -40,20 +42,9 @@ public class AdminUserController {
 
         @Pattern(regexp = "ROLE_(USER|ADMIN)")
         private String authority;
-
-        public String getUsername() {
-            return username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public String getAuthority() {
-            return authority;
-        }
     }
 
+    @Getter
     private static class EditUserDto {
         @NotBlank
         private String username;
@@ -67,21 +58,5 @@ public class AdminUserController {
         @Min(value = 0)
         @Max(value = 1)
         private short enabled;
-
-        public String getUsername() {
-            return username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public String getAuthority() {
-            return authority;
-        }
-
-        public short getEnabled() {
-            return enabled;
-        }
     }
 }

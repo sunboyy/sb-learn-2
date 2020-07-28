@@ -3,17 +3,25 @@
     <div class="logo">
       <img src="/assets/img/logo.png" alt="SB Learn Logo" />
     </div>
-    <a *ngIf="isSignedIn" class="nav-item" routerLink="/recallcard/learn">Learn</a>
-    <a *ngIf="isSignedIn" class="nav-item" routerLink="/recallcard/manage">Manage</a>
+    <a *ngIf="isSignedIn" class="nav-item" routerLink="/recallcard/learn">
+      {{ 'recallcard.learn.title' | translate }}
+    </a>
+    <a *ngIf="isSignedIn" class="nav-item" routerLink="/recallcard/manage">
+      {{ 'recallcard.manage.title' | translate }}
+    </a>
   </div>
   <div class="nav-side">
     <div *ngIf="isSignedIn" class="menu">
       <i class="fas fa-user"></i>
       <div class="menu-dropdown">
-        <a class="menu-dropdown-item" routerLink="/settings">Settings</a>
-        <a class="menu-dropdown-item" *ngIf="userAuthority == 'ROLE_ADMIN'" routerLink="/admin">Administration</a>
+        <a class="menu-dropdown-item" routerLink="/settings">
+          {{ 'settings.common.title' | translate }}
+        </a>
+        <a class="menu-dropdown-item" *ngIf="userAuthority == 'ROLE_ADMIN'" routerLink="/admin">
+          {{ 'admin.common.title' | translate }}
+        </a>
         <div class="menu-dropdown-item" (click)="onSignOut()">
-          Sign out
+          {{ 'auth.sign-out.title' | translate }}
           <i class="fas fa-sign-out-alt"></i>
         </div>
       </div>

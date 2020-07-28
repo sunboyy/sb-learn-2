@@ -1,24 +1,32 @@
 <app-error-message [message]="message"></app-error-message>
 <div class="recallcard-learn">
   <div class="grid-area-courses">
-    <app-vertical-list title="Courses" name="courses" [handler]="this"></app-vertical-list>
+    <app-vertical-list
+      [title]="'recallcard.common.courses' | translate"
+      name="courses"
+      [handler]="this"
+    ></app-vertical-list>
   </div>
   <div class="grid-area-lessons">
     <div class="lessons" *ngIf="selectedCourse">
-      <app-vertical-list title="Lessons" name="lessons" [handler]="this"></app-vertical-list>
+      <app-vertical-list
+        [title]="'recallcard.common.lessons' | translate"
+        name="lessons"
+        [handler]="this"
+      ></app-vertical-list>
     </div>
   </div>
   <div class="grid-area-cards">
     <div class="cards" *ngIf="selectedLesson && selectedLesson.cards">
       <div class="header">
         <span class="header-title">{{ selectedLesson.name }}</span>
-        ({{ selectedLesson.cards.length }} card{{selectedLesson.cards.length > 1 ? 's':''}})
+        ({{ selectedLesson.cards.length }} {{ 'recallcard.common.cardsuffix' | translate }})
       </div>
       <div class="content">
         <div class="wordlist-row header">
-          <span>Word</span>
+          <span>{{ 'recallcard.common.word' | translate }}</span>
           <div>
-            Meaning
+            {{ 'recallcard.common.meaning' | translate }}
             <i
               class="fas btn-visibility"
               [class.fa-eye]="isMeaningVisible"
@@ -38,21 +46,23 @@
     <div class="right" *ngIf="selectedLesson && selectedLesson.cards">
       <img src="/assets/img/lessons.png" class="lessons-img" />
       <div class="play">
-        <app-header-text>Play mode</app-header-text>
+        <app-header-text>{{ 'recallcard.learn.playmode' | translate }}</app-header-text>
         <label class="play-option" [class.selected]="playMode == 'multicards'">
           <input type="radio" value="multicards" [(ngModel)]="playMode" />
-          Multi-Cards
+          {{ 'recallcard.learn.multicards.title' | translate }}
         </label>
         <label class="play-option" [class.selected]="playMode == 'random'">
           <input type="radio" value="random" [(ngModel)]="playMode" />
-          Random
+          {{ 'recallcard.learn.random.title' | translate }}
         </label>
         <label class="play-option" [class.selected]="playMode == 'quiz'">
           <input type="radio" value="quiz" [(ngModel)]="playMode" />
-          Quiz
+          {{ 'recallcard.learn.quiz.title' | translate }}
         </label>
       </div>
-      <button app-rounded-button [disabled]="!playMode" (click)="onClickPlay()">Play</button>
+      <button app-rounded-button [disabled]="!playMode" (click)="onClickPlay()">
+        {{ 'recallcard.learn.play' | translate }}
+      </button>
     </div>
   </div>
 </div>

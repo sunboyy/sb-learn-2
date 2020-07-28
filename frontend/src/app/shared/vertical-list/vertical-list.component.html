@@ -5,6 +5,7 @@
     [selected]="handler.verticalListIsItemSelectedAtIndex(this, i)"
     (click)="handler.verticalListOnClickItemAtIndex(this, i)"
     [icon]="handler.verticalListGetIconAtIndex != null ? handler.verticalListGetIconAtIndex(this, i) : ''"
-    >{{ handler.verticalListGetLabelAtIndex(this, i) }}</app-list-button-item
   >
+    {{ handler.verticalListGetLabelAtIndex(this, i) | async }}
+  </app-list-button-item>
 </div>

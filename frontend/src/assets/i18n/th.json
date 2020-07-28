@@ -1,0 +1,62 @@
+{
+  "auth.common.welcome": "ยินดีต้อนรับเข้าสู่",
+  "auth.common.username": "ชื่อบัญชี",
+  "auth.common.password": "รหัสผ่าน",
+  "auth.common.confirm-password": "ยืนยันรหัสผ่าน",
+  "auth.sign-in.title": "เข้าสู่ระบบ",
+  "auth.sign-in.rememberme": "จดจำฉันไว้",
+  "auth.sign-in.noaccount": "ยังไม่มีบัญชีใช่หรือไม่?",
+  "auth.sign-up.title": "สมัครสมาชิก",
+  "auth.sign-up.alreadymember": "เป็นสมาชิกอยู่แล้วใช่หรือไม่?",
+  "auth.sign-out.title": "ออกจากระบบ",
+
+  "recallcard": {
+    "common.courses": "รายวิชา",
+    "common.course": "รายวิชา",
+    "common.lessons": "บทเรียน",
+    "common.lesson": "บทเรียน",
+    "common.word": "คำ",
+    "common.meaning": "ความหมาย",
+    "common.label.numcards": "จำนวนข้อ",
+    "common.cardsuffix": "ข้อ",
+
+    "learn.common.swap": "สลับ",
+
+    "learn.title": "บทเรียน",
+    "learn.playmode": "โหมดการเล่น",
+    "learn.play": "เล่น",
+    "learn.change": "เปลี่ยน",
+    "learn.multicards.title": "หลายการ์ด",
+    "learn.multicards.cardsopen": "จำนวนการ์ดที่เปิดอยู่",
+    "learn.multicards.openall": "เปิดทั้งหมด",
+    "learn.multicards.closeall": "ปิดทั้งหมด",
+    "learn.multicards.shuffle": "สลับใหม่",
+    "learn.random.title": "สุ่ม",
+    "learn.random.showanswer": "คลิกเพื่อดูคำตอบ",
+    "learn.quiz.title": "ทดสอบ",
+    "learn.quiz.score": "คะแนน",
+    "learn.quiz.next": "ต่อไป",
+    "learn.quiz.restart": "เริ่มใหม่",
+    "learn.quiz.clicktotype": "คลิกเพื่อพิมพ์",
+    "learn.quiz.correct": "ถูกต้อง",
+    "learn.quiz.incorrect": "ผิด",
+    "learn.quiz.correct-answer": "คำตอบที่ถูกต้อง",
+
+    "manage.title": "จัดการ"
+  },
+
+  "settings.common.title": "การตั้งค่า",
+  "settings.change-password.title": "เปลี่ยนรหัสผ่าน",
+  "settings.change-password.current": "รหัสผ่านปัจจุบัน",
+  "settings.change-password.new": "รหัสผ่านใหม่",
+  "settings.change-password.confirm": "ยืนยันรหัสผ่าน",
+  "settings.change-password.tooltip-new": "รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร",
+  "settings.change-password.submit": "เปลี่ยนรหัสผ่าน",
+
+  "admin.common.title": "การบริหารจัดการ",
+  "admin.common.save": "บันทึกการเปลี่ยนแปลง",
+  "admin.user.title": "บัญชีผู้ใช้",
+  "admin.user.self-registration.title": "การลงทะเบียนด้วยตัวเอง",
+  "admin.user.self-registration.allow": "อนุญาตให้ลงทะเบียนด้วยตัวเอง",
+  "admin.user.management.title": "การจัดการผู้ใช้"
+}

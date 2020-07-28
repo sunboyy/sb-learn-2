@@ -5,6 +5,7 @@ import {
   VerticalListHandler
 } from 'src/app/shared/vertical-list/vertical-list.component';
 import { Course, Lesson, RecallcardService } from '../recallcard.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-recallcard-learn',
@@ -74,12 +75,15 @@ export class RecallcardLearnComponent implements OnInit, VerticalListHandler {
     }
   }
 
-  verticalListGetLabelAtIndex(verticalList: VerticalListComponent, index: number): string {
+  verticalListGetLabelAtIndex(
+    verticalList: VerticalListComponent,
+    index: number
+  ): Observable<string> {
     switch (verticalList.name) {
       case 'courses':
-        return this.courses[index].name;
+        return of(this.courses[index].name);
       case 'lessons':
-        return this.selectedCourse.lessons[index].name;
+        return of(this.selectedCourse.lessons[index].name);
     }
   }
 

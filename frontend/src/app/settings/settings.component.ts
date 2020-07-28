@@ -4,6 +4,8 @@ import {
   VerticalListComponent,
   VerticalListHandler
 } from '../shared/vertical-list/vertical-list.component';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -11,9 +13,19 @@ import {
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements VerticalListHandler {
-  menus = [{ label: 'Change Password', icon: 'lock', path: 'change-password' }];
+  menus = [
+    {
+      label: this.translate.stream('settings.change-password.title'),
+      icon: 'lock',
+      path: 'change-password'
+    }
+  ];
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private translate: TranslateService
+  ) {}
 
   /**
    * VerticalListHandler implementation
@@ -22,7 +34,10 @@ export class SettingsComponent implements VerticalListHandler {
     return this.menus;
   }
 
-  verticalListGetLabelAtIndex(verticalList: VerticalListComponent, index: number): string {
+  verticalListGetLabelAtIndex(
+    verticalList: VerticalListComponent,
+    index: number
+  ): Observable<string> {
     return this.menus[index].label;
   }
 

@@ -1,15 +1,19 @@
 <div class="info">
-  <span class="label">Score :</span>
+  <span class="label">{{ 'recallcard.learn.quiz.score' | translate }} :</span>
   {{ numCorrect }}/{{ totalAnswered }}
 </div>
 <div class="quiz" *ngIf="currentIndex < cardsWithAnswer.length">
   <div class="quiz-control">
-    <button app-transparent-button *ngIf="currentIndex == 0 && !isShowingResult" (click)="onToggleSwap()">
+    <button
+      app-transparent-button
+      *ngIf="currentIndex == 0 && !isShowingResult"
+      (click)="onToggleSwap()"
+    >
       <i class="fas fa-retweet"></i>
-      Swap
+      {{ 'recallcard.learn.common.swap' | translate }}
     </button>
     <button app-transparent-button [disabled]="!isShowingResult" (click)="onEnter()">
-      Next
+      {{ 'recallcard.learn.quiz.next' | translate }}
       <i class="fas fa-arrow-right"></i>
     </button>
   </div>
@@ -23,20 +27,21 @@
         <input
           type="text"
           class="meaning-field"
-          placeholder="Click to type"
+          [placeholder]="'recallcard.learn.quiz.clicktotype' | translate"
           [readOnly]="isShowingResult"
           [(ngModel)]="answer"
           (keyup.enter)="onEnter()"
         />
         <div class="card-result correct" [class.hidden]="!isShowingResult || !isCurrentCardCorrect">
           <i class="fas fa-check"></i>
-          Correct
+          {{ 'recallcard.learn.quiz.correct' | translate }}
         </div>
         <div class="card-result wrong" [class.hidden]="!isShowingResult || isCurrentCardCorrect">
           <i class="fas fa-times"></i>
-          Incorrect
+          {{ 'recallcard.learn.quiz.incorrect' | translate }}
           <div class="correct-answer">
-            Correct answer: {{getCorrectAnswer(currentCard)}}
+            {{ 'recallcard.learn.quiz.correct-answer' | translate }}:
+            {{ getCorrectAnswer(currentCard) }}
           </div>
         </div>
       </div>
@@ -47,7 +52,7 @@
   <div class="quiz-control">
     <button app-transparent-button (click)="onRestart()">
       <i class="fas fa-redo-alt"></i>
-      Restart
+      {{ 'recallcard.learn.quiz.restart' | translate }}
     </button>
   </div>
 </div>

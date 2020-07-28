@@ -1,11 +1,11 @@
 <div class="user-management">
-  <app-header-text icon="users">User Accounts</app-header-text>
-  <h2>Self Registration</h2>
+  <app-header-text icon="users">{{ 'admin.user.title' | translate }}</app-header-text>
+  <h2>{{ 'admin.user.self-registration.title' | translate }}</h2>
   <div class="section-content" *ngIf="allowSelfRegistration !== undefined">
     <div class="content-no-button">
       <label>
         <input type="checkbox" [(ngModel)]="allowSelfRegistration" />
-        Allow Self Registration
+        {{ 'admin.user.self-registration.allow' | translate }}
       </label>
     </div>
     <button
@@ -13,10 +13,10 @@
       [disabled]="isLoadingSelfRegistration"
       (click)="onSaveSelfRegistration()"
     >
-      Save changes
+      {{ 'admin.common.save' | translate }}
     </button>
   </div>
-  <h2>User Management</h2>
+  <h2>{{ 'admin.user.management.title' | translate }}</h2>
   <div class="section-content">
     <div *ngFor="let user of users">{{ user.username }}</div>
   </div>

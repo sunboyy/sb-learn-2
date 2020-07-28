@@ -4,6 +4,8 @@ import {
   VerticalListComponent,
   VerticalListHandler
 } from '../shared/vertical-list/vertical-list.component';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -11,9 +13,13 @@ import {
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements VerticalListHandler {
-  menus = [{ label: 'User Accounts', icon: 'users', path: 'user' }];
+  menus = [{ label: this.translate.stream('admin.user.title'), icon: 'users', path: 'user' }];
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private translate: TranslateService
+  ) {}
 
   /**
    * VerticalListHandler implementation
@@ -22,7 +28,10 @@ export class AdminComponent implements VerticalListHandler {
     return this.menus;
   }
 
-  verticalListGetLabelAtIndex(verticalList: VerticalListComponent, index: number): string {
+  verticalListGetLabelAtIndex(
+    verticalList: VerticalListComponent,
+    index: number
+  ): Observable<string> {
     return this.menus[index].label;
   }
 

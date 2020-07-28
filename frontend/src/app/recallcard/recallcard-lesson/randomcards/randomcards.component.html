@@ -1,7 +1,7 @@
 <div class="randomcards-control">
   <button app-transparent-button (click)="onToggleSwap()">
     <i class="fas fa-retweet"></i>
-    Swap
+    {{ 'recallcard.learn.common.swap' | translate }}
   </button>
 </div>
 <div class="card-container">
@@ -18,7 +18,9 @@
         <ng-container *ngIf="!isSwapped">{{ currentCard.meaning }}</ng-container>
         <ng-container *ngIf="isSwapped">{{ currentCard.word }}</ng-container>
       </span>
-      <span class="hidden" *ngIf="!showMeaning">Click to show answer</span>
+      <span class="hidden" *ngIf="!showMeaning">
+        {{ 'recallcard.learn.random.showanswer' | translate }}
+      </span>
     </div>
   </div>
 </div>

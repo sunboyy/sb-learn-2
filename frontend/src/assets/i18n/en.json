@@ -1,0 +1,62 @@
+{
+  "auth.common.welcome": "Welcome to",
+  "auth.common.username": "username",
+  "auth.common.password": "password",
+  "auth.common.confirm-password": "confirm password",
+  "auth.sign-in.title": "Sign in",
+  "auth.sign-in.rememberme": "Remember me",
+  "auth.sign-in.noaccount": "Don't have an account?",
+  "auth.sign-up.title": "Sign up",
+  "auth.sign-up.alreadymember": "Already a member?",
+  "auth.sign-out.title": "Sign out",
+
+  "recallcard": {
+    "common.courses": "Courses",
+    "common.course": "Course",
+    "common.lessons": "Lessons",
+    "common.lesson": "Lesson",
+    "common.word": "Word",
+    "common.meaning": "Meaning",
+    "common.label.numcards": "Number of cards",
+    "common.cardsuffix": "card(s)",
+
+    "learn.common.swap": "Swap",
+
+    "learn.title": "Learn",
+    "learn.playmode": "Play mode",
+    "learn.play": "Play",
+    "learn.change": "Change",
+    "learn.multicards.title": "Multi-cards",
+    "learn.multicards.cardsopen": "Cards opened",
+    "learn.multicards.openall": "Open all",
+    "learn.multicards.closeall": "Close all",
+    "learn.multicards.shuffle": "Shuffle",
+    "learn.random.title": "Random",
+    "learn.random.showanswer": "Click to show answer",
+    "learn.quiz.title": "Quiz",
+    "learn.quiz.score": "Score",
+    "learn.quiz.next": "Next",
+    "learn.quiz.restart": "Restart",
+    "learn.quiz.clicktotype": "Click to type",
+    "learn.quiz.correct": "Correct",
+    "learn.quiz.incorrect": "Incorrect",
+    "learn.quiz.correct-answer": "Correct answer",
+
+    "manage.title": "Manage"
+  },
+
+  "settings.common.title": "Settings",
+  "settings.change-password.title": "Change Password",
+  "settings.change-password.current": "Current password",
+  "settings.change-password.new": "New password",
+  "settings.change-password.confirm": "Confirm password",
+  "settings.change-password.tooltip-new": "The password must be at least 6 characters long.",
+  "settings.change-password.submit": "Update password",
+
+  "admin.common.title": "Administration",
+  "admin.common.save": "Save changes",
+  "admin.user.title": "User Accounts",
+  "admin.user.self-registration.title": "Self registration",
+  "admin.user.self-registration.allow": "Allow self registration",
+  "admin.user.management.title": "User management"
+}

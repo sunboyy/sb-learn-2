@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-vertical-list',
@@ -21,7 +22,10 @@ export class VerticalListComponent {
 
 export interface VerticalListHandler {
   verticalListGetItems(verticalList: VerticalListComponent): any[];
-  verticalListGetLabelAtIndex(verticalList: VerticalListComponent, index: number): string;
+  verticalListGetLabelAtIndex(
+    verticalList: VerticalListComponent,
+    index: number
+  ): Observable<string>;
   verticalListGetIconAtIndex?(verticalList: VerticalListComponent, index: number): string;
   verticalListOnClickItemAtIndex(verticalList: VerticalListComponent, index: number): void;
   verticalListIsItemSelectedAtIndex(verticalList: VerticalListComponent, index: number): boolean;

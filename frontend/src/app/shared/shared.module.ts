@@ -20,6 +20,7 @@ import { StatusService } from './status.service';
 import { StripedHeaderComponent } from './striped-header/striped-header.component';
 import { TransparentButtonComponent } from './transparent-button/transparent-button.component';
 import { VerticalListComponent } from './vertical-list/vertical-list.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { VerticalListComponent } from './vertical-list/vertical-list.component';
     EditableTextComponent,
     TransparentButtonComponent,
     VerticalListComponent,
-    RegularTextFieldComponent
+    RegularTextFieldComponent,
+    TranslateModule
   ]
 })
 export class SharedModule {}

@@ -1,5 +1,6 @@
 package com.mrsunboy.sblearn.service;
 
+import com.mrsunboy.sblearn.form.UpdatePreferencesForm;
 import com.mrsunboy.sblearn.data.*;
 import com.mrsunboy.sblearn.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,5 +86,15 @@ public class UserService {
     public boolean isAllowSelfRegistration() {
         Config config = configService.getConfig(Config.ALLOW_SELF_REGISTRATION);
         return config.getValue() > 0 || userRepository.count() == 0;
+    }
+
+    public Result<User> updatePreferences(UpdatePreferencesForm form) {
+        User user = userRepository.findByUsername(form.getUsername());
+        if (user == null) {
+            return new FailureResult<>("User not found");
+        }
+        user.setLanguage(form.getLanguage());
+        userRepository.save(user);
+        return new SuccessResult<>(user);
     }
 }

@@ -17,6 +17,7 @@ public class User {
     private String password;
     private String authority;
     private short enabled = 1;
+    private String language = "en";
     private Date lastLoggedIn;
 
     public void setUsername(String username) {
@@ -33,6 +34,10 @@ public class User {
 
     public void setEnabled(short enabled) {
         this.enabled = enabled;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public void setLastLoggedIn(Date lastLoggedIn) {
@@ -53,6 +58,10 @@ public class User {
 
     public short getEnabled() {
         return enabled;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 
     public Date getLastLoggedIn() {

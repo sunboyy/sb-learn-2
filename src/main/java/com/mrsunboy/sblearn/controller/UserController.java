@@ -1,5 +1,7 @@
 package com.mrsunboy.sblearn.controller;
 
+import com.mrsunboy.sblearn.form.ChangePasswordForm;
+import com.mrsunboy.sblearn.form.UpdatePreferencesForm;
 import com.mrsunboy.sblearn.data.Result;
 import com.mrsunboy.sblearn.data.User;
 import com.mrsunboy.sblearn.service.UserService;
@@ -29,9 +31,16 @@ public class UserController {
     }
 
     @PostMapping("/change-password")
-    public Result<Object> changePassword(@Valid @RequestBody ChangePasswordDto changePasswordDto) {
+    public Result<Object> changePassword(@Valid @RequestBody ChangePasswordForm changePasswordForm) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userService.changePassword(changePasswordDto.currentPassword, changePasswordDto.newPassword, username);
+        return userService.changePassword(changePasswordForm.getCurrentPassword(), changePasswordForm.getNewPassword(), username);
+    }
+
+    @PostMapping("/preferences")
+    public Result<User> updatePreferences(@Valid @RequestBody UpdatePreferencesForm updatePreferencesForm) {
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        updatePreferencesForm.setUsername(username);
+        return userService.updatePreferences(updatePreferencesForm);
     }
 
     private static class RegisterDto {
@@ -48,22 +57,6 @@ public class UserController {
 
         public String getPassword() {
             return password;
-        }
-    }
-
-    private static class ChangePasswordDto {
-        @NotBlank
-        private String currentPassword;
-
-        @Size(min = 6)
-        private String newPassword;
-
-        public String getCurrentPassword() {
-            return currentPassword;
-        }
-
-        public String getNewPassword() {
-            return newPassword;
         }
     }
 }
