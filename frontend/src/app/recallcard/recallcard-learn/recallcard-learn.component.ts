@@ -24,7 +24,7 @@ export class RecallcardLearnComponent implements OnInit, VerticalListHandler {
 
   constructor(private recallcardService: RecallcardService, private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.recallcardService.getAllCourses().subscribe((res) => {
       if (res.success) {
         this.courses = res.data;
@@ -34,14 +34,14 @@ export class RecallcardLearnComponent implements OnInit, VerticalListHandler {
     });
   }
 
-  onClickCourse(course: Course) {
+  onClickCourse(course: Course): void {
     if (this.selectedCourse !== course) {
       this.selectedCourse = course;
       this.selectedLesson = undefined;
     }
   }
 
-  onClickLesson(lesson: Lesson) {
+  onClickLesson(lesson: Lesson): void {
     if (!this.selectedLesson || this.selectedLesson.id !== lesson.id) {
       this.selectedLesson = lesson;
       this.recallcardService.getLesson(lesson.id).subscribe((res) => {
@@ -54,11 +54,11 @@ export class RecallcardLearnComponent implements OnInit, VerticalListHandler {
     }
   }
 
-  onToggleVisiblity() {
+  onToggleVisiblity(): void {
     this.isMeaningVisible = !this.isMeaningVisible;
   }
 
-  onClickPlay() {
+  onClickPlay(): void {
     this.router.navigate(['recallcard', 'lesson', this.selectedLesson.id, this.playMode]);
   }
 
@@ -103,5 +103,6 @@ export class RecallcardLearnComponent implements OnInit, VerticalListHandler {
           this.selectedLesson && this.selectedCourse.lessons[index].id === this.selectedLesson.id
         );
     }
+    return false;
   }
 }

@@ -18,16 +18,16 @@ export class ListEditableButtonItemComponent {
   isEditing = false;
   editValue: string;
 
-  onStartEdit() {
+  onStartEdit(): void {
     this.isEditing = true;
     this.editValue = this.text;
   }
 
-  onCancelEdit() {
+  onCancelEdit(): void {
     this.isEditing = false;
   }
 
-  onFinishEdit() {
+  onFinishEdit(): void {
     this.isEditing = false;
     this.edit.emit(this.editValue);
   }

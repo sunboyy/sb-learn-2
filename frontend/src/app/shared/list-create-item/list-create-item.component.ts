@@ -11,7 +11,7 @@ export class ListCreateItemComponent {
   @Output()
   create = new EventEmitter();
 
-  onCreate() {
+  onCreate(): void {
     if (this.value) {
       this.create.emit(this.value);
       this.value = '';

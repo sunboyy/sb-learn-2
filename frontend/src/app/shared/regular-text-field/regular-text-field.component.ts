@@ -23,7 +23,7 @@ export class RegularTextFieldComponent implements OnInit {
 
   constructor(private elementRef: ElementRef) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.error) {
       this.error.subscribe((error) => {
         if (error) {

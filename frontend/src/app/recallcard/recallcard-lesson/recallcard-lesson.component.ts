@@ -38,7 +38,7 @@ export class RecallcardLessonComponent implements OnInit {
     });
   }
 
-  onChangePlayMode() {
+  onChangePlayMode(): void {
     this.router.navigate(['..', this.playMode], {
       relativeTo: this.route
     });

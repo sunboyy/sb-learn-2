@@ -27,7 +27,7 @@ export class QuizComponent implements OnInit {
     this.onRestart();
   }
 
-  onEnter() {
+  onEnter(): void {
     if (!this.isShowingResult && this.answer) {
       this.isShowingResult = true;
       this.currentCard.answer = this.answer;
@@ -38,12 +38,12 @@ export class QuizComponent implements OnInit {
     }
   }
 
-  onToggleSwap() {
+  onToggleSwap(): void {
     this.isSwapped = !this.isSwapped;
     this.shuffleCards();
   }
 
-  onRestart() {
+  onRestart(): void {
     this.cardsWithAnswer.forEach((card) => (card.answer = ''));
     this.shuffleCards();
     this.currentIndex = 0;
@@ -70,7 +70,7 @@ export class QuizComponent implements OnInit {
     return this.cardsWithAnswer.filter((card) => card.answer).length;
   }
 
-  private shuffleCards() {
+  private shuffleCards(): void {
     for (let i = this.cardsWithAnswer.length; i > 0; i--) {
       const randomIndex = Math.floor(Math.random() * i);
       const temp = this.cardsWithAnswer[i - 1];

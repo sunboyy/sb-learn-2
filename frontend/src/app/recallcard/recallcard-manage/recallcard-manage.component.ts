@@ -39,7 +39,7 @@ export class RecallcardManageComponent implements OnInit {
 
   constructor(private recallcardService: RecallcardService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.recallcardService.getAllCourses().subscribe((res) => {
       if (res.success) {
         this.courses = res.data;
@@ -49,14 +49,14 @@ export class RecallcardManageComponent implements OnInit {
     });
   }
 
-  onClickCourse(course: Course) {
+  onClickCourse(course: Course): void {
     if (this.selectedCourse !== course) {
       this.selectedCourse = course;
       this.selectedLesson = undefined;
     }
   }
 
-  onClickLesson(lesson: Lesson) {
+  onClickLesson(lesson: Lesson): void {
     if (!this.selectedLesson || this.selectedLesson.id !== lesson.id) {
       this.selectedLesson = lesson;
       this.recallcardService.getLesson(lesson.id).subscribe((res) => {
@@ -69,7 +69,7 @@ export class RecallcardManageComponent implements OnInit {
     }
   }
 
-  onCreateCourse(name: string) {
+  onCreateCourse(name: string): void {
     this.recallcardService.createCourse(name).subscribe((res) => {
       if (res.success) {
         res.data.lessons = [];
@@ -81,7 +81,7 @@ export class RecallcardManageComponent implements OnInit {
     });
   }
 
-  onCreateLesson(course: Course, name: string) {
+  onCreateLesson(course: Course, name: string): void {
     this.recallcardService.createLesson(course.id, name).subscribe((res) => {
       if (res.success) {
         this.selectedCourse.lessons.push(res.data);
@@ -92,7 +92,7 @@ export class RecallcardManageComponent implements OnInit {
     });
   }
 
-  onRenameCourse(course: Course, name: string) {
+  onRenameCourse(course: Course, name: string): void {
     this.recallcardService.editCourse(course.id, name).subscribe((res) => {
       if (res.success) {
         this.courses[this.courses.indexOf(course)] = res.data;
@@ -102,7 +102,7 @@ export class RecallcardManageComponent implements OnInit {
     });
   }
 
-  onRenameLesson(lesson: Lesson, name: string) {
+  onRenameLesson(lesson: Lesson, name: string): void {
     this.recallcardService.editLesson(lesson.id, name).subscribe((res) => {
       if (res.success) {
         this.selectedCourse.lessons[this.selectedCourse.lessons.indexOf(lesson)] = res.data;
@@ -113,7 +113,7 @@ export class RecallcardManageComponent implements OnInit {
     });
   }
 
-  onTypeCreateCard() {
+  onTypeCreateCard(): void {
     if (this.createCard.word.trim()) {
       this.createCard.wordError = false;
     }
@@ -122,7 +122,7 @@ export class RecallcardManageComponent implements OnInit {
     }
   }
 
-  onCreateCard() {
+  onCreateCard(): void {
     if (!this.createCard.word.trim()) {
       this.createCard.wordError = true;
     }
@@ -150,7 +150,7 @@ export class RecallcardManageComponent implements OnInit {
       });
   }
 
-  onDeleteCard(card: Card) {
+  onDeleteCard(card: Card): void {
     if (confirm('Are you sure you want to delete card ' + card.word + '/' + card.meaning + '?')) {
       this.recallcardService.deleteCard(card.id).subscribe((res) => {
         if (res.success) {
@@ -162,7 +162,7 @@ export class RecallcardManageComponent implements OnInit {
     }
   }
 
-  onEditCardWord(card: Card, word: string) {
+  onEditCardWord(card: Card, word: string): void {
     this.recallcardService.editCard(card.id, word, '').subscribe((res) => {
       if (res.success) {
         card.word = res.data.word;
@@ -172,7 +172,7 @@ export class RecallcardManageComponent implements OnInit {
     });
   }
 
-  onEditCardMeaning(card: Card, meaning: string) {
+  onEditCardMeaning(card: Card, meaning: string): void {
     this.recallcardService.editCard(card.id, '', meaning).subscribe((res) => {
       if (res.success) {
         card.meaning = res.data.meaning;

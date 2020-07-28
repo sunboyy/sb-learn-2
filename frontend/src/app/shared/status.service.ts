@@ -15,7 +15,7 @@ export class StatusService {
 
   constructor(private api: ApiService) {}
 
-  updateStatus() {
+  updateStatus(): void {
     this.api.get<Status>('status').subscribe((res) => {
       this.status.next(res);
     });

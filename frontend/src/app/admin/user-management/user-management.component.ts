@@ -25,7 +25,7 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
-  onSaveSelfRegistration() {
+  onSaveSelfRegistration(): void {
     this.isLoadingSelfRegistration = true;
     this.adminService
       .setAllowSelfRegistration(this.allowSelfRegistration ? 1 : 0)

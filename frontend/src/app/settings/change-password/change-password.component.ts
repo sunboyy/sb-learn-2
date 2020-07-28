@@ -15,7 +15,7 @@ export class ChangePasswordComponent {
 
   constructor(private settingsService: SettingsService) {}
 
-  onUpdatePassword() {
+  onUpdatePassword(): void {
     if (this.newPassword.length < 6) {
       this.message = 'The new password must be at least 6 characters long';
       return;

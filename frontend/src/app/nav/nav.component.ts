@@ -17,7 +17,7 @@ export class NavComponent implements OnInit {
     private userService: UserService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userService.getCurrentUser().subscribe((user) => {
       if (user) {
         this.userAuthority = user.authority;
@@ -31,7 +31,7 @@ export class NavComponent implements OnInit {
     return this.authService.isSignedIn;
   }
 
-  onSignOut() {
+  onSignOut(): void {
     this.authService.signOut();
     this.router.navigate(['auth', 'sign-in']);
   }

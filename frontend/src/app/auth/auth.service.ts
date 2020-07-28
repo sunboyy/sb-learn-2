@@ -33,11 +33,11 @@ export class AuthService {
     return this.api.post<Result<User>>('user/register', { username, password });
   }
 
-  signOut() {
+  signOut(): void {
     this.session.destroy();
   }
 
-  get isSignedIn() {
+  get isSignedIn(): boolean {
     return this.session.isSignedIn.getValue();
   }
 }

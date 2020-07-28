@@ -22,7 +22,7 @@ export class SignUpComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.statusService.getStatus().subscribe((status) => {
       if (!status.allowSelfRegistration) {
         this.router.navigate(['auth', 'sign-in']);
@@ -30,7 +30,7 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  onSignUp() {
+  onSignUp(): void {
     if (this.username === '') {
       this.message = 'Username must not be empty';
       return;

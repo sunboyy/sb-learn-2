@@ -11,11 +11,13 @@ interface CardWithOpen extends Card {
   styleUrls: ['./multicards.component.scss']
 })
 export class MulticardsComponent implements OnInit {
-  @Input()
   cards: CardWithOpen[];
 
-  ngOnInit() {
-    this.cards.forEach((card) => (card.open = false));
+  @Input()
+  inputCards: Card[];
+
+  ngOnInit(): void {
+    this.cards = this.inputCards.map((card) => ({ open: false, ...card }));
     this.shuffleCards();
   }
 
@@ -27,19 +29,19 @@ export class MulticardsComponent implements OnInit {
     return this.cards.length - this.numOpenedCards;
   }
 
-  onToggleOpenCard(card: CardWithOpen) {
+  onToggleOpenCard(card: CardWithOpen): void {
     card.open = !card.open;
   }
 
-  onOpenAll() {
+  onOpenAll(): void {
     this.cards.forEach((card) => (card.open = true));
   }
 
-  onCloseAll() {
+  onCloseAll(): void {
     this.cards.forEach((card) => (card.open = false));
   }
 
-  shuffleCards() {
+  shuffleCards(): void {
     for (let i = this.cards.length; i > 0; i--) {
       const randomIndex = Math.floor(Math.random() * i);
       const temp = this.cards[i - 1];

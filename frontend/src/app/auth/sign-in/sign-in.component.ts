@@ -24,13 +24,13 @@ export class SignInComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.statusService.getStatus().subscribe((status) => {
       this.allowRegistration = status.allowSelfRegistration;
     });
   }
 
-  onSignIn() {
+  onSignIn(): void {
     this.isLoading = true;
     this.authService.signIn(this.username, this.password, this.rememberMe).subscribe((message) => {
       this.isLoading = false;

@@ -18,17 +18,17 @@ export class RandomcardsComponent implements OnInit {
     this.randomCard();
   }
 
-  randomCard() {
+  randomCard(): void {
     const selectableCards = this.cards.filter((card) => card !== this.currentCard);
     this.currentCard = selectableCards[Math.floor(Math.random() * selectableCards.length)];
     this.showMeaning = false;
   }
 
-  onShowMeaning() {
+  onShowMeaning(): void {
     this.showMeaning = true;
   }
 
-  onToggleSwap() {
+  onToggleSwap(): void {
     this.isSwapped = !this.isSwapped;
     this.randomCard();
   }

@@ -17,7 +17,7 @@
   <div class="grid-area-content">
     <app-multicards
       *ngIf="currentPlayMode == 'multicards' && lesson"
-      [cards]="lesson.cards"
+      [inputCards]="lesson.cards"
     ></app-multicards>
     <app-randomcards
       *ngIf="currentPlayMode == 'random' && lesson"

@@ -31,7 +31,7 @@ export class SessionService {
     }
   }
 
-  setAccessToken(accessToken: string, storageLocation: StorageLocation) {
+  setAccessToken(accessToken: string, storageLocation: StorageLocation): void {
     switch (storageLocation) {
       case StorageLocation.Session:
         sessionStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);
@@ -43,7 +43,7 @@ export class SessionService {
     this.isSignedIn.next(true);
   }
 
-  destroy() {
+  destroy(): void {
     sessionStorage.removeItem(this.ACCESS_TOKEN_KEY);
     localStorage.removeItem(this.ACCESS_TOKEN_KEY);
     this.isSignedIn.next(false);
