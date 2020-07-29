@@ -18,6 +18,11 @@ export class SettingsComponent implements VerticalListHandler {
       label: this.translate.stream('settings.change-password.title'),
       icon: 'lock',
       path: 'change-password'
+    },
+    {
+      label: this.translate.stream('settings.preferences.title'),
+      icon: 'sliders-h',
+      path: 'preferences'
     }
   ];
 

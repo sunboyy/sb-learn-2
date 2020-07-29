@@ -1,0 +1,21 @@
+<div class="preferences">
+  <app-header-text icon="sliders-h">{{ 'settings.preferences.title' | translate }}</app-header-text>
+  <div class="preferences-content">
+    <div class="field">
+      <div class="label">{{ 'settings.preferences.language' | translate }}</div>
+      <select [(ngModel)]="language">
+        <option value="en">English</option>
+        <option value="th">ภาษาไทย</option>
+      </select>
+    </div>
+    <div class="field">
+      <div class="label"></div>
+      <div class="input">
+        <app-error-message [message]="message"></app-error-message>
+        <button app-rounded-button (click)="onSave()" [disabled]="isSaving">
+          {{ 'common.button.save' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

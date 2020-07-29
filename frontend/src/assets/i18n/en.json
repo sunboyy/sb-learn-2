@@ -51,12 +51,14 @@
   "settings.change-password.new": "New password",
   "settings.change-password.confirm": "Confirm password",
   "settings.change-password.tooltip-new": "The password must be at least 6 characters long.",
-  "settings.change-password.submit": "Update password",
+  "settings.preferences.title": "Preferences",
+  "settings.preferences.language": "Display Language",
 
   "admin.common.title": "Administration",
-  "admin.common.save": "Save changes",
   "admin.user.title": "User Accounts",
   "admin.user.self-registration.title": "Self registration",
   "admin.user.self-registration.allow": "Allow self registration",
-  "admin.user.management.title": "User management"
+  "admin.user.management.title": "User management",
+
+  "common.button.save": "Save changes"
 }

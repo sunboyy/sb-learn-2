@@ -19,20 +19,23 @@ export class UserService {
   ) {
     this.session.isSignedIn.subscribe((next) => {
       if (next) {
-        this.getProfile().subscribe((result) => {
-          if (result.success) {
-            this.currentUser.next(result.data);
-          } else {
-            this.currentUser.next(undefined);
-          }
-        });
+        this.updateCurrentUser();
       } else {
         this.currentUser.next(undefined);
       }
     });
     this.currentUser.pipe(filter((user) => user !== undefined)).subscribe((user) => {
-      console.log(user.language);
       translate.use(user.language);
+    });
+  }
+
+  updateCurrentUser(): void {
+    this.getProfile().subscribe((result) => {
+      if (result.success) {
+        this.currentUser.next(result.data);
+      } else {
+        this.currentUser.next(undefined);
+      }
     });
   }
 
@@ -40,7 +43,11 @@ export class UserService {
     return this.api.get<Result<User>>('user/profile', undefined, true);
   }
 
-  getCurrentUser(): Observable<User> {
+  getCurrentUserOrUndefined(): Observable<User | undefined> {
     return this.currentUser.asObservable();
+  }
+
+  getCurrentUser(): Observable<User> {
+    return this.currentUser.pipe(filter((user) => user !== undefined));
   }
 }

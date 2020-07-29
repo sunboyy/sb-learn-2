@@ -15,9 +15,6 @@ export class AdminGuard implements CanActivate {
     if (!this.sessionService.isSignedIn.getValue()) {
       return of(false);
     }
-    return this.userService.getCurrentUser().pipe(
-      filter((user) => user !== undefined),
-      map((user) => user.authority === 'ROLE_ADMIN')
-    );
+    return this.userService.getCurrentUser().pipe(map((user) => user.authority === 'ROLE_ADMIN'));
   }
 }

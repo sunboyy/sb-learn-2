@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
-import { AuthGuard } from './auth/auth.guard';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
-import { ChangePasswordComponent } from './settings/change-password/change-password.component';
-import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,9 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    component: SettingsComponent,
-    canActivate: [AuthGuard],
-    children: [{ path: 'change-password', component: ChangePasswordComponent }]
+    loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsModule)
   },
   {
     path: 'admin',

@@ -51,12 +51,14 @@
   "settings.change-password.new": "รหัสผ่านใหม่",
   "settings.change-password.confirm": "ยืนยันรหัสผ่าน",
   "settings.change-password.tooltip-new": "รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร",
-  "settings.change-password.submit": "เปลี่ยนรหัสผ่าน",
+  "settings.preferences.title": "การตั้งค่า",
+  "settings.preferences.language": "ภาษาที่แสดง",
 
   "admin.common.title": "การบริหารจัดการ",
-  "admin.common.save": "บันทึกการเปลี่ยนแปลง",
   "admin.user.title": "บัญชีผู้ใช้",
   "admin.user.self-registration.title": "การลงทะเบียนด้วยตัวเอง",
   "admin.user.self-registration.allow": "อนุญาตให้ลงทะเบียนด้วยตัวเอง",
-  "admin.user.management.title": "การจัดการผู้ใช้"
+  "admin.user.management.title": "การจัดการผู้ใช้",
+
+  "common.button.save": "บันทึกการเปลี่ยนแปลง"
 }
