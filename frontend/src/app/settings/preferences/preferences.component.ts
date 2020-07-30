@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../settings.service';
-import { UserService } from 'src/app/user/user.service';
+import { UserService } from '../../user/user.service';
+import { RoundedSelectOption } from '../../shared/rounded-select/rounded-select.component';
 
 @Component({
   selector: 'app-preferences',
@@ -8,6 +9,11 @@ import { UserService } from 'src/app/user/user.service';
   styleUrls: ['./preferences.component.scss']
 })
 export class PreferencesComponent implements OnInit {
+  languageOptions: RoundedSelectOption[] = [
+    { label: 'English', value: 'en' },
+    { label: 'ภาษาไทย', value: 'th' }
+  ];
+
   language: string;
 
   message = '';
@@ -29,6 +35,7 @@ export class PreferencesComponent implements OnInit {
       if (res.success) {
         this.userService.updateCurrentUser();
       } else {
+        this.message = res.cause;
       }
     });
   }

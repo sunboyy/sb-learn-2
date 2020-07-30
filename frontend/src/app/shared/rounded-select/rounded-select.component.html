@@ -1,0 +1,19 @@
+<div class="rounded-select">
+  <div class="select-closed" (click)="onToggleActive()">
+    <div class="select-closed-label">{{ getSelectedLabel() | async }}</div>
+    <div class="select-closed-caret">
+      <i class="fas fa-caret-down"></i>
+    </div>
+  </div>
+
+  <div class="select-opened" *ngIf="isActive">
+    <div
+      class="select-option"
+      *ngFor="let option of options"
+      [class.selected]="isOptionSelected(option)"
+      (click)="onSelect(option)"
+    >
+      {{ getLabel(option) | async }}
+    </div>
+  </div>
+</div>

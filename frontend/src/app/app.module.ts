@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { NavModule } from './nav/nav.module';
-import { SettingsModule } from './settings/settings.module';
 import { UserModule } from './user/user.module';
 import { HttpClient } from '@angular/common/http';
 
@@ -21,7 +20,6 @@ import { HttpClient } from '@angular/common/http';
     NavModule,
     AuthModule,
     HomeModule,
-    SettingsModule,
     UserModule,
     AppRoutingModule,
     TranslateModule.forRoot({

@@ -1,0 +1,55 @@
+
+@import '../../../styles/variables';
+
+.rounded-select {
+  color: #000;
+  font-size: 14px;
+  position: relative;
+}
+
+.select-closed {
+  background-color: #fff;
+  padding: 4px 8px 4px 12px;
+  border-radius: 8px;
+  display: flex;
+  cursor: pointer;
+
+  .select-closed-label {
+    flex-grow: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .select-closed-caret {
+    width: 20px;
+    text-align: center;
+  }
+}
+
+.select-opened {
+  background-color: #fff;
+  border-radius: 8px;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.select-option {
+  padding: 4px 8px 4px 12px;
+  border-bottom: 1px solid rgba($color: #000000, $alpha: 0.2);
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &.selected {
+    background-color: rgba($color: #000000, $alpha: 0.1);
+  }
+
+  &:hover {
+    background-color: $blue-green;
+    color: #fff;
+  }
+}

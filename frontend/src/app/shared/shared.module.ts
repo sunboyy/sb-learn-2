@@ -20,6 +20,7 @@ import { StatusService } from './status.service';
 import { StripedHeaderComponent } from './striped-header/striped-header.component';
 import { TransparentButtonComponent } from './transparent-button/transparent-button.component';
 import { VerticalListComponent } from './vertical-list/vertical-list.component';
+import { RoundedSelectComponent } from './rounded-select/rounded-select.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -37,7 +38,8 @@ import { TranslateModule } from '@ngx-translate/core';
     EditableTextComponent,
     TransparentButtonComponent,
     VerticalListComponent,
-    RegularTextFieldComponent
+    RegularTextFieldComponent,
+    RoundedSelectComponent
   ],
   providers: [SessionService, ApiService, StatusService],
   imports: [CommonModule, HttpClientModule, FormsModule, RouterModule],
@@ -56,6 +58,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TransparentButtonComponent,
     VerticalListComponent,
     RegularTextFieldComponent,
+    RoundedSelectComponent,
     TranslateModule
   ]
 })
