@@ -4,7 +4,8 @@ import com.mrsunboy.sblearn.data.*;
 import com.mrsunboy.sblearn.repository.CardRepository;
 import com.mrsunboy.sblearn.repository.CourseRepository;
 import com.mrsunboy.sblearn.repository.LessonRepository;
-import com.mrsunboy.sblearn.repository.UserRepository;
+import com.mrsunboy.sblearn.user.User;
+import com.mrsunboy.sblearn.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.mrsunboy.sblearn.repository;
 
 import com.mrsunboy.sblearn.data.Course;
-import com.mrsunboy.sblearn.data.User;
+import com.mrsunboy.sblearn.user.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

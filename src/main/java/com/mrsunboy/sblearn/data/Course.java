@@ -1,6 +1,7 @@
 package com.mrsunboy.sblearn.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mrsunboy.sblearn.user.User;
 
 import javax.persistence.*;
 import java.util.List;

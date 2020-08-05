@@ -1,4 +1,4 @@
-package com.mrsunboy.sblearn.data;
+package com.mrsunboy.sblearn.user;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 

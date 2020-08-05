@@ -1,7 +1,8 @@
 package com.mrsunboy.sblearn.service;
 
 import com.mrsunboy.sblearn.data.*;
-import com.mrsunboy.sblearn.repository.UserRepository;
+import com.mrsunboy.sblearn.user.User;
+import com.mrsunboy.sblearn.user.UserRepository;
 import com.mrsunboy.sblearn.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,6 +1,5 @@
-package com.mrsunboy.sblearn.repository;
+package com.mrsunboy.sblearn.user;
 
-import com.mrsunboy.sblearn.data.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Integer> {

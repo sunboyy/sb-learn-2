@@ -1,7 +1,7 @@
 package com.mrsunboy.sblearn.security;
 
-import com.mrsunboy.sblearn.data.User;
-import com.mrsunboy.sblearn.repository.UserRepository;
+import com.mrsunboy.sblearn.user.User;
+import com.mrsunboy.sblearn.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

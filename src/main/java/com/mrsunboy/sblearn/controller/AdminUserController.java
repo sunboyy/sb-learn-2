@@ -1,7 +1,7 @@
 package com.mrsunboy.sblearn.controller;
 
 import com.mrsunboy.sblearn.data.Result;
-import com.mrsunboy.sblearn.data.User;
+import com.mrsunboy.sblearn.user.User;
 import com.mrsunboy.sblearn.service.UserService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;

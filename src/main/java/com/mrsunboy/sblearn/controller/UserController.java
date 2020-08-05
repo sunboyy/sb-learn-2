@@ -3,7 +3,7 @@ package com.mrsunboy.sblearn.controller;
 import com.mrsunboy.sblearn.form.ChangePasswordForm;
 import com.mrsunboy.sblearn.form.UpdatePreferencesForm;
 import com.mrsunboy.sblearn.data.Result;
-import com.mrsunboy.sblearn.data.User;
+import com.mrsunboy.sblearn.user.User;
 import com.mrsunboy.sblearn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +20,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public Result<User> register(@Valid @RequestBody RegisterDto registerDto) {
-        return userService.selfRegister(registerDto.getUsername(), registerDto.getPassword());
+    public Result<User> register(@Valid @RequestBody UserController.RegisterForm registerForm) {
+        return userService.selfRegister(registerForm.getUsername(), registerForm.getPassword());
     }
 
     @GetMapping("/profile")
@@ -43,7 +43,7 @@ public class UserController {
         return userService.updatePreferences(updatePreferencesForm);
     }
 
-    private static class RegisterDto {
+    private static class RegisterForm {
         @NotBlank
         private String username;
 
