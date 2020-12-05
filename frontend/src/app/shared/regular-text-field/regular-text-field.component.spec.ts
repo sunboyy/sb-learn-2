@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RegularTextFieldComponent } from './regular-text-field.component';
 
@@ -6,7 +6,7 @@ describe('RegularTextFieldComponent', () => {
   let component: RegularTextFieldComponent;
   let fixture: ComponentFixture<RegularTextFieldComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RegularTextFieldComponent ]
     })

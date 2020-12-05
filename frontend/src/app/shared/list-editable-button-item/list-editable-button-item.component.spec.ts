@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ListEditableButtonItemComponent } from './list-editable-button-item.component';
 
@@ -6,7 +6,7 @@ describe('ListEditableButtonItemComponent', () => {
   let component: ListEditableButtonItemComponent;
   let fixture: ComponentFixture<ListEditableButtonItemComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ListEditableButtonItemComponent ]
     })

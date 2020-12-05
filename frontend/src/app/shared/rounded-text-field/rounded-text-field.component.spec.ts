@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RoundedTextFieldComponent } from './rounded-text-field.component';
 
@@ -6,7 +6,7 @@ describe('RoundedTextFieldComponent', () => {
   let component: RoundedTextFieldComponent;
   let fixture: ComponentFixture<RoundedTextFieldComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RoundedTextFieldComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RecallcardLessonComponent } from './recallcard-lesson.component';
 
@@ -6,7 +6,7 @@ describe('RecallcardLessonComponent', () => {
   let component: RecallcardLessonComponent;
   let fixture: ComponentFixture<RecallcardLessonComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RecallcardLessonComponent ]
     })

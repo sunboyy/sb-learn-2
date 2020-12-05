@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RecallcardManageComponent } from './recallcard-manage.component';
 
@@ -6,7 +6,7 @@ describe('RecallcardManageComponent', () => {
   let component: RecallcardManageComponent;
   let fixture: ComponentFixture<RecallcardManageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RecallcardManageComponent ]
     })
