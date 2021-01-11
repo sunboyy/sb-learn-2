@@ -11,12 +11,6 @@ export class VerticalListComponent {
   name: string;
 
   @Input()
-  title: string;
-
-  @Input()
-  titleIcon: string;
-
-  @Input()
   handler: VerticalListHandler;
 }
 

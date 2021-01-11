@@ -40,9 +40,7 @@
     "learn.quiz.clicktotype": "Click to type",
     "learn.quiz.correct": "Correct",
     "learn.quiz.incorrect": "Incorrect",
-    "learn.quiz.correct-answer": "Correct answer",
-
-    "manage.title": "Manage"
+    "learn.quiz.correct-answer": "Correct answer"
   },
 
   "settings.common.title": "Settings",

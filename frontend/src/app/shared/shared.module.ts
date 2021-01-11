@@ -22,6 +22,8 @@ import { TransparentButtonComponent } from './transparent-button/transparent-but
 import { VerticalListComponent } from './vertical-list/vertical-list.component';
 import { RoundedSelectComponent } from './rounded-select/rounded-select.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MediumLoadingComponent } from './medium-loading/medium-loading.component';
+import { SmallLoadingComponent } from './small-loading/small-loading.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { TranslateModule } from '@ngx-translate/core';
     TransparentButtonComponent,
     VerticalListComponent,
     RegularTextFieldComponent,
-    RoundedSelectComponent
+    RoundedSelectComponent,
+    MediumLoadingComponent,
+    SmallLoadingComponent
   ],
   providers: [SessionService, ApiService, StatusService],
   imports: [CommonModule, HttpClientModule, FormsModule, RouterModule],
@@ -59,6 +63,8 @@ import { TranslateModule } from '@ngx-translate/core';
     VerticalListComponent,
     RegularTextFieldComponent,
     RoundedSelectComponent,
+    MediumLoadingComponent,
+    SmallLoadingComponent,
     TranslateModule
   ]
 })

@@ -1,6 +1,7 @@
 <div class="settings">
   <div class="settings-menu">
-    <app-vertical-list [title]="'settings.common.title' | translate" titleIcon="cog" [handler]="this"></app-vertical-list>
+    <app-header-text icon="cog">{{ 'settings.common.title' | translate }}</app-header-text>
+    <app-vertical-list [handler]="this"></app-vertical-list>
   </div>
   <div class="settings-content">
     <router-outlet></router-outlet>

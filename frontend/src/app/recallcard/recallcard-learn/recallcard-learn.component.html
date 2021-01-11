@@ -1,29 +1,54 @@
 <app-error-message [message]="message"></app-error-message>
 <div class="recallcard-learn">
   <div class="grid-area-courses">
-    <app-vertical-list
-      [title]="'recallcard.common.courses' | translate"
-      name="courses"
-      [handler]="this"
-    ></app-vertical-list>
+    <app-header-text>{{ 'recallcard.common.courses' | translate }}</app-header-text>
+    <app-medium-loading *ngIf="isLoadingCourses"></app-medium-loading>
+    <div *ngIf="!isLoadingCourses">
+      <app-list-editable-button-item
+        *ngFor="let course of courses"
+        [text]="course.name"
+        [selected]="selectedCourse && selectedCourse.id === course.id"
+        [isLoading]="isRenamingCourseIds.has(course.id)"
+        (click)="onClickCourse(course)"
+        (edit)="onRenameCourse(course, $event)"
+      ></app-list-editable-button-item>
+      <app-list-create-item
+        (create)="onCreateCourse($event)"
+        [isLoading]="isCreatingCourse"
+      ></app-list-create-item>
+    </div>
   </div>
   <div class="grid-area-lessons">
     <div class="lessons" *ngIf="selectedCourse">
-      <app-vertical-list
-        [title]="'recallcard.common.lessons' | translate"
-        name="lessons"
-        [handler]="this"
-      ></app-vertical-list>
+      <app-header-text>{{ 'recallcard.common.lessons' | translate }}</app-header-text>
+      <app-medium-loading *ngIf="isLoadingLessons"></app-medium-loading>
+      <div>
+        <app-list-editable-button-item
+          *ngFor="let lesson of lessons"
+          [text]="lesson.name"
+          [selected]="selectedLesson && selectedLesson.id === lesson.id"
+          [isLoading]="isRenamingLessonIds.has(lesson.id)"
+          (click)="onClickLesson(lesson)"
+          (edit)="onRenameLesson(lesson, $event)"
+        ></app-list-editable-button-item>
+        <app-list-create-item
+          (create)="onCreateLesson(selectedCourse, $event)"
+          [isLoading]="isCreatingLesson"
+        >
+        </app-list-create-item>
+      </div>
     </div>
   </div>
   <div class="grid-area-cards">
-    <div class="cards" *ngIf="selectedLesson && selectedLesson.cards">
+    <app-medium-loading *ngIf="isLoadingCards"></app-medium-loading>
+    <div class="cards" *ngIf="selectedLesson && !isLoadingCards">
       <div class="header">
         <span class="header-title">{{ selectedLesson.name }}</span>
-        ({{ selectedLesson.cards.length }} {{ 'recallcard.common.cardsuffix' | translate }})
+        ({{ cards.length }} {{ 'recallcard.common.cardsuffix' | translate }})
       </div>
       <div class="content">
         <div class="wordlist-row header">
+          <div></div>
           <span>{{ 'recallcard.common.word' | translate }}</span>
           <div>
             {{ 'recallcard.common.meaning' | translate }}
@@ -35,15 +60,46 @@
             ></i>
           </div>
         </div>
-        <div class="wordlist-row" *ngFor="let card of selectedLesson.cards">
-          <div>{{ card.word }}</div>
-          <div *ngIf="isMeaningVisible">{{ card.meaning }}</div>
+        <div class="wordlist-row" @cards *ngFor="let card of cards">
+          <app-delete-button (click)="onDeleteCard(card)"></app-delete-button>
+          <app-editable-text [text]="card.word" (edit)="onEditCardWord(card, $event)">{{
+            card.word
+          }}</app-editable-text>
+          <app-editable-text
+            *ngIf="isMeaningVisible"
+            [text]="card.meaning"
+            (edit)="onEditCardMeaning(card, $event)"
+            >{{ card.meaning }}</app-editable-text
+          >
+        </div>
+        <div class="wordlist-row" @cards>
+          <app-create-button (click)="onCreateCard()"></app-create-button>
+          <input
+            #wordInput
+            type="text"
+            class="create-card-field"
+            [placeholder]="'recallcard.common.word' | translate"
+            [(ngModel)]="createCardForm.word"
+            (keyup)="onTypeCreateCard()"
+            (keyup.enter)="onCreateCard()"
+            [class.textfield-error]="createCardForm.wordError"
+          />
+          <input
+            type="text"
+            class="create-card-field"
+            [placeholder]="'recallcard.common.meaning' | translate"
+            [(ngModel)]="createCardForm.meaning"
+            (keyup)="onTypeCreateCard()"
+            (keyup.enter)="onCreateCard()"
+            [class.textfield-error]="createCardForm.meaningError"
+          />
+          <app-small-loading *ngIf="isCreatingCard"></app-small-loading>
         </div>
       </div>
     </div>
   </div>
   <div class="grid-area-play">
-    <div class="right" *ngIf="selectedLesson && selectedLesson.cards">
+    <div class="right" *ngIf="selectedLesson && cards">
       <img src="/assets/img/lessons.png" class="lessons-img" />
       <div class="play">
         <app-header-text>{{ 'recallcard.learn.playmode' | translate }}</app-header-text>

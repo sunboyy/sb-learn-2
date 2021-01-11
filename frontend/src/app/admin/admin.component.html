@@ -1,10 +1,7 @@
 <div class="admin">
   <div class="admin-menu">
-    <app-vertical-list
-      [title]="'admin.common.title' | translate"
-      titleIcon="wrench"
-      [handler]="this"
-    ></app-vertical-list>
+    <app-header-text icon="wrench">{{ 'admin.common.title' | translate }}</app-header-text>
+    <app-vertical-list [handler]="this"></app-vertical-list>
   </div>
   <div class="admin-content">
     <router-outlet></router-outlet>

@@ -4,6 +4,7 @@
   gap: 8px;
   align-items: center;
   padding: 4px;
+  position: relative;
 }
 
 .create-field {
@@ -13,4 +14,10 @@
   border-radius: 4px;
   font-size: 14px;
   padding: 2px 8px;
+}
+
+app-small-loading {
+  position: absolute;
+  right: 0;
+  top: 0;
 }

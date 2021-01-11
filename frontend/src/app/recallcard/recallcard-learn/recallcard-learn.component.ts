@@ -1,19 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  VerticalListComponent,
-  VerticalListHandler
-} from 'src/app/shared/vertical-list/vertical-list.component';
-import { Course, Lesson, RecallcardService } from '../recallcard.service';
-import { Observable, of } from 'rxjs';
+import { Card, Course, Lesson, RecallcardService } from '../recallcard.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-recallcard-learn',
   templateUrl: './recallcard-learn.component.html',
-  styleUrls: ['./recallcard-learn.component.scss']
+  styleUrls: ['./recallcard-learn.component.scss'],
+  animations: [
+    trigger('cards', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('0.2s ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        style({ opacity: 1, transform: 'translateX(0)' }),
+        animate('0.2s ease-in', style({ opacity: 0, transform: 'translateX(300px)', height: 0 }))
+      ])
+    ])
+  ]
 })
-export class RecallcardLearnComponent implements OnInit, VerticalListHandler {
+export class RecallcardLearnComponent implements OnInit {
+  @ViewChild('wordInput')
+  wordInput: ElementRef;
+
   courses: Course[] = [];
+  lessons: Lesson[] = [];
+  cards: Card[] = [];
   message = '';
 
   selectedCourse?: Course;
@@ -23,15 +36,33 @@ export class RecallcardLearnComponent implements OnInit, VerticalListHandler {
 
   playMode = '';
 
+  createCardForm = {
+    word: '',
+    meaning: '',
+    wordError: false,
+    meaningError: false
+  };
+
+  isLoadingCourses = false;
+  isLoadingLessons = false;
+  isLoadingCards = false;
+  isCreatingCourse = false;
+  isCreatingLesson = false;
+  isCreatingCard = false;
+  isRenamingCourseIds = new Set<number>();
+  isRenamingLessonIds = new Set<number>();
+
   constructor(private recallcardService: RecallcardService, private router: Router) {}
 
   ngOnInit(): void {
+    this.isLoadingCourses = true;
     this.recallcardService.getAllCourses().subscribe((res) => {
       if (res.success) {
         this.courses = res.data;
       } else {
         this.message = res.cause;
       }
+      this.isLoadingCourses = false;
     });
   }
 
@@ -39,18 +70,34 @@ export class RecallcardLearnComponent implements OnInit, VerticalListHandler {
     if (this.selectedCourse !== course) {
       this.selectedCourse = course;
       this.selectedLesson = undefined;
+      this.getLessons();
     }
+  }
+
+  getLessons(): void {
+    this.lessons = [];
+    this.isLoadingLessons = true;
+    this.recallcardService.getLessons(this.selectedCourse.id).subscribe((res) => {
+      if (res.success) {
+        this.lessons = res.data;
+      } else {
+        this.message = res.cause;
+      }
+      this.isLoadingLessons = false;
+    });
   }
 
   onClickLesson(lesson: Lesson): void {
     if (!this.selectedLesson || this.selectedLesson.id !== lesson.id) {
       this.selectedLesson = lesson;
-      this.recallcardService.getLesson(lesson.id).subscribe((res) => {
+      this.isLoadingCards = true;
+      this.recallcardService.getCards(lesson.id).subscribe((res) => {
         if (res.success) {
-          this.selectedLesson = res.data;
+          this.cards = res.data;
         } else {
           this.message = res.cause;
         }
+        this.isLoadingCards = false;
       });
     }
   }
@@ -63,50 +110,125 @@ export class RecallcardLearnComponent implements OnInit, VerticalListHandler {
     this.router.navigate(['recallcard', 'lesson', this.selectedLesson.id, this.playMode]);
   }
 
-  /**
-   * VerticalListHandler implementation
-   */
-  verticalListGetItems(verticalList: VerticalListComponent): any[] {
-    switch (verticalList.name) {
-      case 'courses':
-        return this.courses;
-      case 'lessons':
-        return this.selectedCourse.lessons;
+  onCreateCourse(name: string): void {
+    this.isCreatingCourse = true;
+    this.recallcardService.createCourse(name).subscribe((res) => {
+      if (res.success) {
+        this.courses.push(res.data);
+        this.onClickCourse(res.data);
+      } else {
+        this.message = res.cause;
+      }
+      this.isCreatingCourse = false;
+    });
+  }
+
+  onRenameCourse(course: Course, name: string): void {
+    this.isRenamingCourseIds.add(course.id);
+    this.recallcardService.editCourse(course.id, name).subscribe((res) => {
+      if (res.success) {
+        this.courses[this.courses.indexOf(course)] = res.data;
+      } else {
+        this.message = res.cause;
+      }
+      this.isRenamingCourseIds.delete(course.id);
+    });
+  }
+
+  onRenameLesson(lesson: Lesson, name: string): void {
+    this.isRenamingLessonIds.add(lesson.id);
+    this.recallcardService.editLesson(lesson.id, name).subscribe((res) => {
+      if (res.success) {
+        this.lessons[this.lessons.indexOf(lesson)] = res.data;
+        this.selectedLesson = res.data;
+      } else {
+        this.message = res.cause;
+      }
+      this.isRenamingLessonIds.delete(lesson.id);
+    });
+  }
+
+  onCreateLesson(course: Course, name: string): void {
+    this.isCreatingLesson = true;
+    this.recallcardService.createLesson(course.id, name).subscribe((res) => {
+      if (res.success) {
+        this.lessons.push(res.data);
+        this.onClickLesson(res.data);
+      } else {
+        this.message = res.cause;
+      }
+      this.isCreatingLesson = false;
+    });
+  }
+
+  onCreateCard(): void {
+    if (!this.createCardForm.word.trim()) {
+      this.createCardForm.wordError = true;
+    }
+    if (!this.createCardForm.meaning.trim()) {
+      this.createCardForm.meaningError = true;
+    }
+    if (this.createCardForm.wordError || this.createCardForm.meaningError) {
+      return;
+    }
+    this.isCreatingCard = true;
+    this.recallcardService
+      .createCard(
+        this.selectedLesson.id,
+        this.createCardForm.word.trim(),
+        this.createCardForm.meaning.trim()
+      )
+      .subscribe((res) => {
+        if (res.success) {
+          this.cards.push(res.data);
+          this.createCardForm.word = '';
+          this.createCardForm.meaning = '';
+          this.wordInput.nativeElement.focus();
+        } else {
+          this.message = res.cause;
+        }
+        this.isCreatingCard = false;
+      });
+  }
+
+  onTypeCreateCard(): void {
+    if (this.createCardForm.word.trim()) {
+      this.createCardForm.wordError = false;
+    }
+    if (this.createCardForm.meaning.trim()) {
+      this.createCardForm.meaningError = false;
     }
   }
 
-  verticalListGetLabelAtIndex(
-    verticalList: VerticalListComponent,
-    index: number
-  ): Observable<string> {
-    switch (verticalList.name) {
-      case 'courses':
-        return of(this.courses[index].name);
-      case 'lessons':
-        return of(this.selectedCourse.lessons[index].name);
-    }
+  onEditCardWord(card: Card, word: string): void {
+    this.recallcardService.editCard(card.id, word, '').subscribe((res) => {
+      if (res.success) {
+        card.word = res.data.word;
+      } else {
+        this.message = res.cause;
+      }
+    });
   }
 
-  verticalListOnClickItemAtIndex(verticalList: VerticalListComponent, index: number): void {
-    switch (verticalList.name) {
-      case 'courses':
-        this.onClickCourse(this.courses[index]);
-        break;
-      case 'lessons':
-        this.onClickLesson(this.selectedCourse.lessons[index]);
-        break;
-    }
+  onEditCardMeaning(card: Card, meaning: string): void {
+    this.recallcardService.editCard(card.id, '', meaning).subscribe((res) => {
+      if (res.success) {
+        card.meaning = res.data.meaning;
+      } else {
+        this.message = res.cause;
+      }
+    });
   }
 
-  verticalListIsItemSelectedAtIndex(verticalList: VerticalListComponent, index: number): boolean {
-    switch (verticalList.name) {
-      case 'courses':
-        return this.courses[index] === this.selectedCourse;
-      case 'lessons':
-        return (
-          this.selectedLesson && this.selectedCourse.lessons[index].id === this.selectedLesson.id
-        );
+  onDeleteCard(card: Card): void {
+    if (confirm('Are you sure you want to delete card ' + card.word + '/' + card.meaning + '?')) {
+      this.recallcardService.deleteCard(card.id).subscribe((res) => {
+        if (res.success) {
+          this.cards = this.cards.filter((c) => c !== card);
+        } else {
+          this.message = res.cause;
+        }
+      });
     }
-    return false;
   }
 }

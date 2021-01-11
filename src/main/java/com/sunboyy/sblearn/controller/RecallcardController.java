@@ -1,183 +1,184 @@
 package com.sunboyy.sblearn.controller;
 
-import com.sunboyy.sblearn.domain.recallcard.Card;
-import com.sunboyy.sblearn.domain.recallcard.Course;
-import com.sunboyy.sblearn.domain.recallcard.Lesson;
-import com.sunboyy.sblearn.data.Result;
-import com.sunboyy.sblearn.domain.recallcard.RecallcardService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sunboyy.sblearn.data.Result;
+import com.sunboyy.sblearn.domain.recallcard.Card;
+import com.sunboyy.sblearn.domain.recallcard.Course;
+import com.sunboyy.sblearn.domain.recallcard.Lesson;
+import com.sunboyy.sblearn.domain.recallcard.RecallcardService;
 
 @RestController
 @RequestMapping("/recallcard")
 public class RecallcardController {
-    @Autowired
-    private RecallcardService recallcardService;
+	@Autowired
+	private RecallcardService recallcardService;
 
-    @GetMapping("/course/all")
-    public Result<List<Course>> getCourses() {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.getCourses(username);
-    }
+	@GetMapping("/courses")
+	public Result<List<Course>> getCourses() {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.getCourses(username);
+	}
 
-    @PostMapping("/course/new")
-    public Result<Course> createNewCourse(@Valid @RequestBody CreateCourseDto createCourseDto) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.createCourse(createCourseDto.getName(), username);
-    }
+	@PostMapping("/courses")
+	public Result<Course> createNewCourse(@Valid @RequestBody CreateCourseDto createCourseDto) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.createCourse(createCourseDto.getName(), username);
+	}
 
-    @GetMapping("/course/get")
-    public Result<Course> getCourse(@RequestParam int courseId) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.getCourse(courseId, username);
-    }
+	@GetMapping("/courses/{courseId}")
+	public Result<Course> getCourse(@PathVariable int courseId) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.getCourse(courseId, username);
+	}
 
-    @PostMapping("/course/edit")
-    public Result<Course> editCourse(@Valid @RequestBody EditCourseDto editCourseDto) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.renameCourse(editCourseDto.getCourseId(), editCourseDto.getName(), username);
-    }
+	@PutMapping("/courses/{courseId}")
+	public Result<Course> editCourse(@PathVariable int courseId, @Valid @RequestBody EditCourseDto editCourseDto) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.renameCourse(courseId, editCourseDto.getName(), username);
+	}
 
-    @GetMapping("/lesson/get")
-    public Result<Lesson> getLessons(@RequestParam int lessonId) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.getLesson(lessonId, username);
-    }
+	@GetMapping("/course/{courseId}/lessons")
+	public Result<List<Lesson>> getLessons(@PathVariable int courseId) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.getLessons(courseId, username);
+	}
 
-    @PostMapping("/lesson/new")
-    public Result<Lesson> createNewLesson(@Valid @RequestBody CreateLessonDto createLessonDto) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.createLesson(createLessonDto.getCourseId(), createLessonDto.getName(), username);
-    }
+	@GetMapping("/lessons/{lessonId}")
+	public Result<Lesson> getLesson(@PathVariable int lessonId) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.getLesson(lessonId, username);
+	}
 
-    @PostMapping("/lesson/edit")
-    public Result<Lesson> editLesson(@Valid @RequestBody EditLessonDto editLessonDto) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.renameLesson(editLessonDto.getLessonId(), editLessonDto.getName(), username);
-    }
+	@PostMapping("/lessons")
+	public Result<Lesson> createNewLesson(@Valid @RequestBody CreateLessonDto createLessonDto) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.createLesson(createLessonDto.getCourseId(), createLessonDto.getName(), username);
+	}
 
-    @PostMapping("/card/new")
-    public Result<Card> createNewCard(@Valid @RequestBody CreateCardDto createCardDto) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.createCard(createCardDto.getLessonId(), createCardDto.getWord(), createCardDto.getMeaning(), username);
-    }
+	@PutMapping("/lessons/{lessonId}")
+	public Result<Lesson> editLesson(@PathVariable int lessonId, @Valid @RequestBody EditLessonDto editLessonDto) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.renameLesson(lessonId, editLessonDto.getName(), username);
+	}
 
-    @PostMapping("/card/edit")
-    public Result<Card> editCard(@Valid @RequestBody EditCardDto editCardDto) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.editCard(editCardDto.getCardId(), editCardDto.getWord(), editCardDto.getMeaning(), username);
-    }
+	@GetMapping("/lessons/{lessonId}/cards")
+	public Result<List<Card>> getCards(@PathVariable int lessonId) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.getCards(lessonId, username);
+	}
 
-    @DeleteMapping("/card/delete")
-    public Result<Object> deleteCard(@RequestParam int cardId) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return recallcardService.deleteCard(cardId, username);
-    }
+	@PostMapping("/cards")
+	public Result<Card> createNewCard(@Valid @RequestBody CreateCardDto createCardDto) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService
+				.createCard(createCardDto.getLessonId(), createCardDto.getWord(), createCardDto.getMeaning(), username);
+	}
 
-    private static class CreateCourseDto {
-        @NotBlank
-        private String name;
+	@PostMapping("/cards/{cardId}")
+	public Result<Card> editCard(@PathVariable int cardId, @Valid @RequestBody EditCardDto editCardDto) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.editCard(cardId, editCardDto.getWord(), editCardDto.getMeaning(), username);
+	}
 
-        public String getName() {
-            return name;
-        }
-    }
+	@DeleteMapping("/cards/{cardId}")
+	public Result<Object> deleteCard(@PathVariable int cardId) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.deleteCard(cardId, username);
+	}
 
-    private static class EditCourseDto {
-        @Min(value = 1)
-        private int courseId;
+	private static class CreateCourseDto {
+		@NotBlank
+		private String name;
 
-        @NotBlank
-        private String name;
+		public String getName() {
+			return name;
+		}
+	}
 
-        public int getCourseId() {
-            return courseId;
-        }
+	private static class EditCourseDto {
+		@NotBlank
+		private String name;
 
-        public String getName() {
-            return name;
-        }
-    }
+		public String getName() {
+			return name;
+		}
+	}
 
-    private static class CreateLessonDto {
-        @Min(value = 1)
-        private int courseId;
+	private static class CreateLessonDto {
+		@Min(value = 1)
+		private int courseId;
 
-        @NotBlank
-        private String name;
+		@NotBlank
+		private String name;
 
-        public int getCourseId() {
-            return courseId;
-        }
+		public int getCourseId() {
+			return courseId;
+		}
 
-        public String getName() {
-            return name;
-        }
-    }
+		public String getName() {
+			return name;
+		}
+	}
 
-    private static class CreateCardDto {
-        @Min(value = 1)
-        private int lessonId;
+	private static class CreateCardDto {
+		@Min(value = 1)
+		private int lessonId;
 
-        @NotBlank
-        private String word;
+		@NotBlank
+		private String word;
 
-        @NotBlank
-        private String meaning;
+		@NotBlank
+		private String meaning;
 
-        public int getLessonId() {
-            return lessonId;
-        }
+		public int getLessonId() {
+			return lessonId;
+		}
 
-        public String getWord() {
-            return word;
-        }
+		public String getWord() {
+			return word;
+		}
 
-        public String getMeaning() {
-            return meaning;
-        }
-    }
+		public String getMeaning() {
+			return meaning;
+		}
+	}
 
-    private static class EditLessonDto {
-        @Min(value = 1)
-        private int lessonId;
+	private static class EditLessonDto {
+		@NotBlank
+		private String name;
 
-        @NotBlank
-        private String name;
+		public String getName() {
+			return name;
+		}
+	}
 
-        public int getLessonId() {
-            return lessonId;
-        }
+	public static class EditCardDto {
+		private String word;
 
-        public String getName() {
-            return name;
-        }
-    }
+		private String meaning;
 
-    public static class EditCardDto {
-        @Min(value = 1)
-        private int cardId;
+		public String getWord() {
+			return word;
+		}
 
-        private String word;
-
-        private String meaning;
-
-        public int getCardId() {
-            return cardId;
-        }
-
-        public String getWord() {
-            return word;
-        }
-
-        public String getMeaning() {
-            return meaning;
-        }
-    }
+		public String getMeaning() {
+			return meaning;
+		}
+	}
 }

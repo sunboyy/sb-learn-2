@@ -77,6 +77,19 @@ public class RecallcardService {
         return new SuccessResult<>(course);
     }
 
+    public Result<List<Lesson>> getLessons(int courseId, String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return new FailureResult<>("User not found");
+        }
+        Optional<Course> course = courseRepository.findById(courseId);
+        if (course.isEmpty() || !course.get().getOwner().equals(user)) {
+            return new FailureResult<>("Course not found");
+        }
+        List<Lesson> lessons = lessonRepository.findAllByCourse(course.get());
+        return new SuccessResult<>(lessons);
+    }
+
     public Result<Lesson> getLesson(int lessonId, String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
@@ -121,6 +134,19 @@ public class RecallcardService {
         lesson.setName(name);
         lessonRepository.save(lesson);
         return new SuccessResult<>(lesson);
+    }
+
+    public Result<List<Card>> getCards(int lessonId, String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return new FailureResult<>("User not found");
+        }
+        Optional<Lesson> lesson = lessonRepository.findById(lessonId);
+        if (lesson.isEmpty() || !lesson.get().getCourse().getOwner().equals(user)) {
+            return new FailureResult<>("Lesson not found");
+        }
+        List<Card> cards = cardRepository.findAllByLesson(lesson.get());
+        return new SuccessResult<>(cards);
     }
 
     public Result<Card> createCard(int lessonId, String word, String meaning, String username) {
