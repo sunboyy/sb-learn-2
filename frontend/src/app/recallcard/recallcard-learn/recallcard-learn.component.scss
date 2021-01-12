@@ -76,6 +76,32 @@
   }
 }
 
+.action-button {
+  padding: 5px 4px;
+  margin: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 14px;
+  display: inline-block;
+  color: rgba($color: #fff, $alpha: 0.4);
+  text-align: center;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    color: #fff;
+    background-color: rgba($color: #fff, $alpha: 0.15);
+  }
+
+  .action-button-loading {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
 .create-card-field {
   display: block;
   height: 32px;
@@ -99,7 +125,7 @@
   background-color: #fcc;
 }
 
-app-small-loading {
+.create-card-loading {
   position: absolute;
   right: 0;
   top: 4px;

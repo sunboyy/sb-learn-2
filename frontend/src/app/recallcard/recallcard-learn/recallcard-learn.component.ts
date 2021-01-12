@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Card, Course, Lesson, RecallcardService } from '../recallcard.service';
+import { Card, Course, Lesson, RecallcardService, User } from '../recallcard.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -26,11 +26,13 @@ export class RecallcardLearnComponent implements OnInit {
 
   courses: Course[] = [];
   lessons: Lesson[] = [];
+  members: User[] = [];
   cards: Card[] = [];
   message = '';
 
   selectedCourse?: Course;
   selectedLesson?: Lesson;
+  selectedMember?: User;
 
   isMeaningVisible = true;
 
@@ -45,10 +47,13 @@ export class RecallcardLearnComponent implements OnInit {
 
   isLoadingCourses = false;
   isLoadingLessons = false;
+  isLoadingMembers = false;
   isLoadingCards = false;
   isCreatingCourse = false;
   isCreatingLesson = false;
   isCreatingCard = false;
+  isAddingMember = false;
+  isRemovingMember = false;
   isRenamingCourseIds = new Set<number>();
   isRenamingLessonIds = new Set<number>();
 
@@ -57,11 +62,7 @@ export class RecallcardLearnComponent implements OnInit {
   ngOnInit(): void {
     this.isLoadingCourses = true;
     this.recallcardService.getAllCourses().subscribe((res) => {
-      if (res.success) {
-        this.courses = res.data;
-      } else {
-        this.message = res.cause;
-      }
+      this.courses = res;
       this.isLoadingCourses = false;
     });
   }
@@ -70,7 +71,9 @@ export class RecallcardLearnComponent implements OnInit {
     if (this.selectedCourse !== course) {
       this.selectedCourse = course;
       this.selectedLesson = undefined;
+      this.selectedMember = undefined;
       this.getLessons();
+      this.getCourseMembers();
     }
   }
 
@@ -84,6 +87,22 @@ export class RecallcardLearnComponent implements OnInit {
         this.message = res.cause;
       }
       this.isLoadingLessons = false;
+    });
+  }
+
+  getCourseMembers(): void {
+    if (!this.selectedCourse.isOwner) {
+      return;
+    }
+    this.members = [];
+    this.isLoadingMembers = true;
+    this.recallcardService.getCourseMembers(this.selectedCourse.id).subscribe((res) => {
+      if (res.success) {
+        this.members = res.data;
+      } else {
+        this.message = res.cause;
+      }
+      this.isLoadingMembers = false;
     });
   }
 
@@ -102,6 +121,46 @@ export class RecallcardLearnComponent implements OnInit {
     }
   }
 
+  onClickMember(member: User): void {
+    if (this.selectedMember && this.selectedMember.id === member.id) {
+      this.selectedMember = undefined;
+    } else {
+      this.selectedMember = member;
+    }
+  }
+
+  onAddMember(username: string): void {
+    this.isAddingMember = true;
+    this.recallcardService.addCourseMember(this.selectedCourse.id, username).subscribe((res) => {
+      if (res.success) {
+        this.members.push(res.data);
+      } else {
+        this.message = res.cause;
+      }
+      this.isAddingMember = false;
+    });
+  }
+
+  onClickRemoveMember(): void {
+    if (this.isRemovingMember) {
+      return;
+    }
+    if (confirm('Are you sure you want to remove member ' + this.selectedMember.username + '?')) {
+      this.isRemovingMember = true;
+      this.recallcardService
+        .removeCourseMember(this.selectedCourse.id, this.selectedMember.username)
+        .subscribe((res) => {
+          if (res.success) {
+            this.members = this.members.filter((member) => member.id !== this.selectedMember.id);
+            this.selectedMember = undefined;
+          } else {
+            this.message = res.cause;
+          }
+          this.isRemovingMember = false;
+        });
+    }
+  }
+
   onToggleVisiblity(): void {
     this.isMeaningVisible = !this.isMeaningVisible;
   }
@@ -113,12 +172,8 @@ export class RecallcardLearnComponent implements OnInit {
   onCreateCourse(name: string): void {
     this.isCreatingCourse = true;
     this.recallcardService.createCourse(name).subscribe((res) => {
-      if (res.success) {
-        this.courses.push(res.data);
-        this.onClickCourse(res.data);
-      } else {
-        this.message = res.cause;
-      }
+      this.courses.push(res);
+      this.onClickCourse(res);
       this.isCreatingCourse = false;
     });
   }
@@ -126,11 +181,7 @@ export class RecallcardLearnComponent implements OnInit {
   onRenameCourse(course: Course, name: string): void {
     this.isRenamingCourseIds.add(course.id);
     this.recallcardService.editCourse(course.id, name).subscribe((res) => {
-      if (res.success) {
-        this.courses[this.courses.indexOf(course)] = res.data;
-      } else {
-        this.message = res.cause;
-      }
+      this.courses[this.courses.indexOf(course)] = res;
       this.isRenamingCourseIds.delete(course.id);
     });
   }

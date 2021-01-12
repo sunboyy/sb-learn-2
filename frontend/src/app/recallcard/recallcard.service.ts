@@ -13,6 +13,7 @@ export interface Course {
   id: number;
   name: string;
   owner: User;
+  isOwner: boolean;
 }
 
 export interface Lesson {
@@ -34,25 +35,45 @@ export interface Card {
 export class RecallcardService {
   constructor(private api: ApiService) {}
 
-  getAllCourses(): Observable<Result<Course[]>> {
-    return this.api.get<Result<Course[]>>('recallcard/courses', undefined, true);
+  getAllCourses(): Observable<Course[]> {
+    return this.api.get<Course[]>('recallcard/courses', undefined, true);
   }
 
-  createCourse(name: string): Observable<Result<Course>> {
-    return this.api.post<Result<Course>>('recallcard/courses', { name: name.trim() }, true);
+  createCourse(name: string): Observable<Course> {
+    return this.api.post<Course>('recallcard/courses', { name: name.trim() }, true);
   }
 
-  editCourse(courseId: number, name: string): Observable<Result<Course>> {
-    return this.api.put<Result<Course>>(
-      'recallcard/courses/' + courseId,
-      { name: name.trim() },
+  editCourse(courseId: number, name: string): Observable<Course> {
+    return this.api.put<Course>('recallcard/courses/' + courseId, { name: name.trim() }, true);
+  }
+
+  getCourseMembers(courseId: number): Observable<Result<User[]>> {
+    return this.api.get<Result<User[]>>(
+      'recallcard/courses/' + courseId + '/members',
+      undefined,
+      true
+    );
+  }
+
+  addCourseMember(courseId: number, username: string): Observable<Result<User>> {
+    return this.api.post<Result<User>>(
+      'recallcard/courses/' + courseId + '/add-member',
+      { username: username.trim() },
+      true
+    );
+  }
+
+  removeCourseMember(courseId: number, username: string): Observable<Result<null>> {
+    return this.api.post<Result<null>>(
+      'recallcard/courses/' + courseId + '/remove-member',
+      { username: username.trim() },
       true
     );
   }
 
   getLessons(courseId: number): Observable<Result<Lesson[]>> {
     return this.api.get<Result<Lesson[]>>(
-      'recallcard/course/' + courseId + '/lessons',
+      'recallcard/courses/' + courseId + '/lessons',
       undefined,
       true
     );

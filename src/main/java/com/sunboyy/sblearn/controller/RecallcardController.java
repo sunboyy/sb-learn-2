@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sunboyy.sblearn.data.Result;
 import com.sunboyy.sblearn.domain.recallcard.Card;
-import com.sunboyy.sblearn.domain.recallcard.Course;
 import com.sunboyy.sblearn.domain.recallcard.Lesson;
 import com.sunboyy.sblearn.domain.recallcard.RecallcardService;
 
@@ -28,36 +27,6 @@ import com.sunboyy.sblearn.domain.recallcard.RecallcardService;
 public class RecallcardController {
 	@Autowired
 	private RecallcardService recallcardService;
-
-	@GetMapping("/courses")
-	public Result<List<Course>> getCourses() {
-		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return recallcardService.getCourses(username);
-	}
-
-	@PostMapping("/courses")
-	public Result<Course> createNewCourse(@Valid @RequestBody CreateCourseDto createCourseDto) {
-		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return recallcardService.createCourse(createCourseDto.getName(), username);
-	}
-
-	@GetMapping("/courses/{courseId}")
-	public Result<Course> getCourse(@PathVariable int courseId) {
-		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return recallcardService.getCourse(courseId, username);
-	}
-
-	@PutMapping("/courses/{courseId}")
-	public Result<Course> editCourse(@PathVariable int courseId, @Valid @RequestBody EditCourseDto editCourseDto) {
-		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return recallcardService.renameCourse(courseId, editCourseDto.getName(), username);
-	}
-
-	@GetMapping("/course/{courseId}/lessons")
-	public Result<List<Lesson>> getLessons(@PathVariable int courseId) {
-		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return recallcardService.getLessons(courseId, username);
-	}
 
 	@GetMapping("/lessons/{lessonId}")
 	public Result<Lesson> getLesson(@PathVariable int lessonId) {
@@ -100,24 +69,6 @@ public class RecallcardController {
 	public Result<Object> deleteCard(@PathVariable int cardId) {
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return recallcardService.deleteCard(cardId, username);
-	}
-
-	private static class CreateCourseDto {
-		@NotBlank
-		private String name;
-
-		public String getName() {
-			return name;
-		}
-	}
-
-	private static class EditCourseDto {
-		@NotBlank
-		private String name;
-
-		public String getName() {
-			return name;
-		}
 	}
 
 	private static class CreateLessonDto {

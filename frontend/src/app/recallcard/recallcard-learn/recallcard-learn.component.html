@@ -4,14 +4,22 @@
     <app-header-text>{{ 'recallcard.common.courses' | translate }}</app-header-text>
     <app-medium-loading *ngIf="isLoadingCourses"></app-medium-loading>
     <div *ngIf="!isLoadingCourses">
-      <app-list-editable-button-item
-        *ngFor="let course of courses"
-        [text]="course.name"
-        [selected]="selectedCourse && selectedCourse.id === course.id"
-        [isLoading]="isRenamingCourseIds.has(course.id)"
-        (click)="onClickCourse(course)"
-        (edit)="onRenameCourse(course, $event)"
-      ></app-list-editable-button-item>
+      <ng-container *ngFor="let course of courses">
+        <app-list-editable-button-item
+          *ngIf="course.isOwner"
+          [text]="course.name"
+          [selected]="selectedCourse && selectedCourse.id === course.id"
+          [isLoading]="isRenamingCourseIds.has(course.id)"
+          (click)="onClickCourse(course)"
+          (edit)="onRenameCourse(course, $event)"
+        ></app-list-editable-button-item>
+        <app-list-button-item
+          *ngIf="!course.isOwner"
+          [selected]="selectedCourse && selectedCourse.id === course.id"
+          (click)="onClickCourse(course)"
+          >{{ course.name }}</app-list-button-item
+        >
+      </ng-container>
       <app-list-create-item
         (create)="onCreateCourse($event)"
         [isLoading]="isCreatingCourse"
@@ -23,19 +31,48 @@
       <app-header-text>{{ 'recallcard.common.lessons' | translate }}</app-header-text>
       <app-medium-loading *ngIf="isLoadingLessons"></app-medium-loading>
       <div>
-        <app-list-editable-button-item
-          *ngFor="let lesson of lessons"
-          [text]="lesson.name"
-          [selected]="selectedLesson && selectedLesson.id === lesson.id"
-          [isLoading]="isRenamingLessonIds.has(lesson.id)"
-          (click)="onClickLesson(lesson)"
-          (edit)="onRenameLesson(lesson, $event)"
-        ></app-list-editable-button-item>
+        <ng-container *ngFor="let lesson of lessons">
+          <app-list-editable-button-item
+            *ngIf="selectedCourse.isOwner"
+            [text]="lesson.name"
+            [selected]="selectedLesson && selectedLesson.id === lesson.id"
+            [isLoading]="isRenamingLessonIds.has(lesson.id)"
+            (click)="onClickLesson(lesson)"
+            (edit)="onRenameLesson(lesson, $event)"
+          ></app-list-editable-button-item>
+          <app-list-button-item
+            *ngIf="!selectedCourse.isOwner"
+            [selected]="selectedLesson && selectedLesson.id === lesson.id"
+            (click)="onClickLesson(lesson)"
+            >{{ lesson.name }}</app-list-button-item
+          >
+        </ng-container>
         <app-list-create-item
+          *ngIf="selectedCourse.isOwner"
           (create)="onCreateLesson(selectedCourse, $event)"
           [isLoading]="isCreatingLesson"
         >
         </app-list-create-item>
+      </div>
+      <div *ngIf="selectedCourse.isOwner">
+        <app-header-text>{{ 'recallcard.learn.members' | translate }}</app-header-text>
+        <app-medium-loading *ngIf="isLoadingMembers"></app-medium-loading>
+        <app-list-button-item
+          *ngFor="let member of members"
+          [selected]="selectedMember && selectedMember.id === member.id"
+          (click)="onClickMember(member)"
+          >{{ member.username }}</app-list-button-item
+        >
+        <div *ngIf="selectedMember">
+          <div class="action-button" (click)="onClickRemoveMember()">
+            <i *ngIf="!isRemovingMember" class="fas fa-trash"></i>
+            <app-small-loading class="action-button-loading" *ngIf="isRemovingMember"></app-small-loading>
+          </div>
+        </div>
+        <app-list-create-item
+          (create)="onAddMember($event)"
+          [isLoading]="isAddingMember"
+        ></app-list-create-item>
       </div>
     </div>
   </div>
@@ -61,7 +98,12 @@
           </div>
         </div>
         <div class="wordlist-row" @cards *ngFor="let card of cards">
-          <app-delete-button (click)="onDeleteCard(card)"></app-delete-button>
+          <div>
+            <app-delete-button
+              *ngIf="selectedCourse.isOwner"
+              (click)="onDeleteCard(card)"
+            ></app-delete-button>
+          </div>
           <app-editable-text [text]="card.word" (edit)="onEditCardWord(card, $event)">{{
             card.word
           }}</app-editable-text>
@@ -72,7 +114,7 @@
             >{{ card.meaning }}</app-editable-text
           >
         </div>
-        <div class="wordlist-row" @cards>
+        <div *ngIf="selectedCourse.isOwner" class="wordlist-row" @cards>
           <app-create-button (click)="onCreateCard()"></app-create-button>
           <input
             #wordInput
@@ -93,7 +135,7 @@
             (keyup.enter)="onCreateCard()"
             [class.textfield-error]="createCardForm.meaningError"
           />
-          <app-small-loading *ngIf="isCreatingCard"></app-small-loading>
+          <app-small-loading class="create-card-loading" *ngIf="isCreatingCard"></app-small-loading>
         </div>
       </div>
     </div>
