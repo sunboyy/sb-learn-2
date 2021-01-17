@@ -16,7 +16,17 @@ import { RoundedSelectOption } from 'src/app/shared/rounded-select/rounded-selec
       ]),
       transition(':leave', [
         style({ opacity: 1, transform: 'translateX(0)' }),
-        animate('0.2s ease-in', style({ opacity: 0, transform: 'translateX(300px)', height: 0 }))
+        animate('0.2s ease-in', style({ opacity: 0, transform: 'translateX(300px)' }))
+      ])
+    ]),
+    trigger('operations', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-20px)' }),
+        animate('0.2s ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        style({ opacity: 1, transform: 'translateX(0)' }),
+        animate('0.2s ease-in', style({ opacity: 0, transform: 'translateY(-20px)' }))
       ])
     ])
   ]
@@ -221,6 +231,14 @@ export class RecallcardLearnComponent implements OnInit {
       }
       this.isCreatingLesson = false;
     });
+  }
+
+  onSelectAllCards(): void {
+    if (this.selectedCardIds.size === this.cards.length) {
+      this.selectedCardIds.clear();
+    } else {
+      this.cards.forEach((card) => this.selectedCardIds.add(card.id));
+    }
   }
 
   onSelectCard(card: Card): void {

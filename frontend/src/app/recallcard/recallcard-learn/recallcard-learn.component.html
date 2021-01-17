@@ -87,14 +87,14 @@
         ({{ cards.length }} {{ 'recallcard.common.cardsuffix' | translate }})
       </div>
       <div class="content">
-        <div *ngIf="selectedCardIds.size > 0" class="operations">
-          <div>
-            {{'recallcard.learn.operation' | translate}} ({{selectedCardIds.size}})
-          </div>
+        <div @operations *ngIf="selectedCardIds.size > 0" class="operations">
+          <div>{{ 'recallcard.learn.operation' | translate }} ({{ selectedCardIds.size }})</div>
           <div class="action-group">
-            <div class="action-data">
-            </div>
-            <app-rounded-select [options]="lessonOptions" [(value)]="lessonIdToMoveTo"></app-rounded-select>
+            <div class="action-data"></div>
+            <app-rounded-select
+              [options]="lessonOptions"
+              [(value)]="lessonIdToMoveTo"
+            ></app-rounded-select>
             <div class="action-button" (click)="onMoveCards()">
               <i *ngIf="!isMovingCards" class="fas fa-file-export"></i>
               <app-small-loading
@@ -103,7 +103,7 @@
               ></app-small-loading>
             </div>
             <div class="action-button" (click)="onDeleteCards()">
-              <i  *ngIf="!isDeletingCards" class="fas fa-trash"></i>
+              <i *ngIf="!isDeletingCards" class="fas fa-trash"></i>
               <app-small-loading
                 class="action-button-loading"
                 *ngIf="isDeletingCards"
@@ -112,7 +112,11 @@
           </div>
         </div>
         <div class="wordlist-row header">
-          <div></div>
+          <app-checkbox
+            *ngIf="selectedCourse.isOwner"
+            [selected]="selectedCardIds.size === cards.length"
+            (click)="onSelectAllCards()"
+          ></app-checkbox>
           <span>{{ 'recallcard.common.word' | translate }}</span>
           <div>
             {{ 'recallcard.common.meaning' | translate }}
@@ -132,11 +136,16 @@
               (click)="onSelectCard(card)"
             ></app-checkbox>
           </div>
-          <app-editable-text [text]="card.word" (edit)="onEditCardWord(card, $event)">{{
-            card.word
-          }}</app-editable-text>
+          <div *ngIf="!selectedCourse.isOwner">{{ card.word }}</div>
           <app-editable-text
-            *ngIf="isMeaningVisible"
+            *ngIf="selectedCourse.isOwner"
+            [text]="card.word"
+            (edit)="onEditCardWord(card, $event)"
+            >{{ card.word }}</app-editable-text
+          >
+          <div *ngIf="isMeaningVisible && !selectedCourse.isOwner">{{ card.meaning }}</div>
+          <app-editable-text
+            *ngIf="isMeaningVisible && selectedCourse.isOwner"
             [text]="card.meaning"
             (edit)="onEditCardMeaning(card, $event)"
             >{{ card.meaning }}</app-editable-text
