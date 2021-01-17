@@ -66,7 +66,10 @@
         <div *ngIf="selectedMember">
           <div class="action-button" (click)="onClickRemoveMember()">
             <i *ngIf="!isRemovingMember" class="fas fa-trash"></i>
-            <app-small-loading class="action-button-loading" *ngIf="isRemovingMember"></app-small-loading>
+            <app-small-loading
+              class="action-button-loading"
+              *ngIf="isRemovingMember"
+            ></app-small-loading>
           </div>
         </div>
         <app-list-create-item
@@ -84,6 +87,30 @@
         ({{ cards.length }} {{ 'recallcard.common.cardsuffix' | translate }})
       </div>
       <div class="content">
+        <div *ngIf="selectedCardIds.size > 0" class="operations">
+          <div>
+            {{'recallcard.learn.operation' | translate}} ({{selectedCardIds.size}})
+          </div>
+          <div class="action-group">
+            <div class="action-data">
+            </div>
+            <app-rounded-select [options]="lessonOptions" [(value)]="lessonIdToMoveTo"></app-rounded-select>
+            <div class="action-button" (click)="onMoveCards()">
+              <i *ngIf="!isMovingCards" class="fas fa-file-export"></i>
+              <app-small-loading
+                class="action-button-loading"
+                *ngIf="isMovingCards"
+              ></app-small-loading>
+            </div>
+            <div class="action-button" (click)="onDeleteCards()">
+              <i  *ngIf="!isDeletingCards" class="fas fa-trash"></i>
+              <app-small-loading
+                class="action-button-loading"
+                *ngIf="isDeletingCards"
+              ></app-small-loading>
+            </div>
+          </div>
+        </div>
         <div class="wordlist-row header">
           <div></div>
           <span>{{ 'recallcard.common.word' | translate }}</span>
@@ -99,10 +126,11 @@
         </div>
         <div class="wordlist-row" @cards *ngFor="let card of cards">
           <div>
-            <app-delete-button
+            <app-checkbox
               *ngIf="selectedCourse.isOwner"
-              (click)="onDeleteCard(card)"
-            ></app-delete-button>
+              [selected]="selectedCardIds.has(card.id)"
+              (click)="onSelectCard(card)"
+            ></app-checkbox>
           </div>
           <app-editable-text [text]="card.word" (edit)="onEditCardWord(card, $event)">{{
             card.word

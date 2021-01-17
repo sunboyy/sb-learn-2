@@ -2,13 +2,14 @@ package com.sunboyy.sblearn.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,8 @@ import com.sunboyy.sblearn.data.Result;
 import com.sunboyy.sblearn.domain.recallcard.Card;
 import com.sunboyy.sblearn.domain.recallcard.Lesson;
 import com.sunboyy.sblearn.domain.recallcard.RecallcardService;
+
+import lombok.Getter;
 
 @RestController
 @RequestMapping("/recallcard")
@@ -40,6 +43,7 @@ public class RecallcardController {
 		return recallcardService.createLesson(createLessonDto.getCourseId(), createLessonDto.getName(), username);
 	}
 
+	@Transactional
 	@PutMapping("/lessons/{lessonId}")
 	public Result<Lesson> editLesson(@PathVariable int lessonId, @Valid @RequestBody EditLessonDto editLessonDto) {
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -52,6 +56,20 @@ public class RecallcardController {
 		return recallcardService.getCards(lessonId, username);
 	}
 
+	@Transactional
+	@PostMapping(value = "/lessons/{lessonId}/cards", params = "_a=move")
+	public Result<Object> moveCards(@PathVariable int lessonId, @Valid @RequestBody MoveCardsDto moveCardsDto) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.moveCards(lessonId, moveCardsDto.getToLessonId(), moveCardsDto.getCardIds(), username);
+	}
+
+	@Transactional
+	@PostMapping(value = "/lessons/{lessonId}/cards", params = "_a=delete")
+	public Result<Object> deleteCards(@PathVariable int lessonId, @Valid @RequestBody DeleteCardsDto deleteCardsDto) {
+		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return recallcardService.deleteCards(lessonId, deleteCardsDto.getCardIds(), username);
+	}
+
 	@PostMapping("/cards")
 	public Result<Card> createNewCard(@Valid @RequestBody CreateCardDto createCardDto) {
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -59,34 +77,23 @@ public class RecallcardController {
 				.createCard(createCardDto.getLessonId(), createCardDto.getWord(), createCardDto.getMeaning(), username);
 	}
 
+	@Transactional
 	@PostMapping("/cards/{cardId}")
 	public Result<Card> editCard(@PathVariable int cardId, @Valid @RequestBody EditCardDto editCardDto) {
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return recallcardService.editCard(cardId, editCardDto.getWord(), editCardDto.getMeaning(), username);
 	}
 
-	@DeleteMapping("/cards/{cardId}")
-	public Result<Object> deleteCard(@PathVariable int cardId) {
-		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return recallcardService.deleteCard(cardId, username);
-	}
-
+	@Getter
 	private static class CreateLessonDto {
 		@Min(value = 1)
 		private int courseId;
 
 		@NotBlank
 		private String name;
-
-		public int getCourseId() {
-			return courseId;
-		}
-
-		public String getName() {
-			return name;
-		}
 	}
 
+	@Getter
 	private static class CreateCardDto {
 		@Min(value = 1)
 		private int lessonId;
@@ -96,40 +103,33 @@ public class RecallcardController {
 
 		@NotBlank
 		private String meaning;
-
-		public int getLessonId() {
-			return lessonId;
-		}
-
-		public String getWord() {
-			return word;
-		}
-
-		public String getMeaning() {
-			return meaning;
-		}
 	}
 
+	@Getter
 	private static class EditLessonDto {
 		@NotBlank
 		private String name;
-
-		public String getName() {
-			return name;
-		}
 	}
 
+	@Getter
 	public static class EditCardDto {
 		private String word;
 
 		private String meaning;
+	}
 
-		public String getWord() {
-			return word;
-		}
+	@Getter
+	public static class MoveCardsDto {
+		@Min(value = 1)
+		private int toLessonId;
 
-		public String getMeaning() {
-			return meaning;
-		}
+		@NotEmpty
+		private List<Integer> cardIds;
+	}
+
+	@Getter
+	public static class DeleteCardsDto {
+		@NotEmpty
+		private List<Integer> cardIds;
 	}
 }

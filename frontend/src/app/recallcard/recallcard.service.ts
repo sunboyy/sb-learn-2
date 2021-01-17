@@ -123,7 +123,19 @@ export class RecallcardService {
     );
   }
 
-  deleteCard(cardId: number): Observable<Result<null>> {
-    return this.api.delete<Result<null>>('recallcard/cards/' + cardId, undefined, true);
+  moveCards(fromLessonId: number, toLessonId: number, cardIds: number[]): Observable<Result<null>> {
+    return this.api.post<Result<null>>(
+      'recallcard/lessons/' + fromLessonId + '/cards?_a=move',
+      { toLessonId, cardIds },
+      true
+    );
+  }
+
+  deleteCards(lessonId: number, cardIds: number[]): Observable<Result<null>> {
+    return this.api.post<Result<null>>(
+      'recallcard/lessons/' + lessonId + '/cards?_a=delete',
+      { cardIds },
+      true
+    );
   }
 }

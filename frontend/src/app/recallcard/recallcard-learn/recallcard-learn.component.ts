@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Card, Course, Lesson, RecallcardService, User } from '../recallcard.service';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { RoundedSelectOption } from 'src/app/shared/rounded-select/rounded-select.component';
 
 @Component({
   selector: 'app-recallcard-learn',
@@ -56,6 +57,10 @@ export class RecallcardLearnComponent implements OnInit {
   isRemovingMember = false;
   isRenamingCourseIds = new Set<number>();
   isRenamingLessonIds = new Set<number>();
+  isMovingCards = false;
+  isDeletingCards = false;
+  selectedCardIds = new Set<number>();
+  lessonIdToMoveTo = '';
 
   constructor(private recallcardService: RecallcardService, private router: Router) {}
 
@@ -106,18 +111,24 @@ export class RecallcardLearnComponent implements OnInit {
     });
   }
 
+  getCards(): void {
+    this.selectedCardIds.clear();
+    this.lessonIdToMoveTo = '';
+    this.isLoadingCards = true;
+    this.recallcardService.getCards(this.selectedLesson.id).subscribe((res) => {
+      if (res.success) {
+        this.cards = res.data;
+      } else {
+        this.message = res.cause;
+      }
+      this.isLoadingCards = false;
+    });
+  }
+
   onClickLesson(lesson: Lesson): void {
     if (!this.selectedLesson || this.selectedLesson.id !== lesson.id) {
       this.selectedLesson = lesson;
-      this.isLoadingCards = true;
-      this.recallcardService.getCards(lesson.id).subscribe((res) => {
-        if (res.success) {
-          this.cards = res.data;
-        } else {
-          this.message = res.cause;
-        }
-        this.isLoadingCards = false;
-      });
+      this.getCards();
     }
   }
 
@@ -212,6 +223,52 @@ export class RecallcardLearnComponent implements OnInit {
     });
   }
 
+  onSelectCard(card: Card): void {
+    if (this.selectedCardIds.has(card.id)) {
+      this.selectedCardIds.delete(card.id);
+    } else {
+      this.selectedCardIds.add(card.id);
+    }
+  }
+
+  onMoveCards(): void {
+    if (this.lessonIdToMoveTo === '') {
+      return;
+    }
+    this.isMovingCards = true;
+    this.recallcardService
+      .moveCards(this.selectedLesson.id, parseInt(this.lessonIdToMoveTo, 10), [
+        ...this.selectedCardIds
+      ])
+      .subscribe((res) => {
+        if (res.success) {
+          this.getCards();
+        } else {
+          this.message = res.cause;
+        }
+        this.isMovingCards = false;
+      });
+  }
+
+  onDeleteCards(): void {
+    if (
+      !confirm('Are you sure you want to delete ' + this.selectedCardIds.size + ' selected cards?')
+    ) {
+      return;
+    }
+    this.isDeletingCards = true;
+    this.recallcardService
+      .deleteCards(this.selectedLesson.id, [...this.selectedCardIds])
+      .subscribe((res) => {
+        if (res.success) {
+          this.getCards();
+        } else {
+          this.message = res.cause;
+        }
+        this.isDeletingCards = false;
+      });
+  }
+
   onCreateCard(): void {
     if (!this.createCardForm.word.trim()) {
       this.createCardForm.wordError = true;
@@ -271,15 +328,9 @@ export class RecallcardLearnComponent implements OnInit {
     });
   }
 
-  onDeleteCard(card: Card): void {
-    if (confirm('Are you sure you want to delete card ' + card.word + '/' + card.meaning + '?')) {
-      this.recallcardService.deleteCard(card.id).subscribe((res) => {
-        if (res.success) {
-          this.cards = this.cards.filter((c) => c !== card);
-        } else {
-          this.message = res.cause;
-        }
-      });
-    }
+  get lessonOptions(): RoundedSelectOption[] {
+    return this.lessons
+      .filter((lesson) => lesson.id !== this.selectedLesson.id)
+      .map((lesson) => ({ value: lesson.id.toString(), label: lesson.name }));
   }
 }

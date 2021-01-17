@@ -66,7 +66,6 @@ public class RecallcardService {
         }
         Course course = optionalCourse.get();
         course.setName(name);
-        courseRepository.save(course);
         return course;
     }
 
@@ -113,7 +112,6 @@ public class RecallcardService {
         }
         Lesson lesson = optionalLesson.get();
         lesson.setName(name);
-        lessonRepository.save(lesson);
         return new SuccessResult<>(lesson);
     }
 
@@ -125,6 +123,43 @@ public class RecallcardService {
         }
         List<Card> cards = cardRepository.findAllByLesson(lesson);
         return new SuccessResult<>(cards);
+    }
+
+    public Result<Object> moveCards(int fromLessonId, int toLessonId, List<Integer> cardId, String username) {
+        User user = findUserByUsernameOrThrow(username);
+        Optional<Lesson> optionalFromLesson = lessonRepository.findById(fromLessonId);
+        if (optionalFromLesson.isEmpty() || !optionalFromLesson.get().getCourse().getOwner().equals(user)) {
+            return new FailureResult<>("Lesson not found");
+        }
+        Optional<Lesson> optionalToLesson = lessonRepository.findById(toLessonId);
+        if (optionalToLesson.isEmpty() || !optionalToLesson.get().getCourse().getOwner().equals(user)) {
+            return new FailureResult<>("Lesson not found");
+        }
+        Lesson fromLesson = optionalFromLesson.get();
+        Lesson toLesson = optionalToLesson.get();
+        Iterable<Card> cards = cardRepository.findAllById(cardId);
+        cards.forEach(card -> {
+            if (card.getLesson().equals(fromLesson)) {
+                card.setLesson(toLesson);
+            }
+        });
+        return new SuccessResult<>(null);
+    }
+
+    public Result<Object> deleteCards(int lessonId, List<Integer> cardIds, String username) {
+        User user = findUserByUsernameOrThrow(username);
+        Optional<Lesson> optionalLesson = lessonRepository.findById(lessonId);
+        if (optionalLesson.isEmpty() || !optionalLesson.get().getCourse().getOwner().equals(user)) {
+            return new FailureResult<>("Lesson not found");
+        }
+        Lesson lesson = optionalLesson.get();
+        Iterable<Card> cards = cardRepository.findAllById(cardIds);
+        cards.forEach(card -> {
+            if (card.getLesson().equals(lesson)) {
+                cardRepository.delete(card);
+            }
+        });
+        return new SuccessResult<>(null);
     }
 
     public Result<Card> createCard(int lessonId, String word, String meaning, String username) {
@@ -154,18 +189,7 @@ public class RecallcardService {
         if (meaning != null && !meaning.trim().equals("")) {
             card.setMeaning(meaning);
         }
-        cardRepository.save(card);
         return new SuccessResult<>(card);
-    }
-
-    public Result<Object> deleteCard(int cardId, String username) {
-		User user = findUserByUsernameOrThrow(username);
-        Optional<Card> card = cardRepository.findById(cardId);
-        if (card.isEmpty() || !card.get().getLesson().getCourse().getOwner().equals(user)) {
-            return new FailureResult<>("Card not found");
-        }
-        cardRepository.delete(card.get());
-        return new SuccessResult<>(null);
     }
 
     public Result<List<User>> getCourseMembers(int courseId, String username) {

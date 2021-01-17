@@ -3,6 +3,7 @@ package com.sunboyy.sblearn.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
@@ -51,6 +52,7 @@ public class CoursesController {
 		return new WebCourse(course);
 	}
 
+	@Transactional
 	@PutMapping("/{courseId}")
 	public WebCourse editCourse(@PathVariable int courseId, @Valid @RequestBody EditCourseDto editCourseDto) {
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

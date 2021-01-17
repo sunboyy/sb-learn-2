@@ -41,14 +41,12 @@
 }
 
 .cards {
-  border-radius: 20px;
-  overflow: hidden;
-
   & > .header {
     background-color: $jade;
     color: #fff;
     text-align: center;
     padding: 8px;
+    border-radius: 20px 20px 0 0;
 
     .header-title {
       font-size: 24px;
@@ -58,7 +56,19 @@
   .content {
     background-color: #fff;
     color: $jade-dark;
-    padding: 8px 24px 16px 24px;
+    padding: 8px 20px 16px 20px;
+    border-radius: 0 0 20px 20px;
+
+    .operations {
+      padding: 4px 8px;
+      margin: 4px 0;
+      background-color: $jade-dark;
+      color: #fff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
     .wordlist-row {
       display: grid;
@@ -74,6 +84,11 @@
       }
     }
   }
+}
+
+.action-group {
+  display: flex;
+  align-items: center;
 }
 
 .action-button {

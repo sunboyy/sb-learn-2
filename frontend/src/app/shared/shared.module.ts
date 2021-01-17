@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ApiService } from './api.service';
 import { CreateButtonComponent } from './create-button/create-button.component';
-import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import { EditableTextComponent } from './editable-text/editable-text.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { HeaderTextComponent } from './header-text/header-text.component';
@@ -24,6 +23,7 @@ import { RoundedSelectComponent } from './rounded-select/rounded-select.componen
 import { TranslateModule } from '@ngx-translate/core';
 import { MediumLoadingComponent } from './medium-loading/medium-loading.component';
 import { SmallLoadingComponent } from './small-loading/small-loading.component';
+import { CheckboxComponent } from './checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,6 @@ import { SmallLoadingComponent } from './small-loading/small-loading.component';
     ListButtonItemComponent,
     ListEditableButtonItemComponent,
     HeaderTextComponent,
-    DeleteButtonComponent,
     CreateButtonComponent,
     ListCreateItemComponent,
     EditableTextComponent,
@@ -43,7 +42,8 @@ import { SmallLoadingComponent } from './small-loading/small-loading.component';
     RegularTextFieldComponent,
     RoundedSelectComponent,
     MediumLoadingComponent,
-    SmallLoadingComponent
+    SmallLoadingComponent,
+    CheckboxComponent
   ],
   providers: [SessionService, ApiService, StatusService],
   imports: [CommonModule, HttpClientModule, FormsModule, RouterModule],
@@ -55,7 +55,6 @@ import { SmallLoadingComponent } from './small-loading/small-loading.component';
     ListButtonItemComponent,
     ListEditableButtonItemComponent,
     HeaderTextComponent,
-    DeleteButtonComponent,
     CreateButtonComponent,
     ListCreateItemComponent,
     EditableTextComponent,
@@ -65,6 +64,7 @@ import { SmallLoadingComponent } from './small-loading/small-loading.component';
     RoundedSelectComponent,
     MediumLoadingComponent,
     SmallLoadingComponent,
+    CheckboxComponent,
     TranslateModule
   ]
 })
