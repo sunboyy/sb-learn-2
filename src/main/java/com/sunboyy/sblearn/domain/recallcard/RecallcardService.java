@@ -205,8 +205,8 @@ public class RecallcardService {
 
     public Result<User> addCourseMember(int courseId, String targetUsername, String username) {
 		User user = findUserByUsernameOrThrow(username);
-        Optional<Course> course = courseRepository.findById(courseId);
-        if (course.isEmpty() || !course.get().getOwner().equals(user)) {
+        Optional<Course> optionalCourse = courseRepository.findById(courseId);
+        if (optionalCourse.isEmpty() || !optionalCourse.get().getOwner().equals(user)) {
             return new FailureResult<>("Course not found");
         }
         User targetUser = userRepository.findByUsername(targetUsername);
@@ -216,15 +216,18 @@ public class RecallcardService {
         if (user.equals(targetUser)) {
             return new FailureResult<>("Cannot share to yourself");
         }
-        CourseMember courseMember = new CourseMember(course.get(), targetUser);
+        if (courseMemberRepository.existsById(new CourseMemberKey(optionalCourse.get().getId(), targetUser.getId()))) {
+            return new FailureResult<>("User is already a member");
+        }
+        CourseMember courseMember = new CourseMember(optionalCourse.get(), targetUser);
         courseMemberRepository.save(courseMember);
         return new SuccessResult<>(targetUser);
     }
 
     public Result<Object> removeCourseMember(int courseId, String targetUsername, String username) {
 		User user = findUserByUsernameOrThrow(username);
-        Optional<Course> course = courseRepository.findById(courseId);
-        if (course.isEmpty() || !course.get().getOwner().equals(user)) {
+        Optional<Course> optionalCourse = courseRepository.findById(courseId);
+        if (optionalCourse.isEmpty() || !optionalCourse.get().getOwner().equals(user)) {
             return new FailureResult<>("Course not found");
         }
         User targetUser = userRepository.findByUsername(targetUsername);
@@ -234,8 +237,6 @@ public class RecallcardService {
         if (user.equals(targetUser)) {
             return new FailureResult<>("Cannot un-share to yourself");
         }
-        Optional<CourseMember> optionalCourseMember = courseMemberRepository
-                .findById(new CourseMemberKey(courseId, targetUser.getId()));
         courseMemberRepository.deleteById(new CourseMemberKey(courseId, targetUser.getId()));
         return new SuccessResult<>(null);
     }
