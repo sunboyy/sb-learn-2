@@ -7,13 +7,15 @@
   </div>
 
   <div class="select-opened" *ngIf="isActive">
-    <div
-      class="select-option"
-      *ngFor="let option of options"
-      [class.selected]="isOptionSelected(option)"
-      (click)="onSelect(option)"
-    >
-      {{ getLabel(option) | async }}
+    <div class="select-opened-content">
+      <div
+        class="select-option"
+        *ngFor="let option of options"
+        [class.selected]="isOptionSelected(option)"
+        (click)="onSelect(option)"
+      >
+        {{ getLabel(option) | async }}
+      </div>
     </div>
   </div>
 </div>

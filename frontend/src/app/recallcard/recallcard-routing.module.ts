@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
 import { RecallcardLearnComponent } from './recallcard-learn/recallcard-learn.component';
 import { RecallcardLessonComponent } from './recallcard-lesson/recallcard-lesson.component';
-import { RecallcardManageComponent } from './recallcard-manage/recallcard-manage.component';
 import { RecallcardComponent } from './recallcard.component';
 
 const routes: Routes = [
@@ -14,7 +13,6 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'learn', pathMatch: 'full' },
       { path: 'learn', component: RecallcardLearnComponent },
-      { path: 'manage', component: RecallcardManageComponent },
       { path: 'lesson/:lessonId/:playMode', component: RecallcardLessonComponent }
     ]
   }

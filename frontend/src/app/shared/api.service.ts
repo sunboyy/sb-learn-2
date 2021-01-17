@@ -63,6 +63,18 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
+  put<T>(path: string, data: any, useAuth = false): Observable<T> {
+    const options: HttpOptions = {};
+    if (useAuth) {
+      options.headers = {
+        Authorization: 'Bearer ' + this.session.getAccessToken()
+      };
+    }
+    return this.http
+      .put<T>(resolve(environment.backendUrl, path), data, options)
+      .pipe(catchError(this.handleError));
+  }
+
   delete<T>(path: string, params?: any, useAuth = false): Observable<T> {
     const options: HttpOptions = {};
     if (useAuth) {

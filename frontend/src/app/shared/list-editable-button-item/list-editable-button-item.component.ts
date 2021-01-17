@@ -12,6 +12,9 @@ export class ListEditableButtonItemComponent {
   @Input()
   selected: boolean;
 
+  @Input()
+  isLoading = false;
+
   @Output()
   edit = new EventEmitter();
 

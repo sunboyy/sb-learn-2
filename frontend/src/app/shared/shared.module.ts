@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ApiService } from './api.service';
 import { CreateButtonComponent } from './create-button/create-button.component';
-import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import { EditableTextComponent } from './editable-text/editable-text.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { HeaderTextComponent } from './header-text/header-text.component';
@@ -22,6 +21,9 @@ import { TransparentButtonComponent } from './transparent-button/transparent-but
 import { VerticalListComponent } from './vertical-list/vertical-list.component';
 import { RoundedSelectComponent } from './rounded-select/rounded-select.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MediumLoadingComponent } from './medium-loading/medium-loading.component';
+import { SmallLoadingComponent } from './small-loading/small-loading.component';
+import { CheckboxComponent } from './checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -32,14 +34,16 @@ import { TranslateModule } from '@ngx-translate/core';
     ListButtonItemComponent,
     ListEditableButtonItemComponent,
     HeaderTextComponent,
-    DeleteButtonComponent,
     CreateButtonComponent,
     ListCreateItemComponent,
     EditableTextComponent,
     TransparentButtonComponent,
     VerticalListComponent,
     RegularTextFieldComponent,
-    RoundedSelectComponent
+    RoundedSelectComponent,
+    MediumLoadingComponent,
+    SmallLoadingComponent,
+    CheckboxComponent
   ],
   providers: [SessionService, ApiService, StatusService],
   imports: [CommonModule, HttpClientModule, FormsModule, RouterModule],
@@ -51,7 +55,6 @@ import { TranslateModule } from '@ngx-translate/core';
     ListButtonItemComponent,
     ListEditableButtonItemComponent,
     HeaderTextComponent,
-    DeleteButtonComponent,
     CreateButtonComponent,
     ListCreateItemComponent,
     EditableTextComponent,
@@ -59,6 +62,9 @@ import { TranslateModule } from '@ngx-translate/core';
     VerticalListComponent,
     RegularTextFieldComponent,
     RoundedSelectComponent,
+    MediumLoadingComponent,
+    SmallLoadingComponent,
+    CheckboxComponent,
     TranslateModule
   ]
 })

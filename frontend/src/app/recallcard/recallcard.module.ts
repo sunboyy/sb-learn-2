@@ -8,7 +8,6 @@ import { MulticardsComponent } from './recallcard-lesson/multicards/multicards.c
 import { QuizComponent } from './recallcard-lesson/quiz/quiz.component';
 import { RandomcardsComponent } from './recallcard-lesson/randomcards/randomcards.component';
 import { RecallcardLessonComponent } from './recallcard-lesson/recallcard-lesson.component';
-import { RecallcardManageComponent } from './recallcard-manage/recallcard-manage.component';
 import { RecallcardRoutingModule } from './recallcard-routing.module';
 import { RecallcardComponent } from './recallcard.component';
 
@@ -16,7 +15,6 @@ import { RecallcardComponent } from './recallcard.component';
   declarations: [
     RecallcardComponent,
     RecallcardLearnComponent,
-    RecallcardManageComponent,
     RecallcardLessonComponent,
     MulticardsComponent,
     RandomcardsComponent,

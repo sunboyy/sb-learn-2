@@ -1,4 +1,5 @@
 <div class="item">
   <app-create-button (click)="onCreate()"></app-create-button>
-  <input type="text" class="create-field" [(ngModel)]="value" (keyup.enter)="onCreate()">
+  <input type="text" class="create-field" [(ngModel)]="value" [readOnly]="isLoading" (keyup.enter)="onCreate()">
+  <app-small-loading *ngIf="isLoading"></app-small-loading>
 </div>

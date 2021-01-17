@@ -23,6 +23,8 @@
     "learn.common.swap": "สลับ",
 
     "learn.title": "บทเรียน",
+    "learn.members": "สมาชิก",
+    "learn.operation": "การดำเนินการ",
     "learn.playmode": "โหมดการเล่น",
     "learn.play": "เล่น",
     "learn.change": "เปลี่ยน",
@@ -40,9 +42,7 @@
     "learn.quiz.clicktotype": "คลิกเพื่อพิมพ์",
     "learn.quiz.correct": "ถูกต้อง",
     "learn.quiz.incorrect": "ผิด",
-    "learn.quiz.correct-answer": "คำตอบที่ถูกต้อง",
-
-    "manage.title": "จัดการ"
+    "learn.quiz.correct-answer": "คำตอบที่ถูกต้อง"
   },
 
   "settings.common.title": "การตั้งค่า",

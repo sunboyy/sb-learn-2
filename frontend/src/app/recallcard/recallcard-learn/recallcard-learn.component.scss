@@ -41,14 +41,12 @@
 }
 
 .cards {
-  border-radius: 20px;
-  overflow: hidden;
-
   & > .header {
     background-color: $jade;
     color: #fff;
     text-align: center;
     padding: 8px;
+    border-radius: 20px 20px 0 0;
 
     .header-title {
       font-size: 24px;
@@ -58,12 +56,27 @@
   .content {
     background-color: #fff;
     color: $jade-dark;
-    padding: 8px 24px 16px 24px;
+    padding: 8px 20px 16px 20px;
+    border-radius: 0 0 20px 20px;
+
+    .operations {
+      padding: 4px 8px;
+      margin: 4px 0;
+      background-color: $jade-dark;
+      color: #fff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
     .wordlist-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 16px 1fr 1fr;
+      gap: 12px;
       padding: 4px 0;
+      align-items: center;
+      position: relative;
 
       &.header {
         text-transform: uppercase;
@@ -71,6 +84,66 @@
       }
     }
   }
+}
+
+.action-group {
+  display: flex;
+  align-items: center;
+}
+
+.action-button {
+  padding: 5px 4px;
+  margin: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 14px;
+  display: inline-block;
+  color: rgba($color: #fff, $alpha: 0.4);
+  text-align: center;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    color: #fff;
+    background-color: rgba($color: #fff, $alpha: 0.15);
+  }
+
+  .action-button-loading {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+.create-card-field {
+  display: block;
+  height: 32px;
+  border-radius: 4px;
+  border: 3px solid rgba($color: $jade-dark, $alpha: 0.2);
+  padding: 0 8px;
+  transition-duration: 0.2s;
+  outline: 0;
+  font-size: 14px;
+
+  &:focus {
+    border-color: $jade-dark;
+  }
+
+  &::placeholder {
+    color: #c5c5c5;
+  }
+}
+
+.textfield-error {
+  background-color: #fcc;
+}
+
+.create-card-loading {
+  position: absolute;
+  right: 0;
+  top: 4px;
 }
 
 .right {

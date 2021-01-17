@@ -22,7 +22,9 @@
 
     "learn.common.swap": "Swap",
 
-    "learn.title": "Learn",
+    "learn.title": "My Courses",
+    "learn.members": "Members",
+    "learn.operation": "Operation",
     "learn.playmode": "Play mode",
     "learn.play": "Play",
     "learn.change": "Change",
@@ -40,9 +42,7 @@
     "learn.quiz.clicktotype": "Click to type",
     "learn.quiz.correct": "Correct",
     "learn.quiz.incorrect": "Incorrect",
-    "learn.quiz.correct-answer": "Correct answer",
-
-    "manage.title": "Manage"
+    "learn.quiz.correct-answer": "Correct answer"
   },
 
   "settings.common.title": "Settings",

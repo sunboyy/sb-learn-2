@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-list-create-item',
@@ -7,6 +7,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class ListCreateItemComponent {
   value = '';
+
+  @Input()
+  isLoading = false;
 
   @Output()
   create = new EventEmitter();

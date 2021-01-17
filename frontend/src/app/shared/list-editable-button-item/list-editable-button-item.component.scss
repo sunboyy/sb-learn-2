@@ -43,6 +43,7 @@
   grid-template-columns: auto 16px;
   gap: 8px;
   align-items: center;
+  position: relative;
 }
 
 .edit-container {
@@ -50,4 +51,10 @@
   grid-template-columns: auto 16px 16px;
   gap: 8px;
   align-items: center;
+}
+
+app-small-loading {
+  position: absolute;
+  right: -8px;
+  top: -4px;
 }
