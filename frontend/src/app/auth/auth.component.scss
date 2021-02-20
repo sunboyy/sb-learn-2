@@ -4,14 +4,16 @@
 .auth {
   background-color: #ddd;
   text-align: center;
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
+  margin: 0 -20px;
+  height: calc(100vh - 100px);
+  min-height: 420px;
   padding: 20px;
   z-index: 10;
 
   @media screen and (min-width: 620px) {
     background-color: rgba($color: #fff, $alpha: 0.8);
+    position: fixed;
+    margin: 0;
     width: 600px;
     height: fit-content;
     padding: 56px;
