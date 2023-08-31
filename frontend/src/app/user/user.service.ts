@@ -4,13 +4,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService, Result } from '../shared/api.service';
 import { SessionService } from '../shared/session.service';
 import { User } from './user';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private currentUser = new BehaviorSubject<User>(undefined);
+  private currentUser = new BehaviorSubject<User | undefined>(undefined);
 
   constructor(
     private api: ApiService,
@@ -24,7 +24,7 @@ export class UserService {
         this.currentUser.next(undefined);
       }
     });
-    this.currentUser.pipe(filter((user) => user !== undefined)).subscribe((user) => {
+    this.getCurrentUser().subscribe((user) => {
       translate.use(user.language);
     });
   }
@@ -48,6 +48,9 @@ export class UserService {
   }
 
   getCurrentUser(): Observable<User> {
-    return this.currentUser.pipe(filter((user) => user !== undefined));
+    return this.currentUser.pipe(
+      filter((user) => user !== undefined),
+      map((user) => user!)
+    );
   }
 }

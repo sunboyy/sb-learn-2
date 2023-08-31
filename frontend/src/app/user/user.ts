@@ -1,4 +1,4 @@
-export class User {
+export interface User {
   id: number;
   username: string;
   enabled: 0 | 1;

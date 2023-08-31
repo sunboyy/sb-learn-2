@@ -14,15 +14,16 @@ export class SessionService {
 
   isSignedIn = new BehaviorSubject<boolean>(this.getStorageLocation() !== undefined);
 
-  private getStorageLocation(): StorageLocation {
+  private getStorageLocation(): StorageLocation | undefined {
     if (sessionStorage.getItem(this.ACCESS_TOKEN_KEY)) {
       return StorageLocation.Session;
     } else if (localStorage.getItem(this.ACCESS_TOKEN_KEY)) {
       return StorageLocation.Local;
     }
+    return undefined;
   }
 
-  getAccessToken(): string {
+  getAccessToken(): string | null {
     switch (this.getStorageLocation()) {
       case StorageLocation.Session:
         return sessionStorage.getItem(this.ACCESS_TOKEN_KEY);

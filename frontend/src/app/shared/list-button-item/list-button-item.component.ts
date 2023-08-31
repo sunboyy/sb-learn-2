@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class ListButtonItemComponent {
   @Input()
-  selected: boolean;
+  selected = false;
 
   @Input()
-  icon: string;
+  icon?: string;
 }

@@ -21,7 +21,7 @@ export class AuthService {
               response.data.accessToken,
               rememberMe ? StorageLocation.Local : StorageLocation.Session
             );
-            return;
+            return undefined;
           } else {
             return response.cause;
           }

@@ -7,10 +7,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ListEditableButtonItemComponent {
   @Input()
-  text: string;
+  text = '';
 
   @Input()
-  selected: boolean;
+  selected = false;
 
   @Input()
   isLoading = false;
@@ -19,7 +19,7 @@ export class ListEditableButtonItemComponent {
   edit = new EventEmitter();
 
   isEditing = false;
-  editValue: string;
+  editValue = '';
 
   onStartEdit(): void {
     this.isEditing = true;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 
 export interface Status {
@@ -11,7 +11,7 @@ export interface Status {
   providedIn: 'root'
 })
 export class StatusService {
-  private status = new BehaviorSubject<Status>(undefined);
+  private status = new BehaviorSubject<Status | undefined>(undefined);
 
   constructor(private api: ApiService) {}
 
@@ -25,6 +25,9 @@ export class StatusService {
     if (!this.status.getValue()) {
       this.updateStatus();
     }
-    return this.status.pipe(filter((status) => status !== undefined));
+    return this.status.pipe(
+      filter((status) => status !== undefined),
+      map((status) => status!)
+    );
   }
 }
