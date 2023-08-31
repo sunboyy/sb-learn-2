@@ -13,7 +13,7 @@ export class EditableTextComponent {
   edit = new EventEmitter();
 
   isEditing = false;
-  editValue: string;
+  editValue = '';
 
   onStartEdit(): void {
     this.isEditing = true;

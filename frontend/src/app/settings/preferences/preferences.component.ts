@@ -14,7 +14,7 @@ export class PreferencesComponent implements OnInit {
     { label: 'ภาษาไทย', value: 'th' }
   ];
 
-  language: string;
+  language = '';
 
   message = '';
   isLoading = false;
@@ -35,7 +35,7 @@ export class PreferencesComponent implements OnInit {
       if (res.success) {
         this.userService.updateCurrentUser();
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
     });
   }

@@ -33,7 +33,7 @@ import { RoundedSelectOption } from 'src/app/shared/rounded-select/rounded-selec
 })
 export class RecallcardLearnComponent implements OnInit {
   @ViewChild('wordInput')
-  wordInput: ElementRef;
+  wordInput!: ElementRef;
 
   courses: Course[] = [];
   lessons: Lesson[] = [];
@@ -154,9 +154,9 @@ export class RecallcardLearnComponent implements OnInit {
     this.isAddingMember = true;
     this.recallcardService.addCourseMember(this.selectedCourse.id, username).subscribe((res) => {
       if (res.success) {
-        this.members.push(res.data);
+        this.members.push(res.data!);
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
       this.isAddingMember = false;
     });
@@ -214,7 +214,7 @@ export class RecallcardLearnComponent implements OnInit {
         this.lessons[this.lessons.indexOf(lesson)] = res.data;
         this.selectedLesson = res.data;
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
       this.isRenamingLessonIds.delete(lesson.id);
     });
@@ -224,10 +224,10 @@ export class RecallcardLearnComponent implements OnInit {
     this.isCreatingLesson = true;
     this.recallcardService.createLesson(course.id, name).subscribe((res) => {
       if (res.success) {
-        this.lessons.push(res.data);
-        this.onClickLesson(res.data);
+        this.lessons.push(res.data!);
+        this.onClickLesson(res.data!);
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
       this.isCreatingLesson = false;
     });
@@ -281,7 +281,7 @@ export class RecallcardLearnComponent implements OnInit {
         if (res.success) {
           this.getCards();
         } else {
-          this.message = res.cause;
+          this.message = res.cause!;
         }
         this.isDeletingCards = false;
       });
@@ -306,12 +306,12 @@ export class RecallcardLearnComponent implements OnInit {
       )
       .subscribe((res) => {
         if (res.success) {
-          this.cards.push(res.data);
+          this.cards.push(res.data!);
           this.createCardForm.word = '';
           this.createCardForm.meaning = '';
           this.wordInput.nativeElement.focus();
         } else {
-          this.message = res.cause;
+          this.message = res.cause!;
         }
         this.isCreatingCard = false;
       });
@@ -329,9 +329,9 @@ export class RecallcardLearnComponent implements OnInit {
   onEditCardWord(card: Card, word: string): void {
     this.recallcardService.editCard(card.id, word, '').subscribe((res) => {
       if (res.success) {
-        card.word = res.data.word;
+        card.word = res.data!.word;
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
     });
   }
@@ -339,9 +339,9 @@ export class RecallcardLearnComponent implements OnInit {
   onEditCardMeaning(card: Card, meaning: string): void {
     this.recallcardService.editCard(card.id, '', meaning).subscribe((res) => {
       if (res.success) {
-        card.meaning = res.data.meaning;
+        card.meaning = res.data!.meaning;
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
     });
   }
