@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { resolve } from 'url';
 import { environment } from '../../environments/environment';
 import { SessionService } from './session.service';
 
@@ -47,7 +46,7 @@ export class ApiService {
       options.params = params;
     }
     return this.http
-      .get<T>(resolve(environment.backendUrl, path), options)
+      .get<T>(environment.backendUrl + path, options)
       .pipe(catchError(this.handleError));
   }
 
@@ -59,7 +58,7 @@ export class ApiService {
       };
     }
     return this.http
-      .post<T>(resolve(environment.backendUrl, path), data, options)
+      .post<T>(environment.backendUrl + path, data, options)
       .pipe(catchError(this.handleError));
   }
 
@@ -71,7 +70,7 @@ export class ApiService {
       };
     }
     return this.http
-      .put<T>(resolve(environment.backendUrl, path), data, options)
+      .put<T>(environment.backendUrl + path, data, options)
       .pipe(catchError(this.handleError));
   }
 
@@ -86,7 +85,7 @@ export class ApiService {
       options.params = params;
     }
     return this.http
-      .delete<T>(resolve(environment.backendUrl, path), options)
+      .delete<T>(environment.backendUrl + path, options)
       .pipe(catchError(this.handleError));
   }
 
