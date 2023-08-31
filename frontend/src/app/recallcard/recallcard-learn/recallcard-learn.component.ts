@@ -97,9 +97,9 @@ export class RecallcardLearnComponent implements OnInit {
     this.isLoadingLessons = true;
     this.recallcardService.getLessons(this.selectedCourse.id).subscribe((res) => {
       if (res.success) {
-        this.lessons = res.data;
+        this.lessons = res.data!;
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
       this.isLoadingLessons = false;
     });
@@ -113,9 +113,9 @@ export class RecallcardLearnComponent implements OnInit {
     this.isLoadingMembers = true;
     this.recallcardService.getCourseMembers(this.selectedCourse.id).subscribe((res) => {
       if (res.success) {
-        this.members = res.data;
+        this.members = res.data!;
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
       this.isLoadingMembers = false;
     });
@@ -127,9 +127,9 @@ export class RecallcardLearnComponent implements OnInit {
     this.isLoadingCards = true;
     this.recallcardService.getCards(this.selectedLesson.id).subscribe((res) => {
       if (res.success) {
-        this.cards = res.data;
+        this.cards = res.data!;
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
       this.isLoadingCards = false;
     });
@@ -175,7 +175,7 @@ export class RecallcardLearnComponent implements OnInit {
             this.members = this.members.filter((member) => member.id !== this.selectedMember.id);
             this.selectedMember = undefined;
           } else {
-            this.message = res.cause;
+            this.message = res.cause!;
           }
           this.isRemovingMember = false;
         });
@@ -262,7 +262,7 @@ export class RecallcardLearnComponent implements OnInit {
         if (res.success) {
           this.getCards();
         } else {
-          this.message = res.cause;
+          this.message = res.cause!;
         }
         this.isMovingCards = false;
       });

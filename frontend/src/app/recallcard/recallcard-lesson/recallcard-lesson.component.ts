@@ -30,10 +30,10 @@ export class RecallcardLessonComponent implements OnInit {
     });
     this.recallcardService.getLesson(this.lessonId).subscribe((res) => {
       if (res.success) {
-        this.lesson = res.data;
+        this.lesson = res.data!;
         this.multicardCards = this.lesson.cards.map((card) => ({ ...card, open: false }));
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
     });
   }

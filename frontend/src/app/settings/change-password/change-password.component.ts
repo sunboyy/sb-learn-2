@@ -31,7 +31,7 @@ export class ChangePasswordComponent {
         this.newPassword = '';
         this.confirmPassword = '';
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
     });
   }

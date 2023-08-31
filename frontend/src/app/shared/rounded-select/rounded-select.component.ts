@@ -51,7 +51,7 @@ export class RoundedSelectComponent {
   }
 
   @HostListener('document:click', ['$event'])
-  clickOutside(event): void {
+  clickOutside(event: Event): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.isActive = false;
     }

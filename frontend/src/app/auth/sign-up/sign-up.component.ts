@@ -50,7 +50,7 @@ export class SignUpComponent implements OnInit {
         this.statusService.updateStatus();
         this.router.navigate(['auth', 'sign-in']);
       } else {
-        this.message = res.cause;
+        this.message = res.cause!;
       }
     });
   }
